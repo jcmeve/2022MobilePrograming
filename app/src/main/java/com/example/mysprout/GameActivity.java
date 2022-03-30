@@ -14,5 +14,7 @@ public class GameActivity extends AppCompatActivity {
 
         glView = new GameGLSurfaceView(this);
         setContentView(glView);
+
+
     }
 }
