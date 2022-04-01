@@ -1,4 +1,4 @@
-package com.example.mysprout;
+package Game;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;

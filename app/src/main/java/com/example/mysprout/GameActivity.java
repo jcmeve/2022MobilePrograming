@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
+import Game.GameGLSurfaceView;
+
 public class GameActivity extends AppCompatActivity {
 
     private GLSurfaceView glView;
