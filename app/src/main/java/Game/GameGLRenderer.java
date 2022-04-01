@@ -1,9 +1,15 @@
 package Game;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
+
+import com.example.mysprout.R;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL;
@@ -13,11 +19,18 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
     private Square mSquare;
+    private Context mContext;
+    public GameGLRenderer(Context context){
+        super();
+        mContext = context;
+    }
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.0f,0.0f,0.0f,1.0f);
         mTriangle = new Triangle();
         mSquare = new Square();
+        Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.mountain02);
+        mSquare.initTexture(image);
     }
 
     @Override

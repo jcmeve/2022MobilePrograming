@@ -10,7 +10,7 @@ public class GameGLSurfaceView extends GLSurfaceView {
 
         setEGLContextClientVersion(2);
 
-        renderer = new GameGLRenderer();
+        renderer = new GameGLRenderer(context);
 
         setRenderer(renderer);
     }
