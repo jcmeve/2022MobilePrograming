@@ -3,6 +3,7 @@ package Game;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
+import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -18,7 +19,8 @@ public class Square {
             "varying vec2 vUV;" +
             "void main() {" +
                 "vUV = inUV;" +
-                "gl_Position = uMVPMatrix * vPosition;" +
+                "gl_Position =  uMVPMatrix * vec4(vPosition.xyz ,1.0);" +
+
             "}";
 
     private int vPMatrixHangle;
@@ -41,10 +43,10 @@ public class Square {
     static final  int COORDS_PER_VERTEX = 3;
 
     float[] squareCoords = {
-            -0.5f, 0.5f, 0.0f,   // top left
-            -0.5f, -0.5f, 0.0f,   // bottom left
-            0.5f, -0.5f, 0.0f,   // bottom right
-            0.5f, 0.5f, 0.0f  // top right
+            0.5f, 0.5f, 0.0f,   // top left
+            0.5f, -0.5f, 0.0f,   // bottom left
+            -0.5f, -0.5f, 0.0f,   // bottom right
+            -0.5f, 0.5f, 0.0f  // top right
     };
 
     private  float[] uvCoords ={
@@ -55,7 +57,11 @@ public class Square {
     };
     private short[] drawOrder = {0,1,2,0,2,3};
 
+    private float[] mMatrix = new float[16];
+
     public Square(){
+
+        Matrix.setIdentityM(mMatrix,0);
 
         /*
         float[] newCoords = {
@@ -109,12 +115,11 @@ public class Square {
     private int positionHandle;
     private int uvHandle;
     private int textureHandle;
-
     private final int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4;
 
 
-    public void Draw(float[] mvpMatrix){
+    public void Draw(float[] vpMatrix){
 
 
         GLES20.glUseProgram(mProgram);
@@ -130,15 +135,28 @@ public class Square {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureName);
 
-
-
         uvHandle = GLES20.glGetAttribLocation(mProgram, "inUV");
         GLES20.glVertexAttribPointer(uvHandle, 2, GLES20.GL_FLOAT, false, 0, uvBuffer);
 
 
 
+
+
+        Matrix.setIdentityM(mMatrix,0);
+        Matrix.translateM(mMatrix,0,0.5f,0.0f,0.0f);
+        Matrix.setRotateM(mMatrix,0, 30.0f,0.0f,0.0f,1.0f);
+        Matrix.scaleM(mMatrix,0,2,1,1 );
+
+
+
+
+        float[] mvpMatrix = new float[16];
+        Matrix.multiplyMM(mvpMatrix, 0, vpMatrix, 0, mMatrix, 0);
+
         vPMatrixHangle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
         GLES20.glUniformMatrix4fv(vPMatrixHangle, 1, false, mvpMatrix, 0);
+
+
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
 
