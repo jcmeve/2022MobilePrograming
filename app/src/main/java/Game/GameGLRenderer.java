@@ -8,6 +8,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.example.mysprout.R;
 
@@ -16,6 +17,8 @@ import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
 public class GameGLRenderer implements GLSurfaceView.Renderer {
+    public static int width;
+    public static int height;
 
     private Triangle mTriangle;
     private Square mSquare;
@@ -30,6 +33,7 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
         mTriangle = new Triangle();
         mSquare = new Square();
         Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.mountain02);
+
         mSquare.initTexture(image);
     }
 
@@ -52,6 +56,9 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceChanged(GL10 gl10, int width, int height) {
+        GameGLRenderer.width = width;
+        GameGLRenderer.height = height;
+
         GLES20.glViewport(0,0,width, height);
         float ratio = (float) width/height;
 

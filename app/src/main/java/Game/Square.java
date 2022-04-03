@@ -3,15 +3,12 @@ package Game;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
-import java.text.BreakIterator;
 
-import javax.microedition.khronos.opengles.GL;
 
 public class Square {
     private final String vertexShaderCode =
@@ -43,7 +40,7 @@ public class Square {
 
     static final  int COORDS_PER_VERTEX = 3;
 
-    static float[] squareCoords = {
+    float[] squareCoords = {
             -0.5f, 0.5f, 0.0f,   // top left
             -0.5f, -0.5f, 0.0f,   // bottom left
             0.5f, -0.5f, 0.0f,   // bottom right
@@ -59,6 +56,17 @@ public class Square {
     private short[] drawOrder = {0,1,2,0,2,3};
 
     public Square(){
+
+        /*
+        float[] newCoords = {
+                1f, 1f, 0.0f,   // top left
+                1f, -1f, 0.0f,   // bottom left
+                -1f, -1f, 0.0f,   // bottom right
+                -1f, 1f, 0.0f  // top right
+        };
+        */
+
+        //squareCoords = newCoords;
         ByteBuffer bb = ByteBuffer.allocateDirect(squareCoords.length * 4);
 
         bb.order(ByteOrder.nativeOrder());
@@ -107,6 +115,8 @@ public class Square {
 
 
     public void Draw(float[] mvpMatrix){
+
+
         GLES20.glUseProgram(mProgram);
         GLES20.glUniform1i(textureHandle, 0);
 
@@ -165,6 +175,7 @@ public class Square {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
             mTextureName = name[0];
+
 
         }
 
