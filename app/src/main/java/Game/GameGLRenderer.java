@@ -1,19 +1,15 @@
 package Game;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.os.SystemClock;
-import android.util.Log;
 
 import com.example.mysprout.R;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
 public class GameGLRenderer implements GLSurfaceView.Renderer {
@@ -21,7 +17,7 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
     public static int height;
 
     private Triangle mTriangle;
-    private Square mSquare;
+    private SpriteRenderer mSpriteRenderer;
     private Context mContext;
     public GameGLRenderer(Context context){
         super();
@@ -31,10 +27,10 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.0f,0.0f,0.0f,1.0f);
         mTriangle = new Triangle();
-        mSquare = new Square();
+        mSpriteRenderer = new SpriteRenderer();
         Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.mountain02);
 
-        mSquare.initTexture(image);
+        mSpriteRenderer.initTexture(image);
     }
 
     @Override
@@ -46,7 +42,7 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
 
         //mTriangle.Draw(vPMatrix);
-        mSquare.Draw(vPMatrix);
+        mSpriteRenderer.Draw(vPMatrix);
     }
 
     private final float[] vPMatrix = new float[16];

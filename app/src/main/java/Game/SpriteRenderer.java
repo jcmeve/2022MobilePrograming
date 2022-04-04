@@ -11,7 +11,9 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 
-public class Square {
+public class SpriteRenderer extends GameComponent{
+    private static ComponentType componentType = ComponentType.SpriteRenderer;
+
     private final String vertexShaderCode =
             "uniform mat4 uMVPMatrix;" +
             "attribute vec4 vPosition;" +
@@ -59,20 +61,10 @@ public class Square {
 
     private float[] mMatrix = new float[16];
 
-    public Square(){
+    public SpriteRenderer(){
 
         Matrix.setIdentityM(mMatrix,0);
 
-        /*
-        float[] newCoords = {
-                1f, 1f, 0.0f,   // top left
-                1f, -1f, 0.0f,   // bottom left
-                -1f, -1f, 0.0f,   // bottom right
-                -1f, 1f, 0.0f  // top right
-        };
-        */
-
-        //squareCoords = newCoords;
         ByteBuffer bb = ByteBuffer.allocateDirect(squareCoords.length * 4);
 
         bb.order(ByteOrder.nativeOrder());
@@ -200,5 +192,13 @@ public class Square {
     }
 
 
+    @Override
+    public void Update() {
 
+    }
+
+    @Override
+    public ComponentType getComponentType() {
+        return componentType;
+    }
 }

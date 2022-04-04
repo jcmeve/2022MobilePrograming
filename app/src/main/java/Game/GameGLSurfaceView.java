@@ -5,7 +5,8 @@ import android.opengl.GLSurfaceView;
 
 public class GameGLSurfaceView extends GLSurfaceView {
     private final GameGLRenderer renderer;
-    public GameGLSurfaceView(Context context){
+    private GameManager gameManager;
+    public GameGLSurfaceView(Context context) {
         super(context);
 
         setEGLContextClientVersion(2);
@@ -13,5 +14,7 @@ public class GameGLSurfaceView extends GLSurfaceView {
         renderer = new GameGLRenderer(context);
 
         setRenderer(renderer);
+
+        gameManager = GameManager.GMCreate(renderer);
     }
 }
