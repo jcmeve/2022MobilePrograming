@@ -23,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        //남은수
+        <activity android:name=".ch1"/>
+        <activity android:name=".ch2"/>
+        <activity android:name=".ch3"/>
+
     </application>
 
 </manifest>
