@@ -18,6 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints="get username"
         android:background="@drawable/inputfield0"
         android:ems="10"
         android:fontFamily="@font/nregular"
@@ -25,16 +26,15 @@
         android:includeFontPadding="false"
         android:inputType="textPersonName"
         android:textAlignment="textStart"
+        android:textColor="@color/almostBlack"
         android:textColorHint="@color/subGreen"
         android:textSize="16sp"
-        android:textColor="@color/almostBlack"
         app:layout_constraintBottom_toTopOf="@+id/editTextAge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:autofillHints="get username" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <!--나이 입력받는 곳-->
     <EditText
@@ -44,20 +44,20 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints="get age"
         android:background="@drawable/inputfield0"
         android:ems="10"
         android:fontFamily="@font/nregular"
         android:hint="나이"
         android:includeFontPadding="false"
         android:inputType="number"
+        android:textColor="@color/almostBlack"
         android:textColorHint="@color/subGreen"
         android:textSize="16sp"
-        android:textColor="@color/almostBlack"
         app:layout_constraintBottom_toTopOf="@+id/genderRadio_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="get age" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!--성별 radiogroup-->
     <RadioGroup
@@ -118,36 +118,25 @@
         app:layout_constraintVertical_bias="0.528" />
 
     <!--뒤로가기 화살표-->
-    <ImageView
-        android:id="@+id/backarrow_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/greeting_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/backward_arrow"
-        android:contentDescription="backwardarrow" />
 
     <!--페이지 타이틀 - 회원 정보-->
+
+    <!--새싹 이름 입력받는 곳-->
     <TextView
         android:id="@+id/pagename_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/nbold"
         android:includeFontPadding="false"
         android:text="회원 정보"
         android:textColor="@color/mainGreen"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toEndOf="@+id/backarrow_login"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button" />
 
-    <!--새싹 이름 입력받는 곳-->
     <EditText
         android:id="@+id/editTextSproutName"
         android:layout_width="280dp"
@@ -158,9 +147,9 @@
         android:hint="함께 성장할 새싹의 이름을 정해주세요."
         android:includeFontPadding="false"
         android:inputType="textPersonName"
+        android:textColor="@color/almostBlack"
         android:textColorHint="@color/mainGreen"
         android:textSize="16sp"
-        android:textColor="@color/almostBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -184,5 +173,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/backward_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
