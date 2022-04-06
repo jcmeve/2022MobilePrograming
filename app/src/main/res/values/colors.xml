@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 직접 지정한 테마색들 -->
+    <color name="mainGreen">#219f94</color>
+    <color name="subGreen">#c1deae</color>
+    <color name="backYellow">#f2f5c8</color>
+    <color name="almostBlack">#433e50</color>
+
 </resources>

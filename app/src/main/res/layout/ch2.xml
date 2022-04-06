@@ -2,32 +2,156 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="onClick3">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!--기록 버튼-->
+
+    <!--메뉴 버튼-->
+    <Button
+        android:id="@+id/menubtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/page3" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--기록 버튼-->
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick3"
-        android:text="펜"
+        android:id="@+id/recordbtn"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/recordfloating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        app:layout_constraintVertical_bias="0.998" />
+
+    <TextView
+        android:id="@+id/todayText"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/nbold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Day 1"
+        android:textColor="@color/subGreen"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menubtn" />
+
+    <TextView
+        android:id="@+id/constText_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/nregular"
+        android:includeFontPadding="false"
+        android:text="오늘의 절약량"
+        android:textColor="@color/mainGreen"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todayText" />
+
+    <TextView
+        android:id="@+id/estimateText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:fontFamily="@font/nbold"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:text="00.0"
+        android:textColor="@color/mainGreen"
+        android:textSize="60sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constText_main" />
+
+    <TextView
+        android:id="@+id/constText_gram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/nbold"
+        android:gravity="start"
+        android:includeFontPadding="false"
+        android:text="CO2eg"
+        android:textColor="@color/mainGreen"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/estimateText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/estimateText"
+        app:layout_constraintTop_toBottomOf="@+id/constText_main"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/sprout_main"
+        android:layout_width="193dp"
+        android:layout_height="172dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="나중에 새싹 이미지 들어감"
+        app:layout_constraintBottom_toTopOf="@+id/recordbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimateText"
+        app:layout_constraintVertical_bias="0.19999999"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/level_main"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nregular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Lv. 1"
+        android:textColor="@color/subGreen"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sprout_main" />
+
+    <TextView
+        android:id="@+id/sproutName_main"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:fontFamily="@font/nbold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="새싹이"
+        android:textColor="@color/subGreen"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/level_main"
+        app:layout_constraintVertical_bias="0.078" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
