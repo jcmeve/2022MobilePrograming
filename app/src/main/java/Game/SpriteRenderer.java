@@ -193,9 +193,10 @@ public class SpriteRenderer extends GameComponent{
 
 
     @Override
-    public void Update() {
+    public void Update(float deltaTime) {
 
     }
+
 
     @Override
     public ComponentType getComponentType() {

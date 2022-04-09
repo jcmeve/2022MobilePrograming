@@ -2,7 +2,6 @@ package Game;
 
 public abstract class GameComponent {
     public GameObject gameObject;
-    public abstract void Update();
 
     public abstract ComponentType getComponentType();
 
@@ -18,4 +17,5 @@ public abstract class GameComponent {
     public enum ComponentType{
       SpriteRenderer,
     }
+    public abstract void Update(float deltaTime);
 }

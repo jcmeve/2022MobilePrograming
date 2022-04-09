@@ -16,9 +16,13 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
     public static int width;
     public static int height;
 
-    private Triangle mTriangle;
     private SpriteRenderer mSpriteRenderer;
     private Context mContext;
+
+    private final float[] vPMatrix = new float[16];
+    private final float[] projectionMatrix = new float[16];
+    private final float[] viewMatrix = new float[16];
+
     public GameGLRenderer(Context context){
         super();
         mContext = context;
@@ -26,7 +30,6 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.0f,0.0f,0.0f,1.0f);
-        mTriangle = new Triangle();
         mSpriteRenderer = new SpriteRenderer();
         Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.mountain02);
 
@@ -35,19 +38,17 @@ public class GameGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         Matrix.setLookAtM(viewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
 
-        //mTriangle.Draw(vPMatrix);
+        GameManager.getInstance().Draw(vPMatrix);
         mSpriteRenderer.Draw(vPMatrix);
     }
 
-    private final float[] vPMatrix = new float[16];
-    private final float[] projectionMatrix = new float[16];
-    private final float[] viewMatrix = new float[16];
+
+
 
 
     @Override

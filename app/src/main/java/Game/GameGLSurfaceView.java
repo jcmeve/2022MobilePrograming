@@ -14,7 +14,6 @@ public class GameGLSurfaceView extends GLSurfaceView {
         renderer = new GameGLRenderer(context);
 
         setRenderer(renderer);
-
         gameManager = GameManager.GMCreate(renderer);
     }
 }
