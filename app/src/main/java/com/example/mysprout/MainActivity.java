@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     //남은수
     public void onClick1(View v) {
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
-        Intent intent = new Intent(getApplicationContext(), ch1.class);
+        Intent intent = new Intent(getApplicationContext(), userinformation.class);
         startActivity(intent);
 
     }
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     //남은수
     public void onClick2(View v) {
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
-        Intent intent = new Intent(getApplicationContext(), ch2.class);
+        Intent intent = new Intent(getApplicationContext(), sprout.class);
         startActivity(intent);
 
     }
