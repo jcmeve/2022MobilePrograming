@@ -11,7 +11,7 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 
-public class SpriteRenderer extends GameComponent{
+public final class SpriteRenderer extends GameComponent{
     private static ComponentType componentType = ComponentType.SpriteRenderer;
 
     private final String vertexShaderCode =
@@ -25,7 +25,7 @@ public class SpriteRenderer extends GameComponent{
 
             "}";
 
-    private int vPMatrixHangle;
+    private int vPMatrixHandle;
     private final String fragmentShaderCode =
             "precision mediump float;" +
             "varying vec2 vUV;" +
@@ -145,8 +145,8 @@ public class SpriteRenderer extends GameComponent{
         float[] mvpMatrix = new float[16];
         Matrix.multiplyMM(mvpMatrix, 0, vpMatrix, 0, mMatrix, 0);
 
-        vPMatrixHangle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
-        GLES20.glUniformMatrix4fv(vPMatrixHangle, 1, false, mvpMatrix, 0);
+        vPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, mvpMatrix, 0);
 
 
 
