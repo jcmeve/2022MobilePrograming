@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/page4" />
+        app:srcCompat="@drawable/page6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

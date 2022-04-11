@@ -25,9 +25,13 @@
         </activity>
 
         //남은수
-        <activity android:name=".ch1"/>
-        <activity android:name=".ch2"/>
-        <activity android:name=".ch3"/>
+        <activity android:name=".userinformation"/>
+        <activity android:name=".sprout"/>
+        <activity android:name=".sprout2"/>
+        <activity android:name=".record"/>
+        <activity android:name=".record_food"/>
+        <activity android:name=".nickname"/>
+        <activity android:name=".mysprout"/>
 
     </application>
 
