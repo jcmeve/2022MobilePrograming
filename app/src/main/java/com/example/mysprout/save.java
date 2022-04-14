@@ -8,26 +8,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class sprout2 extends AppCompatActivity {
+public class save extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sprout2);
+        setContentView(R.layout.save);
     }
 
-    public void onClicks2_1(View v) {
+    public void onClickF(View v) {
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
-        Intent intent = new Intent(getApplicationContext(), record_1.class);
+        Intent intent = new Intent(getApplicationContext(), sprout.class);
         startActivity(intent);
 
     }
-
-    public void onClicks2_2(View v) {
-        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
-        Intent intent = new Intent(getApplicationContext(), record_food_1.class);
-        startActivity(intent);
-
-    }
-
 }
-
-
