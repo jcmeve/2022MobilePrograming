@@ -28,8 +28,14 @@
         <activity android:name=".userinformation"/>
         <activity android:name=".sprout"/>
         <activity android:name=".sprout2"/>
-        <activity android:name=".record"/>
-        <activity android:name=".record_food"/>
+        <activity android:name=".record_1"/>
+        <activity android:name=".record_2"/>
+        <activity android:name=".record_3"/>
+        <activity android:name=".record_food_1"/>
+        <activity android:name=".record_food_2"/>
+        <activity android:name=".record_food_3"/>
+        <activity android:name=".record_food_4"/>
+        <activity android:name=".save"/>
         <activity android:name=".nickname"/>
         <activity android:name=".mysprout"/>
 
