@@ -8,154 +8,125 @@
 
     <!--android:fontFamily="@font/notoregular"-->
     <!--android:fontFamily="@font/notoregular"-->
-    <!--위에 두 줄 필요없어서 지우려고 하니까 자꾸 에러나서 코드 순서만 바꾼 채 냅두고 있음.-->
 
-    <!--닉네임 입력받는 곳-->
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:autofillHints="get username"
-        android:background="@drawable/inputfield0"
-        android:ems="10"
-        android:fontFamily="@font/nregular"
-        android:hint="닉네임"
-        android:includeFontPadding="false"
-        android:inputType="textPersonName"
-        android:textAlignment="textStart"
-        android:textColor="@color/almostBlack"
-        android:textColorHint="@color/subGreen"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <!--나이 입력받는 곳-->
-    <EditText
-        android:id="@+id/editTextAge"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:autofillHints="get age"
-        android:background="@drawable/inputfield0"
-        android:ems="10"
-        android:fontFamily="@font/nregular"
-        android:hint="나이"
-        android:includeFontPadding="false"
-        android:inputType="number"
-        android:textColor="@color/almostBlack"
-        android:textColorHint="@color/subGreen"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/genderRadio_group"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!--성별 radiogroup-->
-    <RadioGroup
-        android:id="@+id/genderRadio_group"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSproutName"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <RadioButton
-            android:id="@+id/genderRadioWoman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nregular"
-            android:includeFontPadding="false"
-            android:text="여성"
-            android:textColor="@color/almostBlack"
-            android:textColorHighlight="@color/mainGreen"
-            android:textSize="16sp"
-            tools:layout_editor_absoluteY="513dp" />
-
-        <RadioButton
-            android:id="@+id/genderRadioMan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:fontFamily="@font/nregular"
-            android:includeFontPadding="false"
-            android:text="남성"
-            android:textColor="@color/almostBlack"
-            android:textColorHighlight="@color/mainGreen"
-            android:textSize="16sp"
-            tools:layout_editor_absoluteY="513dp" />
-
-    </RadioGroup>
-
-    <!--제일 눈에 띄는 텍스트뷰-->
-    <TextView
-        android:id="@+id/greeting_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nbold"
-        android:includeFontPadding="false"
-        android:text="나의\n환경보호\n첫 걸음"
-        android:textColor="@color/mainGreen"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagename_login"
-        app:layout_constraintVertical_bias="0.528" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!--뒤로가기 화살표-->
+        <Button
+            android:id="@+id/backBtn_start"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/backward_arrow"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-    <!--페이지 타이틀 - 회원 정보-->
+        <TextView
+            android:id="@+id/title_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/nbold"
+            android:includeFontPadding="false"
+            android:text="@string/title_start"
+            android:textColor="@color/mainGreen"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-    <!--새싹 이름 입력받는 곳-->
-    <TextView
-        android:id="@+id/pagename_login"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/nbold"
-        android:includeFontPadding="false"
-        android:text="회원 정보"
-        android:textColor="@color/mainGreen"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/greeting_login1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nbold"
+            android:includeFontPadding="false"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="@color/mainGreen"
+            android:textSize="24sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!--간단한 로고 등 이미지 제작 후 넣을 예정-->
+        <ImageView
+            android:id="@+id/greetingImageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tempimage"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/greeting_login2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nregular"
+            android:includeFontPadding="false"
+            android:text="@string/greeting_ment"
+            android:textAlignment="center"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nextbtn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <EditText
-        android:id="@+id/editTextSproutName"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/inputfield1"
-        android:ems="10"
-        android:hint="함께 성장할 새싹의 이름을 정해주세요."
-        android:includeFontPadding="false"
-        android:inputType="textPersonName"
-        android:textColor="@color/almostBlack"
-        android:textColorHint="@color/mainGreen"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:autofillHints="get username"
+            android:background="@drawable/inputfield0"
+            android:ems="10"
+            android:fontFamily="@font/nregular"
+            android:hint="@string/your_nick"
+            android:includeFontPadding="false"
+            android:inputType="textPersonName"
+            android:textAlignment="textStart"
+            android:textColor="@color/almostBlack"
+            android:textColorHint="@color/subGreen"
+            android:textSize="16sp" />
 
-    <!--회원 정보 입력 완료 후 메인 화면으로 가는 버튼-->
+        <EditText
+            android:id="@+id/editTextSproutName"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:background="@drawable/inputfield1"
+            android:ems="10"
+            android:hint="@string/your_sprout"
+            android:includeFontPadding="false"
+            android:inputType="textPersonName"
+            android:textColor="@color/almostBlack"
+            android:textColorHint="@color/mainGreen"
+            android:textSize="16sp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/nextbtn_login"
         android:layout_width="wrap_content"
@@ -163,25 +134,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/nextbtn"
+        android:background="@drawable/mainbutton"
         android:fontFamily="@font/nbold"
         android:includeFontPadding="false"
-        android:text="@string/nextbtn"
+        android:text="@string/start"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/backward_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

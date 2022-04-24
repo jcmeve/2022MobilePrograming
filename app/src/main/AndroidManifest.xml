@@ -24,8 +24,10 @@
             </intent-filter>
         </activity>
 
-        //남은수
+        <!--남은수-->
         <activity android:name=".userinformation"/>
+        <activity android:name=".userinformation_2"/>
+        <activity android:name=".userinformation_3"/>
         <activity android:name=".sprout"/>
         <activity android:name=".sprout2"/>
         <activity android:name=".record_1"/>

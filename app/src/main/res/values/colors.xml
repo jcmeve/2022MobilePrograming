@@ -10,8 +10,13 @@
 
     <!-- 직접 지정한 테마색들 -->
     <color name="mainGreen">#219f94</color>
+    <color name="mintGreen">#00D1BE</color>
     <color name="subGreen">#c1deae</color>
     <color name="backYellow">#f2f5c8</color>
+    <color name="dirtyYellow">#E8E8A6</color>
     <color name="almostBlack">#433e50</color>
+    <color name="grey">#999999</color>
+    <color name="lightGrey">#F7F7F7</color>
+    <color name="middleGrey">#DBDBDB</color>
 
 </resources>

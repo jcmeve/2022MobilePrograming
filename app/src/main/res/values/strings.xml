@@ -1,4 +1,41 @@
 <resources>
     <string name="app_name">MySprout</string>
-    <string name="nextbtn">다음</string>
+
+    <!--공통-->
+    <string name="nextbtn">다음으로</string>
+    <string name="level_of_sprout">Lv.N</string>
+    <string name="name_of_sprout">새싹이</string>
+    <string name="until_today">Day N</string>
+    <string name="savings">00.0</string>
+
+    <!--첫 입력화면 텍스트-->
+    <string name="title_start">시작하기</string>
+    <string name="welcome">환영해요!</string>
+    <string name="greeting_ment">우리의 작은 습관이\n미래를 아름답게 가꿀 거예요</string>
+    <string name="start">시작해요</string>
+    <string name="your_nick">당신의 별명과</string>
+    <string name="your_sprout">함께 성장할 새싹의 이름을 적고</string>
+    
+    <!--고기 섭취량 확인 화면 텍스트-->
+    <string name="title_meat">고기 섭취량 확인</string>
+    <string name="meat_guide">세 가지 중 본인의 식습관과\n가장 비슷한 것을 골라주세요.</string>
+
+    <!--교통 수단 이용 확인 화면 텍스트-->
+    <string name="title_transport">교통수단 확인</string>
+    <string name="trans_guide">평소 이동할 때 쓰는\n교통수단을 골라주세요.</string>
+
+    <!--메인화면 텍스트-->
+    <string name="const_guide">오늘의 절약량</string>
+    <string name="const_unit">CO2eg</string>
+
+    <!--습관 입력-->
+    <string name="title_habitrecord">습관 기록</string>
+    <string name="elec">전기 사용 부문</string>
+    <string name="trans">교통 이용 부문</string>
+    <string name="res">자원 사용 부문</string>
+    <string name="habits">-</string>
+
+    <!--기록 팝업 메뉴-->
+    <string name="popup_habit">습관 기록</string>
+    <string name="popup_food">식단 기록</string>
 </resources>
