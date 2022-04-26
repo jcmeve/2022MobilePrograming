@@ -1,28 +1,11 @@
 {
   "auth": {
-    "mysproutb6fa0fb4": {
+    "mysproutbb07d4b0": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
+      "customAuth": false
     }
   }
 }

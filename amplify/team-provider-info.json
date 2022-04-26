@@ -13,7 +13,12 @@
     },
     "categories": {
       "auth": {
-        "mysproutb6fa0fb4": {}
+        "mysproutbb07d4b0": {
+          "userPoolId": "us-west-2_iZxNHolqT",
+          "userPoolName": "mysprout_userpoll",
+          "webClientId": "a7tm0evf0lek4ivkao5ua7hak",
+          "nativeClientId": "a7tm0evf0lek4ivkao5ua7hak"
+        }
       }
     }
   }
