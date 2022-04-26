@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mysprout-dev-20301-authRole",
+      "UnauthRoleArn": "arn:aws:iam::799131647040:role/amplify-mysprout-dev-20301-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::799131647040:role/amplify-mysprout-dev-20301-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-mysprout-dev-20301-deployment",
+      "UnauthRoleName": "amplify-mysprout-dev-20301-unauthRole",
+      "StackName": "amplify-mysprout-dev-20301",
+      "StackId": "arn:aws:cloudformation:us-west-2:799131647040:stack/amplify-mysprout-dev-20301/bd5494a0-c582-11ec-8388-069e2b8d7713",
+      "AmplifyAppId": "d3302iiab8jtwq"
+    },
+    "categories": {
+      "auth": {
+        "mysproutb6fa0fb4": {}
+      }
+    }
+  }
+}
