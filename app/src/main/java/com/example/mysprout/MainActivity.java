@@ -18,17 +18,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        /*
         try {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
-
             Amplify.configure(getApplicationContext());
             Log.i("MyAmplifyApp", "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-        /*Amplify.Auth.fetchAuthSession(
+        Amplify.Auth.fetchAuthSession(
                 result -> Log.i("AmplifyQuickstart", result.toString()),
                 error -> Log.e("AmplifyQuickstart", error.toString())
         );
