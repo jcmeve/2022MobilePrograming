@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     //남은수
     public void onClick2(View v) {
-        Intent intent = new Intent(getApplicationContext(), sprout.class);
+        Intent intent = new Intent(getApplicationContext(), Login.class);
         startActivity(intent);
 
     }

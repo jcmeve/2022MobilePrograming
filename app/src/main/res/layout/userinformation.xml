@@ -14,14 +14,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/backBtn_start"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -41,7 +41,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -63,7 +63,7 @@
             android:textSize="24sp"
             android:layout_marginBottom="16dp"/>
 
-        <!--간단한 로고 등 이미지 제작 후 넣을 예정-->
+
         <ImageView
             android:id="@+id/greetingImageview"
             android:layout_width="match_parent"
@@ -82,53 +82,188 @@
             android:textColor="@color/grey"
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
+<!--순서대로 이메일, 패스워드, 패스워드 확인, 유저 네임, 새싹 이름 입력칸 있는 레이아웃-->
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="32dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/nextbtn_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/EditTextSubGreenStyle"
+            android:theme="@style/EditTextSubGreenStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nregular"
+                android:hint="@string/input_email"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:textColor="@color/almostBlack"
+                android:textColorLink="@color/subGreen"
+                android:textSize="14sp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/EditTextSubGreenStyle"
+            android:theme="@style/EditTextSubGreenStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:fontFamily="@font/nregular"
+                android:hint="@string/input_password"
+                android:includeFontPadding="false"
+                android:textColor="@color/almostBlack"
+                android:textColorLink="@color/subGreen"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/EditTextSubGreenStyle"
+            android:theme="@style/EditTextSubGreenStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:passwordToggleEnabled="true"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nregular"
+                android:hint="@string/input_password_check"
+                android:includeFontPadding="false"
+                android:inputType="textPassword"
+                android:textColor="@color/almostBlack"
+                android:textColorLink="@color/subGreen"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/password_error"
+            android:textColor="@color/errorRed"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/EditTextMainGreenStyle"
+            android:theme="@style/EditTextMainGreenStyle"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_yourname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nregular"
+                android:hint="@string/yourname"
+                android:includeFontPadding="false"
+                android:textColor="@color/mainGreen"
+                android:textColorLink="@color/mainGreen"
+                android:textSize="14sp"
+                android:singleLine="true"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/EditTextMainGreenStyle"
+            android:theme="@style/EditTextMainGreenStyle"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_sproutname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nregular"
+                android:hint="@string/sprout_with_you"
+                android:includeFontPadding="false"
+                android:textColor="@color/mainGreen"
+                android:textColorLink="@color/mainGreen"
+                android:textSize="14sp"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--<EditText
             android:id="@+id/editTextUsername"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:autofillHints="get username"
-            android:background="@drawable/inputfield0"
+            android:background="@drawable/inputfield1"
             android:ems="10"
             android:fontFamily="@font/nregular"
             android:hint="@string/your_nick"
             android:includeFontPadding="false"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
-            android:textColor="@color/almostBlack"
-            android:textColorHint="@color/subGreen"
+            android:textColor="@color/mainGreen"
+            android:textColorHint="@color/mainGreen"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTextSproutName"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/inputfield1"
             android:ems="10"
             android:hint="@string/your_sprout"
             android:includeFontPadding="false"
             android:inputType="textPersonName"
-            android:textColor="@color/almostBlack"
+            android:textColor="@color/mainGreen"
             android:textColorHint="@color/mainGreen"
-            android:textSize="16sp" />
+            android:textSize="16sp" />-->
     </LinearLayout>
 
-    <Button
-        android:id="@+id/nextbtn_login"
+    <android.widget.Button
+        android:id="@+id/nextbtn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

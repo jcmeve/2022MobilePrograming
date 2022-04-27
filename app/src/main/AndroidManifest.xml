@@ -43,6 +43,7 @@
         <activity android:name=".save"/>
         <activity android:name=".nickname"/>
         <activity android:name=".mysprout"/>
+        <activity android:name=".Login" />
 
     </application>
 

@@ -8,13 +8,26 @@
     <string name="until_today">Day N</string>
     <string name="savings">00.0</string>
 
+    <!--로그인 화면 텍스트-->
+    <string name="title_login">로그인</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_keep">로그인 유지</string>
+    <string name="forget_password">Forget password?</string>
+
     <!--첫 입력화면 텍스트-->
-    <string name="title_start">시작하기</string>
     <string name="welcome">환영해요!</string>
     <string name="greeting_ment">우리의 작은 습관이\n미래를 아름답게 가꿀 거예요</string>
-    <string name="start">시작해요</string>
-    <string name="your_nick">당신의 별명과</string>
+    <string name="your_nick">당신의 이름과</string>
     <string name="your_sprout">함께 성장할 새싹의 이름을 적고</string>
+    <string name="title_start">회원정보 입력</string>
+    <string name="start">시작해 볼까요?</string>
+    <string name="input_email">이메일 주소</string>
+    <string name="input_password">패스워드</string>
+    <string name="input_password_check">패스워드 확인</string>
+    <string name="yourname">당신의 이름은</string>
+    <string name="sprout_with_you">함께 성장할 새싹의 이름은</string>
+    <string name="password_error">패스워드가 일치하지 않아요.</string>
     
     <!--고기 섭취량 확인 화면 텍스트-->
     <string name="title_meat">고기 섭취량 확인</string>
@@ -38,4 +51,5 @@
     <!--기록 팝업 메뉴-->
     <string name="popup_habit">습관 기록</string>
     <string name="popup_food">식단 기록</string>
+
 </resources>

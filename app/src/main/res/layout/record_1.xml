@@ -335,7 +335,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/backBtn_start"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -355,7 +355,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/nextbtn_habit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

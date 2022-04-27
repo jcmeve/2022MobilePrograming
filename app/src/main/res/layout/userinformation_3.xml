@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/backBtn_trans"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -116,7 +116,7 @@
         app:srcCompat="@drawable/ordersign2"
         android:contentDescription="TODO" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/nextbtn_trans"
         android:layout_width="48dp"
         android:layout_height="48dp"

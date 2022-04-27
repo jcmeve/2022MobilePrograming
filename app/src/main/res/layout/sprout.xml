@@ -96,7 +96,7 @@
 
     <!--기록 버튼-->
 
-    <Button
+    <android.widget.Button
         android:id="@+id/recordbtn"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -107,7 +107,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
