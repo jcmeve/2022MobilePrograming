@@ -1,5 +1,6 @@
 package com.example.mysprout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -9,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.core.Action;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Amplify.Auth.fetchAuthSession(
-                result -> Log.i("AmplifyQuickstart", result.toString()),
+                result -> {
+                    Log.i("AmplifyQuickstart", result.toString());
+                    if(result.isSignedIn()){
+                        Intent intent = new Intent(MainActivity.this, sprout.class);
+                        startActivity(intent);
+                    }
+                },
                 error -> Log.e("AmplifyQuickstart", error.toString())
         );
 

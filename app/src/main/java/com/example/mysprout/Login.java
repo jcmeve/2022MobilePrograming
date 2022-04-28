@@ -28,6 +28,8 @@ public class Login extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextbtn_login);
 
         nextBtn.setOnClickListener(v -> tryLogin());
+
+
     }
 
     private void tryLogin(){
@@ -36,31 +38,28 @@ public class Login extends AppCompatActivity {
         String email_txt = email.getText().toString();
         String password_txt = password.getText().toString();
 
-        Amplify.Auth.signOut(
-                () -> Log.i("Auth" , "signout Succ"),
-                value -> Log.e("AuthQuickstart",value.toString())
-
-        );
 
         Amplify.Auth.signIn(email_txt,password_txt,
                 result-> {
                     Log.i("AuthQuickstart", result.isSignInComplete()?"Sign in succeeded": "Sign in not complete");
-                    if(!result.isSignInComplete()){
-                        Toast.makeText(Login.this,"로그인에 실패하였습니다.",Toast.LENGTH_LONG).show();
-                    }else{
-                        Intent intent = new Intent(Login.this, sprout.class);
-                        startActivity(intent);
-                    }
+                    loginProgress(result.isSignInComplete());
                 },
                 error-> {
-                    Log.e("AuthQuickstart",error.toString());
-                    Toast.makeText(Login.this,"로그인에 실패하였습니다.",Toast.LENGTH_LONG).show();
+                    if(!(error.getClass() == AuthException.InvalidParameterException.class))
+                        Log.e("AuthQuickstart",error.toString());
+                    loginProgress(false);
                 }
         );
 
+    }
+    private void loginProgress(boolean result){
+        if(result) {
+            Intent intent = new Intent(Login.this, sprout.class);
+            startActivity(intent);
+        }else {
+            runOnUiThread(()->Toast.makeText(getBaseContext(),"로그인에 실패하였습니다.",Toast.LENGTH_LONG).show());
 
-
-
+        }
 
     }
 
