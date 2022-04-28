@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "mysprout",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\CM\\AndroidStudioProjects\\MySprout\\amplify\\backend\\api\\mysprout\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authmysproutbb07d4b0"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 90,
+        "apiKeyExpirationDate": "2022-07-27T18:44:33.012Z",
+        "keyDescription": ""
+      }
+    ]
+  }
+}

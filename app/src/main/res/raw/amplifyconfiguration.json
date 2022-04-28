@@ -1,6 +1,19 @@
 {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
+    "api": {
+        "plugins": {
+            "awsAPIPlugin": {
+                "mysprout": {
+                    "endpointType": "GraphQL",
+                    "endpoint": "https://ezk5pnldtbee3ajzcyox3524pi.appsync-api.us-west-2.amazonaws.com/graphql",
+                    "region": "us-west-2",
+                    "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+                    "apiKey": "da2-66ymudgjrfg7tfmiuhxa3sqhku"
+                }
+            }
+        }
+    },
     "auth": {
         "plugins": {
             "awsCognitoAuthPlugin": {
@@ -45,16 +58,27 @@
                             "passwordPolicyMinLength": 8,
                             "passwordPolicyCharacters": [
                                 "REQUIRES_LOWERCASE",
-                                "REQUIRES_UPPERCASE",
-                                "REQUIRES_NUMBERS",
-                                "REQUIRES_SYMBOLS"
+                                "REQUIRES_NUMBERS"
                             ]
                         },
                         "mfaConfiguration": "OFF",
                         "mfaTypes": [],
-                        "verificationMechanisms": [
-                            "EMAIL"
-                        ]
+                        "verificationMechanisms": []
+                    }
+                },
+                "AppSync": {
+                    "Default": {
+                        "ApiUrl": "https://ezk5pnldtbee3ajzcyox3524pi.appsync-api.us-west-2.amazonaws.com/graphql",
+                        "Region": "us-west-2",
+                        "AuthMode": "AMAZON_COGNITO_USER_POOLS",
+                        "ClientDatabasePrefix": "mysprout_AMAZON_COGNITO_USER_POOLS"
+                    },
+                    "mysprout_API_KEY": {
+                        "ApiUrl": "https://ezk5pnldtbee3ajzcyox3524pi.appsync-api.us-west-2.amazonaws.com/graphql",
+                        "Region": "us-west-2",
+                        "AuthMode": "API_KEY",
+                        "ApiKey": "da2-66ymudgjrfg7tfmiuhxa3sqhku",
+                        "ClientDatabasePrefix": "mysprout_API_KEY"
                     }
                 }
             }
