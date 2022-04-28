@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e("AmplifyQuickstart", error.toString())
         );
 
-
-
         setContentView(R.layout.activity_main);
     }
 
@@ -48,6 +46,5 @@ public class MainActivity extends AppCompatActivity {
     public void onClick2(View v) {
         Intent intent = new Intent(getApplicationContext(), Login.class);
         startActivity(intent);
-
     }
 }
