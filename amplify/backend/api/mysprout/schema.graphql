@@ -2,11 +2,69 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Todo @model @auth(rules: [
-                          { allow: owner },
-                          { allow: groups, groups: ["Admins"] }
-                        ]){
-  id: ID!
-  name: String!
-  description: String
+type User @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+
+  game_score: GameScore
+  transportation: [UserTransportation] @hasMany
+  food: [UserFood] @hasMany
+  action: [UserAction] @hasMany
+
+  nickname: String!
+  sprout_name: String!
+  sprout_exp: Int!
+  carbon_save: Int!
+
 }
+
+type GameScore {
+  score: [Int]
+}
+
+type UserTransportation @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  transportation_data_id: ID!
+  data: TransportationData @hasOne(fields:["transportation_data_id"])
+
+  count: [Int!]
+}
+
+type UserFood @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  food_data_id: ID!
+  data: FoodData @hasOne(fields:["food_data_id"])
+
+  count: [Int!]
+}
+
+type UserAction @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  action_data_id: ID!
+  data: ActionData @hasOne(fields:["action_data_id"])
+
+  count: [Int!]
+}
+
+
+type TransportationData @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  name: String!
+  unit: String!
+  carbon_per_unit: Int!
+}
+
+type FoodData @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  name: String!
+  unit: String!
+  carbon_per_gram: Int!
+  gram_per_unit: Int!
+}
+
+type ActionData @model @auth(rules: [{ allow: owner }]){
+  id: ID! @primaryKey
+  name: String!
+  save_carbon: Int!
+}
+
+
