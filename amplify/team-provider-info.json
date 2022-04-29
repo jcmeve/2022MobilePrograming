@@ -42,6 +42,12 @@
           "webClientId": "a7tm0evf0lek4ivkao5ua7hak",
           "nativeClientId": "a7tm0evf0lek4ivkao5ua7hak"
         }
+      },
+      "function": {
+        "mysprout034be500": {
+          "deploymentBucketName": "amplify-mysprout-dbtest-135232-deployment",
+          "s3Key": "amplify-builds/mysprout034be500-454b677469726d55796a-build.zip"
+        }
       }
     }
   }

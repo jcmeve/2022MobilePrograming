@@ -1,0 +1,20 @@
+## [Start] Authorization Steps. **
+$util.qr($ctx.stash.put("hasAuth", true))
+#set( $isAuthorized = false )
+#if( $util.authType() == "API Key Authorization" )
+
+#end
+#if( $util.authType() == "User Pool Authorization" )
+  #set( $ownerEntity0 = $util.defaultIfNull($ctx.args.owner.split(":")[0], null) )
+  #if( !$isAuthorized )
+    #set( $ownerClaim0_0 = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), "___xamznone____")) )
+    #if( $ownerEntity0 == $ownerClaim0_0 )
+      #set( $isAuthorized = true )
+    #end
+  #end
+#end
+#if( !$isAuthorized )
+$util.unauthorized()
+#end
+$util.toJson({"version":"2018-05-29","payload":{}})
+## [End] Authorization Steps. **

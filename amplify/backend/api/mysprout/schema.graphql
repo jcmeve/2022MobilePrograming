@@ -10,6 +10,7 @@ type User @model @auth(rules: [{ allow: owner }]){
   food: [UserFood] @hasMany
   action: [UserAction] @hasMany
 
+  email: AWSEmail!
   nickname: String!
   sprout_name: String!
   sprout_exp: Int!
@@ -67,4 +68,17 @@ type ActionData @model @auth(rules: [{ allow: owner }]){
   save_carbon: Int!
 }
 
+type Mutation{
+  msCreateUser(  nickname: String,  sprout_name: String,  sprout_exp: Int, carbon_save: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msAddTransportationData(  transportation_data_id: ID,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msAddFoodData(  food_data_id: ID, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+  msAddActionData(  action_data_id: ID, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+}
+type Query{
+  msGetUserInfo:User @function(name: "mysprout034be500-${env}")
+  msGetTotalExp:Int @function(name: "mysprout034be500-${env}")
+  msGetTransportationList:[TransportationData] @function(name: "mysprout034be500-${env}")
+  msGetFoodList:[FoodData] @function(name: "mysprout034be500-${env}")
+  msGetActionList:[ActionData] @function(name: "mysprout034be500-${env}")
+}
 

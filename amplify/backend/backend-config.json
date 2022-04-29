@@ -43,5 +43,11 @@
       }
     }
   },
-  "function": {}
+  "function": {
+    "mysprout034be500": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
 }

@@ -1,0 +1,524 @@
+# this is an auto generated file. This will be overwritten
+mutation MsCreateUser(
+  $nickname: String
+  $sprout_name: String
+  $sprout_exp: Int
+  $carbon_save: Int
+) {
+  msCreateUser(
+    nickname: $nickname
+    sprout_name: $sprout_name
+    sprout_exp: $sprout_exp
+    carbon_save: $carbon_save
+  )
+}
+mutation MsAddTransportationData($transportation_data_id: ID, $count: Int) {
+  msAddTransportationData(
+    transportation_data_id: $transportation_data_id
+    count: $count
+  )
+}
+mutation MsAddFoodData($food_data_id: ID, $count: Int) {
+  msAddFoodData(food_data_id: $food_data_id, count: $count)
+}
+mutation MsAddActionData($action_data_id: ID, $count: Int) {
+  msAddActionData(action_data_id: $action_data_id, count: $count)
+}
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateUserTransportation(
+  $input: CreateUserTransportationInput!
+  $condition: ModelUserTransportationConditionInput
+) {
+  createUserTransportation(input: $input, condition: $condition) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+mutation UpdateUserTransportation(
+  $input: UpdateUserTransportationInput!
+  $condition: ModelUserTransportationConditionInput
+) {
+  updateUserTransportation(input: $input, condition: $condition) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+mutation DeleteUserTransportation(
+  $input: DeleteUserTransportationInput!
+  $condition: ModelUserTransportationConditionInput
+) {
+  deleteUserTransportation(input: $input, condition: $condition) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+mutation CreateUserFood(
+  $input: CreateUserFoodInput!
+  $condition: ModelUserFoodConditionInput
+) {
+  createUserFood(input: $input, condition: $condition) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+mutation UpdateUserFood(
+  $input: UpdateUserFoodInput!
+  $condition: ModelUserFoodConditionInput
+) {
+  updateUserFood(input: $input, condition: $condition) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+mutation DeleteUserFood(
+  $input: DeleteUserFoodInput!
+  $condition: ModelUserFoodConditionInput
+) {
+  deleteUserFood(input: $input, condition: $condition) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+mutation CreateUserAction(
+  $input: CreateUserActionInput!
+  $condition: ModelUserActionConditionInput
+) {
+  createUserAction(input: $input, condition: $condition) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+mutation UpdateUserAction(
+  $input: UpdateUserActionInput!
+  $condition: ModelUserActionConditionInput
+) {
+  updateUserAction(input: $input, condition: $condition) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+mutation DeleteUserAction(
+  $input: DeleteUserActionInput!
+  $condition: ModelUserActionConditionInput
+) {
+  deleteUserAction(input: $input, condition: $condition) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+mutation CreateTransportationData(
+  $input: CreateTransportationDataInput!
+  $condition: ModelTransportationDataConditionInput
+) {
+  createTransportationData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateTransportationData(
+  $input: UpdateTransportationDataInput!
+  $condition: ModelTransportationDataConditionInput
+) {
+  updateTransportationData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteTransportationData(
+  $input: DeleteTransportationDataInput!
+  $condition: ModelTransportationDataConditionInput
+) {
+  deleteTransportationData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateFoodData(
+  $input: CreateFoodDataInput!
+  $condition: ModelFoodDataConditionInput
+) {
+  createFoodData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateFoodData(
+  $input: UpdateFoodDataInput!
+  $condition: ModelFoodDataConditionInput
+) {
+  updateFoodData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteFoodData(
+  $input: DeleteFoodDataInput!
+  $condition: ModelFoodDataConditionInput
+) {
+  deleteFoodData(input: $input, condition: $condition) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateActionData(
+  $input: CreateActionDataInput!
+  $condition: ModelActionDataConditionInput
+) {
+  createActionData(input: $input, condition: $condition) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateActionData(
+  $input: UpdateActionDataInput!
+  $condition: ModelActionDataConditionInput
+) {
+  updateActionData(input: $input, condition: $condition) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteActionData(
+  $input: DeleteActionDataInput!
+  $condition: ModelActionDataConditionInput
+) {
+  deleteActionData(input: $input, condition: $condition) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}

@@ -1,0 +1,436 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUser($owner: String) {
+  onCreateUser(owner: $owner) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateUser($owner: String) {
+  onUpdateUser(owner: $owner) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteUser($owner: String) {
+  onDeleteUser(owner: $owner) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateUserTransportation($owner: String) {
+  onCreateUserTransportation(owner: $owner) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+subscription OnUpdateUserTransportation($owner: String) {
+  onUpdateUserTransportation(owner: $owner) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+subscription OnDeleteUserTransportation($owner: String) {
+  onDeleteUserTransportation(owner: $owner) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+subscription OnCreateUserFood($owner: String) {
+  onCreateUserFood(owner: $owner) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+subscription OnUpdateUserFood($owner: String) {
+  onUpdateUserFood(owner: $owner) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+subscription OnDeleteUserFood($owner: String) {
+  onDeleteUserFood(owner: $owner) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+subscription OnCreateUserAction($owner: String) {
+  onCreateUserAction(owner: $owner) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+subscription OnUpdateUserAction($owner: String) {
+  onUpdateUserAction(owner: $owner) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+subscription OnDeleteUserAction($owner: String) {
+  onDeleteUserAction(owner: $owner) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+subscription OnCreateTransportationData($owner: String) {
+  onCreateTransportationData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateTransportationData($owner: String) {
+  onUpdateTransportationData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteTransportationData($owner: String) {
+  onDeleteTransportationData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateFoodData($owner: String) {
+  onCreateFoodData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateFoodData($owner: String) {
+  onUpdateFoodData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteFoodData($owner: String) {
+  onDeleteFoodData(owner: $owner) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateActionData($owner: String) {
+  onCreateActionData(owner: $owner) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateActionData($owner: String) {
+  onUpdateActionData(owner: $owner) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteActionData($owner: String) {
+  onDeleteActionData(owner: $owner) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}

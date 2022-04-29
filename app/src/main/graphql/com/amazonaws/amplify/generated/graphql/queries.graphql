@@ -1,0 +1,457 @@
+# this is an auto generated file. This will be overwritten
+query MsGetUserInfo {
+  msGetUserInfo {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query MsGetTotalExp {
+  msGetTotalExp
+}
+query MsGetTransportationList {
+  msGetTransportationList {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query MsGetFoodList {
+  msGetFoodList {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query MsGetActionList {
+  msGetActionList {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    game_score {
+      score
+    }
+    transportation {
+      items {
+        id
+        transportation_data_id
+        count
+        createdAt
+        updatedAt
+        userTransportationId
+        owner
+      }
+      nextToken
+    }
+    food {
+      items {
+        id
+        food_data_id
+        count
+        createdAt
+        updatedAt
+        userFoodId
+        owner
+      }
+      nextToken
+    }
+    action {
+      items {
+        id
+        action_data_id
+        count
+        createdAt
+        updatedAt
+        userActionId
+        owner
+      }
+      nextToken
+    }
+    email
+    nickname
+    sprout_name
+    sprout_exp
+    carbon_save
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListUsers(
+  $id: ID
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listUsers(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      game_score {
+        score
+      }
+      transportation {
+        nextToken
+      }
+      food {
+        nextToken
+      }
+      action {
+        nextToken
+      }
+      email
+      nickname
+      sprout_name
+      sprout_exp
+      carbon_save
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetUserTransportation($id: ID!) {
+  getUserTransportation(id: $id) {
+    id
+    transportation_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userTransportationId
+    owner
+  }
+}
+query ListUserTransportations(
+  $id: ID
+  $filter: ModelUserTransportationFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listUserTransportations(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      transportation_data_id
+      data {
+        id
+        name
+        unit
+        carbon_per_unit
+        createdAt
+        updatedAt
+        owner
+      }
+      count
+      createdAt
+      updatedAt
+      userTransportationId
+      owner
+    }
+    nextToken
+  }
+}
+query GetUserFood($id: ID!) {
+  getUserFood(id: $id) {
+    id
+    food_data_id
+    data {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userFoodId
+    owner
+  }
+}
+query ListUserFoods(
+  $id: ID
+  $filter: ModelUserFoodFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listUserFoods(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      food_data_id
+      data {
+        id
+        name
+        unit
+        carbon_per_gram
+        gram_per_unit
+        createdAt
+        updatedAt
+        owner
+      }
+      count
+      createdAt
+      updatedAt
+      userFoodId
+      owner
+    }
+    nextToken
+  }
+}
+query GetUserAction($id: ID!) {
+  getUserAction(id: $id) {
+    id
+    action_data_id
+    data {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    createdAt
+    updatedAt
+    userActionId
+    owner
+  }
+}
+query ListUserActions(
+  $id: ID
+  $filter: ModelUserActionFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listUserActions(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      action_data_id
+      data {
+        id
+        name
+        save_carbon
+        createdAt
+        updatedAt
+        owner
+      }
+      count
+      createdAt
+      updatedAt
+      userActionId
+      owner
+    }
+    nextToken
+  }
+}
+query GetTransportationData($id: ID!) {
+  getTransportationData(id: $id) {
+    id
+    name
+    unit
+    carbon_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListTransportationData(
+  $id: ID
+  $filter: ModelTransportationDataFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listTransportationData(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetFoodData($id: ID!) {
+  getFoodData(id: $id) {
+    id
+    name
+    unit
+    carbon_per_gram
+    gram_per_unit
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListFoodData(
+  $id: ID
+  $filter: ModelFoodDataFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listFoodData(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      unit
+      carbon_per_gram
+      gram_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetActionData($id: ID!) {
+  getActionData(id: $id) {
+    id
+    name
+    save_carbon
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListActionData(
+  $id: ID
+  $filter: ModelActionDataFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listActionData(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}

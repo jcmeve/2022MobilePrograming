@@ -71,14 +71,16 @@
                         "ApiUrl": "https://6x3epysuw5g35lmrt5dl5sb3wa.appsync-api.us-west-2.amazonaws.com/graphql",
                         "Region": "us-west-2",
                         "AuthMode": "AMAZON_COGNITO_USER_POOLS",
-                        "ClientDatabasePrefix": "mysprout_AMAZON_COGNITO_USER_POOLS"
+                        "ClientDatabasePrefix": "mysprout_AMAZON_COGNITO_USER_POOLS",
+                        "DangerouslyConnectToHTTPEndpointForTesting": true
                     },
                     "mysprout_API_KEY": {
                         "ApiUrl": "https://6x3epysuw5g35lmrt5dl5sb3wa.appsync-api.us-west-2.amazonaws.com/graphql",
                         "Region": "us-west-2",
                         "AuthMode": "API_KEY",
                         "ApiKey": "da2-fq4jw2ale5bofa2svqk5volxu4",
-                        "ClientDatabasePrefix": "mysprout_API_KEY"
+                        "ClientDatabasePrefix": "mysprout_API_KEY",
+                        "DangerouslyConnectToHTTPEndpointForTesting": true
                     }
                 }
             }
