@@ -7,11 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.Consumer;
 
 public class Login extends AppCompatActivity {
 
@@ -22,6 +24,9 @@ public class Login extends AppCompatActivity {
 
         Button nextBtn;
         nextBtn = findViewById(R.id.nextbtn_login);
+
+
+
 
         nextBtn.setOnClickListener(v -> tryLogin());
 
@@ -38,6 +43,7 @@ public class Login extends AppCompatActivity {
         Amplify.Auth.signIn(email_txt,password_txt,
                 result-> {
                     Log.i("AuthQuickstart", result.isSignInComplete()?"Sign in succeeded": "Sign in not complete");
+                    Log.i("asdfasdfasdf", result.toString());
                     loginProgress(result.isSignInComplete());
                 },
                 error-> {
@@ -50,7 +56,6 @@ public class Login extends AppCompatActivity {
     }
     private void loginProgress(boolean result){
         if(result) {
-
 
 
             Intent intent = new Intent(Login.this, sprout.class);
