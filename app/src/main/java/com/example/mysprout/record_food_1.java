@@ -88,7 +88,7 @@ public class record_food_1 extends AppCompatActivity {
         foods.add(new RecyclerItemFood("곰탕"));
 
         adapter = new RecyclerCustomAdapterFood(this,
-                foods, android.R.layout.simple_expandable_list_item_1);
+                foods, android.R.layout.simple_list_item_1);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
