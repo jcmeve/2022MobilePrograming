@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
+        Amplify.Auth.signOut(
+                () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
 /*
         Todo todo = Todo.builder()
                 .name("Msadffffffffffffffffffffffffffffftodo")
