@@ -57,8 +57,8 @@ public class Login extends AppCompatActivity {
     private void loginProgress(boolean result){
         if(result) {
 
-
             Intent intent = new Intent(Login.this, sprout.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else {
             runOnUiThread(()->Toast.makeText(getBaseContext(),"로그인에 실패하였습니다.",Toast.LENGTH_LONG).show());
