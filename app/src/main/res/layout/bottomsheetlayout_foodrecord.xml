@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg_bottom"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/exit_bottomdialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/icon_baseline_clear1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottomsheet_foodrecord1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/bottom_text_foodname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="음식 이름"
+            android:textSize="20sp"
+            android:fontFamily="@font/nbold"
+            android:includeFontPadding="false"
+            android:textColor="@color/almostBlack"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="viewEnd"
+            android:text="탄소질량"
+            android:textSize="20sp"
+            android:fontFamily="@font/nregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/grey"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="gCO2e"
+            android:textSize="16sp"
+            android:fontFamily="@font/nregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/grey"
+            android:layout_marginEnd="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottomsheet_foodrecord2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="48dp">
+
+            <NumberPicker
+                android:id="@+id/numberpicker_oneserving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/NumberPickerStyle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="인분"
+                android:textSize="16sp"
+                android:textColor="@color/grey"
+                android:fontFamily="@font/nbold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <NumberPicker
+                android:id="@+id/numberpicker_mass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/NumberPickerStyle" />
+
+            <TextView
+                android:id="@+id/numberpicker_text_mass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="g"
+                android:textSize="16sp"
+                android:textColor="@color/grey"
+                android:fontFamily="@font/nbold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+
+        <!--<com.travijuu.numberpicker.library.NumberPicker
+            android:id="@+id/numberpicker_oneserving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            numberpicker:custom_layout="@layout/custom_numberpicker_layout"
+            numberpicker:focusable="false"
+            numberpicker:max="50"
+            numberpicker:min="0"
+            numberpicker:unit="1"
+            numberpicker:value="-5" />-->
+
+    </LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/addbtn_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fullbtn"
+        android:text="추가"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nbold"
+        android:includeFontPadding="false"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

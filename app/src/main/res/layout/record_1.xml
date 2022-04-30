@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <!--<ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="432dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
@@ -38,7 +38,7 @@
             <RadioButton
                 android:id="@+id/electricH1"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -49,7 +49,7 @@
             <RadioButton
                 android:id="@+id/electricH2"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -60,7 +60,7 @@
             <RadioButton
                 android:id="@+id/electricH3"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -71,7 +71,7 @@
             <RadioButton
                 android:id="@+id/electricH4"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -93,7 +93,7 @@
             <RadioButton
                 android:id="@+id/electricH6"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -104,7 +104,7 @@
             <RadioButton
                 android:id="@+id/electricH7"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -115,7 +115,7 @@
             <RadioButton
                 android:id="@+id/electricH8"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -126,7 +126,7 @@
             <RadioButton
                 android:id="@+id/electricH9"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -137,7 +137,7 @@
             <RadioButton
                 android:id="@+id/electricH10"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -159,7 +159,7 @@
             <RadioButton
                 android:id="@+id/tranportH1"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -170,7 +170,7 @@
             <RadioButton
                 android:id="@+id/tranportH2"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -181,7 +181,7 @@
             <RadioButton
                 android:id="@+id/tranportH3"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -192,7 +192,7 @@
             <RadioButton
                 android:id="@+id/tranportH4"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -203,7 +203,7 @@
             <RadioButton
                 android:id="@+id/tranportH5"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -214,7 +214,7 @@
             <RadioButton
                 android:id="@+id/tranportH6"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -236,7 +236,7 @@
             <RadioButton
                 android:id="@+id/resourceH1"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -247,7 +247,7 @@
             <RadioButton
                 android:id="@+id/resourceH2"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -258,7 +258,7 @@
             <RadioButton
                 android:id="@+id/resourceH3"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -269,7 +269,7 @@
             <RadioButton
                 android:id="@+id/resourceH4"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -280,7 +280,7 @@
             <RadioButton
                 android:id="@+id/resourceH5"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -291,7 +291,7 @@
             <RadioButton
                 android:id="@+id/resourceH6"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -302,7 +302,7 @@
             <RadioButton
                 android:id="@+id/resourceH7"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -313,7 +313,7 @@
             <RadioButton
                 android:id="@+id/resourceH8"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:buttonTint="@color/subGreen"
                 android:fontFamily="@font/nregular"
                 android:includeFontPadding="false"
@@ -321,11 +321,11 @@
                 android:textColor="@color/almostBlack"
                 android:textSize="12sp" />
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:id="@+id/linearLayout_record1_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center_vertical"
@@ -336,7 +336,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.widget.Button
-            android:id="@+id/backBtn_start"
+            android:id="@+id/backBtn_recordhabit"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
@@ -344,7 +344,7 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/pagename_meat"
+            android:id="@+id/pagename_recordhabit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -355,9 +355,20 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_habit"
+        android:layout_width="match_parent"
+        android:layout_height="432dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/habitlistrec"
+        app:layout_constraintBottom_toTopOf="@+id/nextbtn_habit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <android.widget.Button
         android:id="@+id/nextbtn_habit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/fullbtn"
         android:fontFamily="@font/nbold"

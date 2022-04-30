@@ -44,4 +44,14 @@
         <item name="errorTextColor">@color/errorRed</item>
     </style>
 
+    <style name="NumberPickerStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColorPrimary">@color/almostBlack</item>
+    </style>
+
+    <!--bottomsheetdialog animation-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
 </resources>
