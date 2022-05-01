@@ -19,7 +19,7 @@ exports.handler = async (event, context, callback) => {
             const params = {
                 TableName: "User-qatzrpa2ivbw5ooukcvptpcpya-dev",
                 Item: {
-                    id: event.identity.claims.username,
+                    id: event.identity.sub,
                     carbon_save: event.arguments.carbon_save,
                     nickname: event.arguments.nickname,
                     sprout_exp: event.arguments.sprout_exp,
