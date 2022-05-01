@@ -10,7 +10,6 @@ type User @model @auth(rules: [{ allow: owner }]){
   food: [UserFood] @hasMany
   action: [UserAction] @hasMany
 
-  email: AWSEmail!
   nickname: String!
   sprout_name: String!
   sprout_exp: Int!

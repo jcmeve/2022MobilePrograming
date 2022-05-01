@@ -69,7 +69,6 @@ mutation CreateUser(
       }
       nextToken
     }
-    email
     nickname
     sprout_name
     sprout_exp
@@ -124,7 +123,6 @@ mutation UpdateUser(
       }
       nextToken
     }
-    email
     nickname
     sprout_name
     sprout_exp
@@ -179,7 +177,6 @@ mutation DeleteUser(
       }
       nextToken
     }
-    email
     nickname
     sprout_name
     sprout_exp

@@ -41,7 +41,6 @@ query MsGetUserInfo {
       }
       nextToken
     }
-    email
     nickname
     sprout_name
     sprout_exp
@@ -129,7 +128,6 @@ query GetUser($id: ID!) {
       }
       nextToken
     }
-    email
     nickname
     sprout_name
     sprout_exp
@@ -167,7 +165,6 @@ query ListUsers(
       action {
         nextToken
       }
-      email
       nickname
       sprout_name
       sprout_exp
