@@ -11,18 +11,17 @@ import android.view.View;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 
-import com.amplifyframework.api.graphql.model.ModelMutation;
-import com.amplifyframework.auth.AuthDevice;
-import com.amplifyframework.auth.AuthException;
-import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.api.aws.GsonVariablesSerializer;
+
+import com.amplifyframework.api.graphql.SimpleGraphQLRequest;
+
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 
-import com.amplifyframework.core.Action;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.core.Consumer;
-import com.amplifyframework.datastore.generated.model.Todo;
+import com.amplifyframework.datastore.generated.model.User;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,19 +40,13 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-/*
-        Todo todo = Todo.builder()
-                .name("Msadffffffffffffffffffffffffffffftodo")
-                .description("todo description")
-                .build();
-
-        Amplify.API.mutate(
-                ModelMutation.create(todo),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        Amplify.Auth.signOut(
+                () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                error -> Log.e("AuthQuickstart", error.toString())
         );
-*/
 
+
+       
 
         tryAutoLogin();
 
@@ -90,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(fetchUser && fetchSession){
             Intent intent = new Intent(MainActivity.this, sprout.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 

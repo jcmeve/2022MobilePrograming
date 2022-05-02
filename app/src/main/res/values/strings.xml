@@ -28,7 +28,7 @@
     <string name="yourname">당신의 이름은</string>
     <string name="sprout_with_you">함께 성장할 새싹의 이름은</string>
     <string name="password_error">패스워드가 일치하지 않아요.</string>
-    
+
     <!--고기 섭취량 확인 화면 텍스트-->
     <string name="title_meat">고기 섭취량 확인</string>
     <string name="meat_guide">세 가지 중 본인의 식습관과\n가장 비슷한 것을 골라주세요.</string>
@@ -51,5 +51,7 @@
     <!--기록 팝업 메뉴-->
     <string name="popup_habit">습관 기록</string>
     <string name="popup_food">식단 기록</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

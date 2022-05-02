@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_itemview_habit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/checkbox_itemview_habit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CheckBox"
+            android:textSize="16sp"
+            android:fontFamily="@font/nregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/almostBlack"/>
+
+        <!--android:layout_weight="3"-->
+
+<!--추후 아이콘 만들 때 이미지 사이즈 잘 생각하기-->
+        <!--<ImageView
+            android:id="@+id/imageView_itemview_habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            app:srcCompat="@mipmap/ic_launcher" />-->
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

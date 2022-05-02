@@ -8,13 +8,12 @@
       "mode": "AMAZON_COGNITO_USER_POOLS",
       "cognitoUserPoolId": "authmysproutbb07d4b0"
     },
-    "conflictResolution": {},
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
-        "expirationTime": 90,
-        "apiKeyExpirationDate": "2022-07-27T18:44:33.012Z",
-        "keyDescription": ""
+        "expirationTime": 70,
+        "apiKeyExpirationDate": "2022-07-11T16:34:50.572Z",
+        "keyDescription": "yyy"
       }
     ]
   }

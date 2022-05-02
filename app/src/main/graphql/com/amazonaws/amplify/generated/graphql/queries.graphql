@@ -5,43 +5,9 @@ query MsGetUserInfo {
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_data_id
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_data_id
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_data_id
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
-    email
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -56,7 +22,6 @@ query MsGetTotalExp {
 }
 query MsGetTransportationList {
   msGetTransportationList {
-    id
     name
     unit
     carbon_per_unit
@@ -67,7 +32,6 @@ query MsGetTransportationList {
 }
 query MsGetFoodList {
   msGetFoodList {
-    id
     name
     unit
     carbon_per_gram
@@ -79,7 +43,6 @@ query MsGetFoodList {
 }
 query MsGetActionList {
   msGetActionList {
-    id
     name
     save_carbon
     createdAt
@@ -93,43 +56,9 @@ query GetUser($id: ID!) {
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_data_id
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_data_id
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_data_id
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
-    email
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -158,16 +87,9 @@ query ListUsers(
       game_score {
         score
       }
-      transportation {
-        nextToken
-      }
-      food {
-        nextToken
-      }
-      action {
-        nextToken
-      }
-      email
+      transportation
+      food
+      action
       nickname
       sprout_name
       sprout_exp
@@ -182,9 +104,8 @@ query ListUsers(
 query GetUserTransportation($id: ID!) {
   getUserTransportation(id: $id) {
     id
-    transportation_data_id
+    transportation_name
     data {
-      id
       name
       unit
       carbon_per_unit
@@ -195,7 +116,6 @@ query GetUserTransportation($id: ID!) {
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -215,9 +135,8 @@ query ListUserTransportations(
   ) {
     items {
       id
-      transportation_data_id
+      transportation_name
       data {
-        id
         name
         unit
         carbon_per_unit
@@ -228,7 +147,6 @@ query ListUserTransportations(
       count
       createdAt
       updatedAt
-      userTransportationId
       owner
     }
     nextToken
@@ -237,9 +155,8 @@ query ListUserTransportations(
 query GetUserFood($id: ID!) {
   getUserFood(id: $id) {
     id
-    food_data_id
+    food_name
     data {
-      id
       name
       unit
       carbon_per_gram
@@ -251,7 +168,6 @@ query GetUserFood($id: ID!) {
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -271,9 +187,8 @@ query ListUserFoods(
   ) {
     items {
       id
-      food_data_id
+      food_name
       data {
-        id
         name
         unit
         carbon_per_gram
@@ -285,7 +200,6 @@ query ListUserFoods(
       count
       createdAt
       updatedAt
-      userFoodId
       owner
     }
     nextToken
@@ -294,9 +208,8 @@ query ListUserFoods(
 query GetUserAction($id: ID!) {
   getUserAction(id: $id) {
     id
-    action_data_id
+    action_name
     data {
-      id
       name
       save_carbon
       createdAt
@@ -306,7 +219,6 @@ query GetUserAction($id: ID!) {
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }
@@ -326,9 +238,8 @@ query ListUserActions(
   ) {
     items {
       id
-      action_data_id
+      action_name
       data {
-        id
         name
         save_carbon
         createdAt
@@ -338,15 +249,13 @@ query ListUserActions(
       count
       createdAt
       updatedAt
-      userActionId
       owner
     }
     nextToken
   }
 }
-query GetTransportationData($id: ID!) {
-  getTransportationData(id: $id) {
-    id
+query GetTransportationData($name: String!) {
+  getTransportationData(name: $name) {
     name
     unit
     carbon_per_unit
@@ -356,21 +265,20 @@ query GetTransportationData($id: ID!) {
   }
 }
 query ListTransportationData(
-  $id: ID
+  $name: String
   $filter: ModelTransportationDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listTransportationData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       unit
       carbon_per_unit
@@ -381,9 +289,8 @@ query ListTransportationData(
     nextToken
   }
 }
-query GetFoodData($id: ID!) {
-  getFoodData(id: $id) {
-    id
+query GetFoodData($name: String!) {
+  getFoodData(name: $name) {
     name
     unit
     carbon_per_gram
@@ -394,21 +301,20 @@ query GetFoodData($id: ID!) {
   }
 }
 query ListFoodData(
-  $id: ID
+  $name: String
   $filter: ModelFoodDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listFoodData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       unit
       carbon_per_gram
@@ -420,9 +326,8 @@ query ListFoodData(
     nextToken
   }
 }
-query GetActionData($id: ID!) {
-  getActionData(id: $id) {
-    id
+query GetActionData($name: String!) {
+  getActionData(name: $name) {
     name
     save_carbon
     createdAt
@@ -431,21 +336,20 @@ query GetActionData($id: ID!) {
   }
 }
 query ListActionData(
-  $id: ID
+  $name: String
   $filter: ModelActionDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listActionData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       save_carbon
       createdAt
