@@ -33,42 +33,9 @@ mutation CreateUser(
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -87,42 +54,9 @@ mutation UpdateUser(
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -141,42 +75,9 @@ mutation DeleteUser(
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -204,7 +105,6 @@ mutation CreateUserTransportation(
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -226,7 +126,6 @@ mutation UpdateUserTransportation(
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -248,7 +147,6 @@ mutation DeleteUserTransportation(
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -271,7 +169,6 @@ mutation CreateUserFood(
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -294,7 +191,6 @@ mutation UpdateUserFood(
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -317,7 +213,6 @@ mutation DeleteUserFood(
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -338,7 +233,6 @@ mutation CreateUserAction(
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }
@@ -359,7 +253,6 @@ mutation UpdateUserAction(
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }
@@ -380,7 +273,6 @@ mutation DeleteUserAction(
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }

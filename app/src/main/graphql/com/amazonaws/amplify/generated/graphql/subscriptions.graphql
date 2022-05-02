@@ -5,42 +5,9 @@ subscription OnCreateUser($owner: String) {
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -56,42 +23,9 @@ subscription OnUpdateUser($owner: String) {
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -107,42 +41,9 @@ subscription OnDeleteUser($owner: String) {
     game_score {
       score
     }
-    transportation {
-      items {
-        id
-        transportation_name
-        count
-        createdAt
-        updatedAt
-        userTransportationId
-        owner
-      }
-      nextToken
-    }
-    food {
-      items {
-        id
-        food_name
-        count
-        createdAt
-        updatedAt
-        userFoodId
-        owner
-      }
-      nextToken
-    }
-    action {
-      items {
-        id
-        action_name
-        count
-        createdAt
-        updatedAt
-        userActionId
-        owner
-      }
-      nextToken
-    }
+    transportation
+    food
+    action
     nickname
     sprout_name
     sprout_exp
@@ -167,7 +68,6 @@ subscription OnCreateUserTransportation($owner: String) {
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -186,7 +86,6 @@ subscription OnUpdateUserTransportation($owner: String) {
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -205,7 +104,6 @@ subscription OnDeleteUserTransportation($owner: String) {
     count
     createdAt
     updatedAt
-    userTransportationId
     owner
   }
 }
@@ -225,7 +123,6 @@ subscription OnCreateUserFood($owner: String) {
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -245,7 +142,6 @@ subscription OnUpdateUserFood($owner: String) {
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -265,7 +161,6 @@ subscription OnDeleteUserFood($owner: String) {
     count
     createdAt
     updatedAt
-    userFoodId
     owner
   }
 }
@@ -283,7 +178,6 @@ subscription OnCreateUserAction($owner: String) {
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }
@@ -301,7 +195,6 @@ subscription OnUpdateUserAction($owner: String) {
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }
@@ -319,7 +212,6 @@ subscription OnDeleteUserAction($owner: String) {
     count
     createdAt
     updatedAt
-    userActionId
     owner
   }
 }

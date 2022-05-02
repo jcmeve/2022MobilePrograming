@@ -17,7 +17,7 @@ exports.handler = async (event, context, callback) => {
     switch(event.fieldName){
         case "msCreateUser":
             const params = {
-                TableName: "User-xvaekiaoorcq7chyutyarir7gy-strkey",
+                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                 Item: {
                     id: event.identity.sub,
                     carbon_save: event.arguments.carbon_save,
@@ -35,7 +35,7 @@ exports.handler = async (event, context, callback) => {
 
         case "msAddTransportationData":
             const at_params = {
-                TableName: 	"TransportationData-xvaekiaoorcq7chyutyarir7gy-strkey",
+                TableName: 	"TransportationData-q2vg5zi6bvcavondcdicixh6zi-dev",
                 Key: {
                     name: event.arguments.transportation_name
                 }
@@ -50,7 +50,7 @@ exports.handler = async (event, context, callback) => {
             //이동수단 종류 있는지 확인
             console.log("TRANSPORATTION CHECK COMPLERE");
             const at_params2 = {
-                TableName: "User-xvaekiaoorcq7chyutyarir7gy-strkey",
+                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                 Key: {
                     id: event.identity.sub
                 }
@@ -73,7 +73,7 @@ exports.handler = async (event, context, callback) => {
             }
             if(ck == false){
                 const params = {
-                    TableName: "UserTransportation-xvaekiaoorcq7chyutyarir7gy-strkey",
+                    TableName: "UserTransportation-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Item: {
                         id: event.identity.sub + event.arguments.transportation_name,
                         transportation_name: event.arguments.transportation_name,
@@ -83,7 +83,7 @@ exports.handler = async (event, context, callback) => {
                 await ddb.put(params).promise();
 
                 const params2 = {
-                    TableName: "User-xvaekiaoorcq7chyutyarir7gy-strkey",
+                    TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub},
 
                     UpdateExpression: "set transportation =  list_append( transportation, :val1)",
@@ -102,7 +102,7 @@ exports.handler = async (event, context, callback) => {
 
             }else{
                 const params = {
-                    TableName: "UserTransportation-xvaekiaoorcq7chyutyarir7gy-strkey",
+                    TableName: "UserTransportation-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub + event.arguments.transportation_name},
 
                     UpdateExpression: "set #count = list_append( #count ,:val1)",
