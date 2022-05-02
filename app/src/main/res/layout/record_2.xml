@@ -4,16 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout_record_result"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/page8" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <android.widget.Button
+            android:id="@+id/backBtn_record_result"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/backward_arrow"/>
+
+        <TextView
+            android:id="@+id/pagename_record_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/nbold"
+            android:includeFontPadding="false"
+            android:text="@string/title_habitrecord"
+            android:textColor="@color/mainGreen"
+            android:textSize="16sp" />
+    </LinearLayout>
     <Button
         android:id="@+id/buttonN2"
         android:layout_width="wrap_content"

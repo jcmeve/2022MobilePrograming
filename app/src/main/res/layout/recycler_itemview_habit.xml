@@ -16,13 +16,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/radioButton_itemview_habit"
+        <CheckBox
+            android:id="@+id/checkbox_itemview_habit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="12sp" />
-            <!--android:layout_weight="3"-->
+            android:text="CheckBox"
+            android:textSize="16sp"
+            android:fontFamily="@font/nregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/almostBlack"/>
+
+        <!--android:layout_weight="3"-->
 
 <!--추후 아이콘 만들 때 이미지 사이즈 잘 생각하기-->
         <!--<ImageView
