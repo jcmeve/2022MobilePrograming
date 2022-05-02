@@ -27,10 +27,10 @@ exports.handler = async (event, context, callback) => {
                 }
             }
             await ddb.put(params).promise();
-
-
             return true;
+
         case "msAddTransportationData":
+            ddb.get
             return true;
         case "msAddFoodData":
             return true;
