@@ -6,9 +6,9 @@ type User @model @auth(rules: [{ allow: owner }]){
   id: ID! @primaryKey
 
   game_score: GameScore
-  transportation: [UserTransportation] @hasMany
-  food: [UserFood] @hasMany
-  action: [UserAction] @hasMany
+  transportation: [ID!]!
+  food: [ID!]!
+  action: [ID!]!
 
   nickname: String!
   sprout_name: String!
@@ -18,60 +18,57 @@ type User @model @auth(rules: [{ allow: owner }]){
 }
 
 type GameScore {
-  score: [Int]
+  score: [Int]!
 }
 
 type UserTransportation @model @auth(rules: [{ allow: owner }]){
   id: ID! @primaryKey
-  transportation_data_id: ID!
-  data: TransportationData @hasOne(fields:["transportation_data_id"])
+  transportation_name: String!
+  data: TransportationData @hasOne(fields:["transportation_name"])
 
-  count: [Int!]
+  count: [Int!]!
 }
 
 type UserFood @model @auth(rules: [{ allow: owner }]){
   id: ID! @primaryKey
-  food_data_id: ID!
-  data: FoodData @hasOne(fields:["food_data_id"])
+  food_name: String!
+  data: FoodData @hasOne(fields:["food_name"])
 
-  count: [Int!]
+  count: [Int!]!
 }
 
 type UserAction @model @auth(rules: [{ allow: owner }]){
   id: ID! @primaryKey
-  action_data_id: ID!
-  data: ActionData @hasOne(fields:["action_data_id"])
+  action_name: String!
+  data: ActionData @hasOne(fields:["action_name"])
 
-  count: [Int!]
+  count: [Int!]!
 }
 
 
 type TransportationData @model @auth(rules: [{ allow: owner }]){
-  id: ID! @primaryKey
-  name: String!
+  name: String! @primaryKey
   unit: String!
   carbon_per_unit: Int!
 }
 
 type FoodData @model @auth(rules: [{ allow: owner }]){
-  id: ID! @primaryKey
-  name: String!
+  name: String! @primaryKey
   unit: String!
   carbon_per_gram: Int!
   gram_per_unit: Int!
 }
 
 type ActionData @model @auth(rules: [{ allow: owner }]){
-  id: ID! @primaryKey
-  name: String!
+  name: String! @primaryKey
   save_carbon: Int!
 }
 
 type Mutation{
   msCreateUser(  nickname: String,  sprout_name: String,  sprout_exp: Int, carbon_save: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msAddTransportationData(  transportation_data_id: ID,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msAddFoodData(  food_data_id: ID, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
-  msAddActionData(  action_data_id: ID, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+  msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msAddFoodData(  food_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+  msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
 }
 type Query{
   msGetUserInfo:User @function(name: "mysprout034be500-${env}")

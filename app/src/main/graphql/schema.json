@@ -452,14 +452,14 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "NON_NULL",
                                     "name": null,
                                     "ofType": {
                                         "kind": "SCALAR",
-                                        "name": "ID",
+                                        "name": "String",
                                         "ofType": null
                                     }
                                 },
@@ -479,11 +479,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -542,14 +542,14 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "NON_NULL",
                                     "name": null,
                                     "ofType": {
                                         "kind": "SCALAR",
-                                        "name": "ID",
+                                        "name": "String",
                                         "ofType": null
                                     }
                                 },
@@ -569,11 +569,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -632,14 +632,14 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "NON_NULL",
                                     "name": null,
                                     "ofType": {
                                         "kind": "SCALAR",
-                                        "name": "ID",
+                                        "name": "String",
                                         "ofType": null
                                     }
                                 },
@@ -659,11 +659,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "id",
+                                "name": "name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -1093,11 +1093,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_data_id",
+                        "name": "transportation_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -1478,6 +1478,161 @@
             },
             {
                 "kind": "INPUT_OBJECT",
+                "name": "ModelStringInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "ne",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "eq",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "le",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "lt",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "ge",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "gt",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "contains",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "notContains",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "between",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "beginsWith",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "attributeExists",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Boolean",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "attributeType",
+                        "description": null,
+                        "type": {
+                            "kind": "ENUM",
+                            "name": "ModelAttributeTypes",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "size",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelSizeInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "SCALAR",
+                "name": "String",
+                "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
                 "name": "ModelIntInput",
                 "description": null,
                 "fields": null,
@@ -1605,16 +1760,6 @@
                 "possibleTypes": null
             },
             {
-                "kind": "SCALAR",
-                "name": "String",
-                "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
-                "fields": null,
-                "inputFields": null,
-                "interfaces": null,
-                "enumValues": null,
-                "possibleTypes": null
-            },
-            {
                 "kind": "OBJECT",
                 "name": "ModelUserTransportationConnection",
                 "description": null,
@@ -1679,7 +1824,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "transportation_data_id",
+                        "name": "transportation_name",
                         "description": null,
                         "args": [],
                         "type": {
@@ -1687,7 +1832,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -1793,22 +1938,6 @@
                 "name": "TransportationData",
                 "description": null,
                 "fields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "ID",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -1934,11 +2063,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "food_data_id",
+                        "name": "food_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -2071,7 +2200,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "food_data_id",
+                        "name": "food_name",
                         "description": null,
                         "args": [],
                         "type": {
@@ -2079,7 +2208,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -2185,22 +2314,6 @@
                 "name": "FoodData",
                 "description": null,
                 "fields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "ID",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -2332,11 +2445,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "action_data_id",
+                        "name": "action_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -2469,7 +2582,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "action_data_id",
+                        "name": "action_name",
                         "description": null,
                         "args": [],
                         "type": {
@@ -2477,7 +2590,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -2583,22 +2696,6 @@
                 "name": "ActionData",
                 "description": null,
                 "fields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "ID",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -2781,151 +2878,6 @@
                 "possibleTypes": null
             },
             {
-                "kind": "INPUT_OBJECT",
-                "name": "ModelStringInput",
-                "description": null,
-                "fields": null,
-                "inputFields": [
-                    {
-                        "name": "ne",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "eq",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "le",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "lt",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "ge",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "gt",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "contains",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "notContains",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "between",
-                        "description": null,
-                        "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "beginsWith",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "attributeExists",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Boolean",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "attributeType",
-                        "description": null,
-                        "type": {
-                            "kind": "ENUM",
-                            "name": "ModelAttributeTypes",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "size",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelSizeInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    }
-                ],
-                "interfaces": null,
-                "enumValues": null,
-                "possibleTypes": null
-            },
-            {
                 "kind": "OBJECT",
                 "name": "ModelUserConnection",
                 "description": null,
@@ -2974,16 +2926,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -3106,16 +3048,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -3248,16 +3180,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -3427,11 +3349,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "transportation_data_id",
+                                "name": "transportation_name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -3460,11 +3382,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "food_data_id",
+                                "name": "food_name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -3493,11 +3415,11 @@
                         "description": null,
                         "args": [
                             {
-                                "name": "action_data_id",
+                                "name": "action_name",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "ID",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4622,14 +4544,14 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_data_id",
+                        "name": "transportation_name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -4675,11 +4597,11 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "transportation_data_id",
+                        "name": "transportation_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -4768,11 +4690,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_data_id",
+                        "name": "transportation_name",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
-                            "name": "ID",
+                            "name": "String",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -4852,14 +4774,14 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "food_data_id",
+                        "name": "food_name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -4905,11 +4827,11 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "food_data_id",
+                        "name": "food_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -4998,11 +4920,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "food_data_id",
+                        "name": "food_name",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
-                            "name": "ID",
+                            "name": "String",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -5082,14 +5004,14 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "action_data_id",
+                        "name": "action_name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -5135,11 +5057,11 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "action_data_id",
+                        "name": "action_name",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelIDInput",
+                            "name": "ModelStringInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -5228,11 +5150,11 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "action_data_id",
+                        "name": "action_name",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
-                            "name": "ID",
+                            "name": "String",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -5302,16 +5224,6 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "ID",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
                         "name": "name",
                         "description": null,
                         "type": {
@@ -5364,16 +5276,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelStringInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "unit",
                         "description": null,
@@ -5444,26 +5346,16 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         },
                         "defaultValue": null
                     },
@@ -5499,14 +5391,14 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -5523,16 +5415,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "ID",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -5600,16 +5482,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelStringInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "unit",
                         "description": null,
@@ -5690,26 +5562,16 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         },
                         "defaultValue": null
                     },
@@ -5755,14 +5617,14 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },
@@ -5779,16 +5641,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "id",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "ID",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "name",
                         "description": null,
@@ -5828,16 +5680,6 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelStringInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
                     {
                         "name": "save_carbon",
                         "description": null,
@@ -5898,26 +5740,16 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "name",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         },
                         "defaultValue": null
                     },
@@ -5943,14 +5775,14 @@
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "id",
+                        "name": "name",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "ID",
+                                "name": "String",
                                 "ofType": null
                             }
                         },

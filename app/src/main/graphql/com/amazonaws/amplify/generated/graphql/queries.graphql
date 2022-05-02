@@ -8,7 +8,7 @@ query MsGetUserInfo {
     transportation {
       items {
         id
-        transportation_data_id
+        transportation_name
         count
         createdAt
         updatedAt
@@ -20,7 +20,7 @@ query MsGetUserInfo {
     food {
       items {
         id
-        food_data_id
+        food_name
         count
         createdAt
         updatedAt
@@ -32,7 +32,7 @@ query MsGetUserInfo {
     action {
       items {
         id
-        action_data_id
+        action_name
         count
         createdAt
         updatedAt
@@ -55,7 +55,6 @@ query MsGetTotalExp {
 }
 query MsGetTransportationList {
   msGetTransportationList {
-    id
     name
     unit
     carbon_per_unit
@@ -66,7 +65,6 @@ query MsGetTransportationList {
 }
 query MsGetFoodList {
   msGetFoodList {
-    id
     name
     unit
     carbon_per_gram
@@ -78,7 +76,6 @@ query MsGetFoodList {
 }
 query MsGetActionList {
   msGetActionList {
-    id
     name
     save_carbon
     createdAt
@@ -95,7 +92,7 @@ query GetUser($id: ID!) {
     transportation {
       items {
         id
-        transportation_data_id
+        transportation_name
         count
         createdAt
         updatedAt
@@ -107,7 +104,7 @@ query GetUser($id: ID!) {
     food {
       items {
         id
-        food_data_id
+        food_name
         count
         createdAt
         updatedAt
@@ -119,7 +116,7 @@ query GetUser($id: ID!) {
     action {
       items {
         id
-        action_data_id
+        action_name
         count
         createdAt
         updatedAt
@@ -179,9 +176,8 @@ query ListUsers(
 query GetUserTransportation($id: ID!) {
   getUserTransportation(id: $id) {
     id
-    transportation_data_id
+    transportation_name
     data {
-      id
       name
       unit
       carbon_per_unit
@@ -212,9 +208,8 @@ query ListUserTransportations(
   ) {
     items {
       id
-      transportation_data_id
+      transportation_name
       data {
-        id
         name
         unit
         carbon_per_unit
@@ -234,9 +229,8 @@ query ListUserTransportations(
 query GetUserFood($id: ID!) {
   getUserFood(id: $id) {
     id
-    food_data_id
+    food_name
     data {
-      id
       name
       unit
       carbon_per_gram
@@ -268,9 +262,8 @@ query ListUserFoods(
   ) {
     items {
       id
-      food_data_id
+      food_name
       data {
-        id
         name
         unit
         carbon_per_gram
@@ -291,9 +284,8 @@ query ListUserFoods(
 query GetUserAction($id: ID!) {
   getUserAction(id: $id) {
     id
-    action_data_id
+    action_name
     data {
-      id
       name
       save_carbon
       createdAt
@@ -323,9 +315,8 @@ query ListUserActions(
   ) {
     items {
       id
-      action_data_id
+      action_name
       data {
-        id
         name
         save_carbon
         createdAt
@@ -341,9 +332,8 @@ query ListUserActions(
     nextToken
   }
 }
-query GetTransportationData($id: ID!) {
-  getTransportationData(id: $id) {
-    id
+query GetTransportationData($name: String!) {
+  getTransportationData(name: $name) {
     name
     unit
     carbon_per_unit
@@ -353,21 +343,20 @@ query GetTransportationData($id: ID!) {
   }
 }
 query ListTransportationData(
-  $id: ID
+  $name: String
   $filter: ModelTransportationDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listTransportationData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       unit
       carbon_per_unit
@@ -378,9 +367,8 @@ query ListTransportationData(
     nextToken
   }
 }
-query GetFoodData($id: ID!) {
-  getFoodData(id: $id) {
-    id
+query GetFoodData($name: String!) {
+  getFoodData(name: $name) {
     name
     unit
     carbon_per_gram
@@ -391,21 +379,20 @@ query GetFoodData($id: ID!) {
   }
 }
 query ListFoodData(
-  $id: ID
+  $name: String
   $filter: ModelFoodDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listFoodData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       unit
       carbon_per_gram
@@ -417,9 +404,8 @@ query ListFoodData(
     nextToken
   }
 }
-query GetActionData($id: ID!) {
-  getActionData(id: $id) {
-    id
+query GetActionData($name: String!) {
+  getActionData(name: $name) {
     name
     save_carbon
     createdAt
@@ -428,21 +414,20 @@ query GetActionData($id: ID!) {
   }
 }
 query ListActionData(
-  $id: ID
+  $name: String
   $filter: ModelActionDataFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listActionData(
-    id: $id
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
   ) {
     items {
-      id
       name
       save_carbon
       createdAt

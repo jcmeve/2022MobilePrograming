@@ -12,17 +12,17 @@ mutation MsCreateUser(
     carbon_save: $carbon_save
   )
 }
-mutation MsAddTransportationData($transportation_data_id: ID, $count: Int) {
+mutation MsAddTransportationData($transportation_name: String, $count: Int) {
   msAddTransportationData(
-    transportation_data_id: $transportation_data_id
+    transportation_name: $transportation_name
     count: $count
   )
 }
-mutation MsAddFoodData($food_data_id: ID, $count: Int) {
-  msAddFoodData(food_data_id: $food_data_id, count: $count)
+mutation MsAddFoodData($food_name: String, $count: Int) {
+  msAddFoodData(food_name: $food_name, count: $count)
 }
-mutation MsAddActionData($action_data_id: ID, $count: Int) {
-  msAddActionData(action_data_id: $action_data_id, count: $count)
+mutation MsAddActionData($action_name: String, $count: Int) {
+  msAddActionData(action_name: $action_name, count: $count)
 }
 mutation CreateUser(
   $input: CreateUserInput!
@@ -36,7 +36,7 @@ mutation CreateUser(
     transportation {
       items {
         id
-        transportation_data_id
+        transportation_name
         count
         createdAt
         updatedAt
@@ -48,7 +48,7 @@ mutation CreateUser(
     food {
       items {
         id
-        food_data_id
+        food_name
         count
         createdAt
         updatedAt
@@ -60,7 +60,7 @@ mutation CreateUser(
     action {
       items {
         id
-        action_data_id
+        action_name
         count
         createdAt
         updatedAt
@@ -90,7 +90,7 @@ mutation UpdateUser(
     transportation {
       items {
         id
-        transportation_data_id
+        transportation_name
         count
         createdAt
         updatedAt
@@ -102,7 +102,7 @@ mutation UpdateUser(
     food {
       items {
         id
-        food_data_id
+        food_name
         count
         createdAt
         updatedAt
@@ -114,7 +114,7 @@ mutation UpdateUser(
     action {
       items {
         id
-        action_data_id
+        action_name
         count
         createdAt
         updatedAt
@@ -144,7 +144,7 @@ mutation DeleteUser(
     transportation {
       items {
         id
-        transportation_data_id
+        transportation_name
         count
         createdAt
         updatedAt
@@ -156,7 +156,7 @@ mutation DeleteUser(
     food {
       items {
         id
-        food_data_id
+        food_name
         count
         createdAt
         updatedAt
@@ -168,7 +168,7 @@ mutation DeleteUser(
     action {
       items {
         id
-        action_data_id
+        action_name
         count
         createdAt
         updatedAt
@@ -192,9 +192,8 @@ mutation CreateUserTransportation(
 ) {
   createUserTransportation(input: $input, condition: $condition) {
     id
-    transportation_data_id
+    transportation_name
     data {
-      id
       name
       unit
       carbon_per_unit
@@ -215,9 +214,8 @@ mutation UpdateUserTransportation(
 ) {
   updateUserTransportation(input: $input, condition: $condition) {
     id
-    transportation_data_id
+    transportation_name
     data {
-      id
       name
       unit
       carbon_per_unit
@@ -238,9 +236,8 @@ mutation DeleteUserTransportation(
 ) {
   deleteUserTransportation(input: $input, condition: $condition) {
     id
-    transportation_data_id
+    transportation_name
     data {
-      id
       name
       unit
       carbon_per_unit
@@ -261,9 +258,8 @@ mutation CreateUserFood(
 ) {
   createUserFood(input: $input, condition: $condition) {
     id
-    food_data_id
+    food_name
     data {
-      id
       name
       unit
       carbon_per_gram
@@ -285,9 +281,8 @@ mutation UpdateUserFood(
 ) {
   updateUserFood(input: $input, condition: $condition) {
     id
-    food_data_id
+    food_name
     data {
-      id
       name
       unit
       carbon_per_gram
@@ -309,9 +304,8 @@ mutation DeleteUserFood(
 ) {
   deleteUserFood(input: $input, condition: $condition) {
     id
-    food_data_id
+    food_name
     data {
-      id
       name
       unit
       carbon_per_gram
@@ -333,9 +327,8 @@ mutation CreateUserAction(
 ) {
   createUserAction(input: $input, condition: $condition) {
     id
-    action_data_id
+    action_name
     data {
-      id
       name
       save_carbon
       createdAt
@@ -355,9 +348,8 @@ mutation UpdateUserAction(
 ) {
   updateUserAction(input: $input, condition: $condition) {
     id
-    action_data_id
+    action_name
     data {
-      id
       name
       save_carbon
       createdAt
@@ -377,9 +369,8 @@ mutation DeleteUserAction(
 ) {
   deleteUserAction(input: $input, condition: $condition) {
     id
-    action_data_id
+    action_name
     data {
-      id
       name
       save_carbon
       createdAt
@@ -398,7 +389,6 @@ mutation CreateTransportationData(
   $condition: ModelTransportationDataConditionInput
 ) {
   createTransportationData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_unit
@@ -412,7 +402,6 @@ mutation UpdateTransportationData(
   $condition: ModelTransportationDataConditionInput
 ) {
   updateTransportationData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_unit
@@ -426,7 +415,6 @@ mutation DeleteTransportationData(
   $condition: ModelTransportationDataConditionInput
 ) {
   deleteTransportationData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_unit
@@ -440,7 +428,6 @@ mutation CreateFoodData(
   $condition: ModelFoodDataConditionInput
 ) {
   createFoodData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_gram
@@ -455,7 +442,6 @@ mutation UpdateFoodData(
   $condition: ModelFoodDataConditionInput
 ) {
   updateFoodData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_gram
@@ -470,7 +456,6 @@ mutation DeleteFoodData(
   $condition: ModelFoodDataConditionInput
 ) {
   deleteFoodData(input: $input, condition: $condition) {
-    id
     name
     unit
     carbon_per_gram
@@ -485,7 +470,6 @@ mutation CreateActionData(
   $condition: ModelActionDataConditionInput
 ) {
   createActionData(input: $input, condition: $condition) {
-    id
     name
     save_carbon
     createdAt
@@ -498,7 +482,6 @@ mutation UpdateActionData(
   $condition: ModelActionDataConditionInput
 ) {
   updateActionData(input: $input, condition: $condition) {
-    id
     name
     save_carbon
     createdAt
@@ -511,7 +494,6 @@ mutation DeleteActionData(
   $condition: ModelActionDataConditionInput
 ) {
   deleteActionData(input: $input, condition: $condition) {
-    id
     name
     save_carbon
     createdAt
