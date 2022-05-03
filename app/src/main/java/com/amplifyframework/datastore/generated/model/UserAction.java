@@ -28,22 +28,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @Index(name = "undefined", fields = {"id"})
 public final class UserAction implements Model {
   public static final QueryField ID = field("UserAction", "id");
-  public static final QueryField ACTION_DATA_ID = field("UserAction", "action_data_id");
+  public static final QueryField ACTION_NAME = field("UserAction", "action_name");
   public static final QueryField COUNT = field("UserAction", "count");
-  public static final QueryField USER_ACTION_ID = field("UserAction", "userActionId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID", isRequired = true) String action_data_id;
-  private final @ModelField(targetType="ActionData") @HasOne(associatedWith = "id", type = ActionData.class) ActionData data = null;
-  private final @ModelField(targetType="Int") List<Integer> count;
+  private final @ModelField(targetType="String", isRequired = true) String action_name;
+  private final @ModelField(targetType="ActionData") @HasOne(associatedWith = "name", type = ActionData.class) ActionData data = null;
+  private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
-  private final @ModelField(targetType="ID") String userActionId;
   public String getId() {
       return id;
   }
   
-  public String getActionDataId() {
-      return action_data_id;
+  public String getActionName() {
+      return action_name;
   }
   
   public ActionData getData() {
@@ -62,15 +60,10 @@ public final class UserAction implements Model {
       return updatedAt;
   }
   
-  public String getUserActionId() {
-      return userActionId;
-  }
-  
-  private UserAction(String id, String action_data_id, List<Integer> count, String userActionId) {
+  private UserAction(String id, String action_name, List<Integer> count) {
     this.id = id;
-    this.action_data_id = action_data_id;
+    this.action_name = action_name;
     this.count = count;
-    this.userActionId = userActionId;
   }
   
   @Override
@@ -82,11 +75,10 @@ public final class UserAction implements Model {
       } else {
       UserAction userAction = (UserAction) obj;
       return ObjectsCompat.equals(getId(), userAction.getId()) &&
-              ObjectsCompat.equals(getActionDataId(), userAction.getActionDataId()) &&
+              ObjectsCompat.equals(getActionName(), userAction.getActionName()) &&
               ObjectsCompat.equals(getCount(), userAction.getCount()) &&
               ObjectsCompat.equals(getCreatedAt(), userAction.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), userAction.getUpdatedAt()) &&
-              ObjectsCompat.equals(getUserActionId(), userAction.getUserActionId());
+              ObjectsCompat.equals(getUpdatedAt(), userAction.getUpdatedAt());
       }
   }
   
@@ -94,11 +86,10 @@ public final class UserAction implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getActionDataId())
+      .append(getActionName())
       .append(getCount())
       .append(getCreatedAt())
       .append(getUpdatedAt())
-      .append(getUserActionId())
       .toString()
       .hashCode();
   }
@@ -108,16 +99,15 @@ public final class UserAction implements Model {
     return new StringBuilder()
       .append("UserAction {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("action_data_id=" + String.valueOf(getActionDataId()) + ", ")
+      .append("action_name=" + String.valueOf(getActionName()) + ", ")
       .append("count=" + String.valueOf(getCount()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
-      .append("updatedAt=" + String.valueOf(getUpdatedAt()) + ", ")
-      .append("userActionId=" + String.valueOf(getUserActionId()))
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static ActionDataIdStep builder() {
+  public static ActionNameStep builder() {
       return new Builder();
   }
   
@@ -133,62 +123,56 @@ public final class UserAction implements Model {
     return new UserAction(
       id,
       null,
-      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      action_data_id,
-      count,
-      userActionId);
+      action_name,
+      count);
   }
-  public interface ActionDataIdStep {
-    BuildStep actionDataId(String actionDataId);
+  public interface ActionNameStep {
+    CountStep actionName(String actionName);
+  }
+  
+
+  public interface CountStep {
+    BuildStep count(List<Integer> count);
   }
   
 
   public interface BuildStep {
     UserAction build();
     BuildStep id(String id);
-    BuildStep count(List<Integer> count);
-    BuildStep userActionId(String userActionId);
   }
   
 
-  public static class Builder implements ActionDataIdStep, BuildStep {
+  public static class Builder implements ActionNameStep, CountStep, BuildStep {
     private String id;
-    private String action_data_id;
+    private String action_name;
     private List<Integer> count;
-    private String userActionId;
     @Override
      public UserAction build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
         return new UserAction(
           id,
-          action_data_id,
-          count,
-          userActionId);
+          action_name,
+          count);
     }
     
     @Override
-     public BuildStep actionDataId(String actionDataId) {
-        Objects.requireNonNull(actionDataId);
-        this.action_data_id = actionDataId;
+     public CountStep actionName(String actionName) {
+        Objects.requireNonNull(actionName);
+        this.action_name = actionName;
         return this;
     }
     
     @Override
      public BuildStep count(List<Integer> count) {
+        Objects.requireNonNull(count);
         this.count = count;
-        return this;
-    }
-    
-    @Override
-     public BuildStep userActionId(String userActionId) {
-        this.userActionId = userActionId;
         return this;
     }
     
@@ -204,26 +188,20 @@ public final class UserAction implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String actionDataId, List<Integer> count, String userActionId) {
+    private CopyOfBuilder(String id, String actionName, List<Integer> count) {
       super.id(id);
-      super.actionDataId(actionDataId)
-        .count(count)
-        .userActionId(userActionId);
+      super.actionName(actionName)
+        .count(count);
     }
     
     @Override
-     public CopyOfBuilder actionDataId(String actionDataId) {
-      return (CopyOfBuilder) super.actionDataId(actionDataId);
+     public CopyOfBuilder actionName(String actionName) {
+      return (CopyOfBuilder) super.actionName(actionName);
     }
     
     @Override
      public CopyOfBuilder count(List<Integer> count) {
       return (CopyOfBuilder) super.count(count);
-    }
-    
-    @Override
-     public CopyOfBuilder userActionId(String userActionId) {
-      return (CopyOfBuilder) super.userActionId(userActionId);
     }
   }
   

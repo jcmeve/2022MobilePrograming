@@ -24,7 +24,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @ModelConfig(pluralName = "TransportationData", authRules = {
   @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
-@Index(name = "undefined", fields = {"id"})
+@Index(name = "undefined", fields = {"name"})
 public final class TransportationData implements Model {
   public static final QueryField ID = field("TransportationData", "id");
   public static final QueryField NAME = field("TransportationData", "name");

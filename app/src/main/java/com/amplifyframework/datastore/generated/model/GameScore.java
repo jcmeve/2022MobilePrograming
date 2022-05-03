@@ -44,13 +44,17 @@ public final class GameScore {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(score);
   }
-  public interface BuildStep {
-    GameScore build();
+  public interface ScoreStep {
     BuildStep score(List<Integer> score);
   }
   
 
-  public static class Builder implements BuildStep {
+  public interface BuildStep {
+    GameScore build();
+  }
+  
+
+  public static class Builder implements ScoreStep, BuildStep {
     private List<Integer> score;
     @Override
      public GameScore build() {
@@ -61,6 +65,7 @@ public final class GameScore {
     
     @Override
      public BuildStep score(List<Integer> score) {
+        Objects.requireNonNull(score);
         this.score = score;
         return this;
     }

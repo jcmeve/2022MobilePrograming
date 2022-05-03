@@ -28,22 +28,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @Index(name = "undefined", fields = {"id"})
 public final class UserTransportation implements Model {
   public static final QueryField ID = field("UserTransportation", "id");
-  public static final QueryField TRANSPORTATION_DATA_ID = field("UserTransportation", "transportation_data_id");
+  public static final QueryField TRANSPORTATION_NAME = field("UserTransportation", "transportation_name");
   public static final QueryField COUNT = field("UserTransportation", "count");
-  public static final QueryField USER_TRANSPORTATION_ID = field("UserTransportation", "userTransportationId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID", isRequired = true) String transportation_data_id;
-  private final @ModelField(targetType="TransportationData") @HasOne(associatedWith = "id", type = TransportationData.class) TransportationData data = null;
-  private final @ModelField(targetType="Int") List<Integer> count;
+  private final @ModelField(targetType="String", isRequired = true) String transportation_name;
+  private final @ModelField(targetType="TransportationData") @HasOne(associatedWith = "name", type = TransportationData.class) TransportationData data = null;
+  private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
-  private final @ModelField(targetType="ID") String userTransportationId;
   public String getId() {
       return id;
   }
   
-  public String getTransportationDataId() {
-      return transportation_data_id;
+  public String getTransportationName() {
+      return transportation_name;
   }
   
   public TransportationData getData() {
@@ -62,15 +60,10 @@ public final class UserTransportation implements Model {
       return updatedAt;
   }
   
-  public String getUserTransportationId() {
-      return userTransportationId;
-  }
-  
-  private UserTransportation(String id, String transportation_data_id, List<Integer> count, String userTransportationId) {
+  private UserTransportation(String id, String transportation_name, List<Integer> count) {
     this.id = id;
-    this.transportation_data_id = transportation_data_id;
+    this.transportation_name = transportation_name;
     this.count = count;
-    this.userTransportationId = userTransportationId;
   }
   
   @Override
@@ -82,11 +75,10 @@ public final class UserTransportation implements Model {
       } else {
       UserTransportation userTransportation = (UserTransportation) obj;
       return ObjectsCompat.equals(getId(), userTransportation.getId()) &&
-              ObjectsCompat.equals(getTransportationDataId(), userTransportation.getTransportationDataId()) &&
+              ObjectsCompat.equals(getTransportationName(), userTransportation.getTransportationName()) &&
               ObjectsCompat.equals(getCount(), userTransportation.getCount()) &&
               ObjectsCompat.equals(getCreatedAt(), userTransportation.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), userTransportation.getUpdatedAt()) &&
-              ObjectsCompat.equals(getUserTransportationId(), userTransportation.getUserTransportationId());
+              ObjectsCompat.equals(getUpdatedAt(), userTransportation.getUpdatedAt());
       }
   }
   
@@ -94,11 +86,10 @@ public final class UserTransportation implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getTransportationDataId())
+      .append(getTransportationName())
       .append(getCount())
       .append(getCreatedAt())
       .append(getUpdatedAt())
-      .append(getUserTransportationId())
       .toString()
       .hashCode();
   }
@@ -108,16 +99,15 @@ public final class UserTransportation implements Model {
     return new StringBuilder()
       .append("UserTransportation {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("transportation_data_id=" + String.valueOf(getTransportationDataId()) + ", ")
+      .append("transportation_name=" + String.valueOf(getTransportationName()) + ", ")
       .append("count=" + String.valueOf(getCount()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
-      .append("updatedAt=" + String.valueOf(getUpdatedAt()) + ", ")
-      .append("userTransportationId=" + String.valueOf(getUserTransportationId()))
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static TransportationDataIdStep builder() {
+  public static TransportationNameStep builder() {
       return new Builder();
   }
   
@@ -133,62 +123,56 @@ public final class UserTransportation implements Model {
     return new UserTransportation(
       id,
       null,
-      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      transportation_data_id,
-      count,
-      userTransportationId);
+      transportation_name,
+      count);
   }
-  public interface TransportationDataIdStep {
-    BuildStep transportationDataId(String transportationDataId);
+  public interface TransportationNameStep {
+    CountStep transportationName(String transportationName);
+  }
+  
+
+  public interface CountStep {
+    BuildStep count(List<Integer> count);
   }
   
 
   public interface BuildStep {
     UserTransportation build();
     BuildStep id(String id);
-    BuildStep count(List<Integer> count);
-    BuildStep userTransportationId(String userTransportationId);
   }
   
 
-  public static class Builder implements TransportationDataIdStep, BuildStep {
+  public static class Builder implements TransportationNameStep, CountStep, BuildStep {
     private String id;
-    private String transportation_data_id;
+    private String transportation_name;
     private List<Integer> count;
-    private String userTransportationId;
     @Override
      public UserTransportation build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
         return new UserTransportation(
           id,
-          transportation_data_id,
-          count,
-          userTransportationId);
+          transportation_name,
+          count);
     }
     
     @Override
-     public BuildStep transportationDataId(String transportationDataId) {
-        Objects.requireNonNull(transportationDataId);
-        this.transportation_data_id = transportationDataId;
+     public CountStep transportationName(String transportationName) {
+        Objects.requireNonNull(transportationName);
+        this.transportation_name = transportationName;
         return this;
     }
     
     @Override
      public BuildStep count(List<Integer> count) {
+        Objects.requireNonNull(count);
         this.count = count;
-        return this;
-    }
-    
-    @Override
-     public BuildStep userTransportationId(String userTransportationId) {
-        this.userTransportationId = userTransportationId;
         return this;
     }
     
@@ -204,26 +188,20 @@ public final class UserTransportation implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String transportationDataId, List<Integer> count, String userTransportationId) {
+    private CopyOfBuilder(String id, String transportationName, List<Integer> count) {
       super.id(id);
-      super.transportationDataId(transportationDataId)
-        .count(count)
-        .userTransportationId(userTransportationId);
+      super.transportationName(transportationName)
+        .count(count);
     }
     
     @Override
-     public CopyOfBuilder transportationDataId(String transportationDataId) {
-      return (CopyOfBuilder) super.transportationDataId(transportationDataId);
+     public CopyOfBuilder transportationName(String transportationName) {
+      return (CopyOfBuilder) super.transportationName(transportationName);
     }
     
     @Override
      public CopyOfBuilder count(List<Integer> count) {
       return (CopyOfBuilder) super.count(count);
-    }
-    
-    @Override
-     public CopyOfBuilder userTransportationId(String userTransportationId) {
-      return (CopyOfBuilder) super.userTransportationId(userTransportationId);
     }
   }
   

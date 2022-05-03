@@ -1,6 +1,5 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
@@ -29,17 +28,18 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 public final class User implements Model {
   public static final QueryField ID = field("User", "id");
   public static final QueryField GAME_SCORE = field("User", "game_score");
-  public static final QueryField EMAIL = field("User", "email");
+  public static final QueryField TRANSPORTATION = field("User", "transportation");
+  public static final QueryField FOOD = field("User", "food");
+  public static final QueryField ACTION = field("User", "action");
   public static final QueryField NICKNAME = field("User", "nickname");
   public static final QueryField SPROUT_NAME = field("User", "sprout_name");
   public static final QueryField SPROUT_EXP = field("User", "sprout_exp");
   public static final QueryField CARBON_SAVE = field("User", "carbon_save");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="GameScore") GameScore game_score;
-  private final @ModelField(targetType="UserTransportation") @HasMany(associatedWith = "userTransportationId", type = UserTransportation.class) List<UserTransportation> transportation = null;
-  private final @ModelField(targetType="UserFood") @HasMany(associatedWith = "userFoodId", type = UserFood.class) List<UserFood> food = null;
-  private final @ModelField(targetType="UserAction") @HasMany(associatedWith = "userActionId", type = UserAction.class) List<UserAction> action = null;
-  private final @ModelField(targetType="AWSEmail", isRequired = true) String email;
+  private final @ModelField(targetType="ID", isRequired = true) List<String> transportation;
+  private final @ModelField(targetType="ID", isRequired = true) List<String> food;
+  private final @ModelField(targetType="ID", isRequired = true) List<String> action;
   private final @ModelField(targetType="String", isRequired = true) String nickname;
   private final @ModelField(targetType="String", isRequired = true) String sprout_name;
   private final @ModelField(targetType="Int", isRequired = true) Integer sprout_exp;
@@ -54,20 +54,16 @@ public final class User implements Model {
       return game_score;
   }
   
-  public List<UserTransportation> getTransportation() {
+  public List<String> getTransportation() {
       return transportation;
   }
   
-  public List<UserFood> getFood() {
+  public List<String> getFood() {
       return food;
   }
   
-  public List<UserAction> getAction() {
+  public List<String> getAction() {
       return action;
-  }
-  
-  public String getEmail() {
-      return email;
   }
   
   public String getNickname() {
@@ -94,10 +90,12 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, GameScore game_score, String email, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save) {
+  private User(String id, GameScore game_score, List<String> transportation, List<String> food, List<String> action, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save) {
     this.id = id;
     this.game_score = game_score;
-    this.email = email;
+    this.transportation = transportation;
+    this.food = food;
+    this.action = action;
     this.nickname = nickname;
     this.sprout_name = sprout_name;
     this.sprout_exp = sprout_exp;
@@ -114,7 +112,9 @@ public final class User implements Model {
       User user = (User) obj;
       return ObjectsCompat.equals(getId(), user.getId()) &&
               ObjectsCompat.equals(getGameScore(), user.getGameScore()) &&
-              ObjectsCompat.equals(getEmail(), user.getEmail()) &&
+              ObjectsCompat.equals(getTransportation(), user.getTransportation()) &&
+              ObjectsCompat.equals(getFood(), user.getFood()) &&
+              ObjectsCompat.equals(getAction(), user.getAction()) &&
               ObjectsCompat.equals(getNickname(), user.getNickname()) &&
               ObjectsCompat.equals(getSproutName(), user.getSproutName()) &&
               ObjectsCompat.equals(getSproutExp(), user.getSproutExp()) &&
@@ -129,7 +129,9 @@ public final class User implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getGameScore())
-      .append(getEmail())
+      .append(getTransportation())
+      .append(getFood())
+      .append(getAction())
       .append(getNickname())
       .append(getSproutName())
       .append(getSproutExp())
@@ -146,7 +148,9 @@ public final class User implements Model {
       .append("User {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("game_score=" + String.valueOf(getGameScore()) + ", ")
-      .append("email=" + String.valueOf(getEmail()) + ", ")
+      .append("transportation=" + String.valueOf(getTransportation()) + ", ")
+      .append("food=" + String.valueOf(getFood()) + ", ")
+      .append("action=" + String.valueOf(getAction()) + ", ")
       .append("nickname=" + String.valueOf(getNickname()) + ", ")
       .append("sprout_name=" + String.valueOf(getSproutName()) + ", ")
       .append("sprout_exp=" + String.valueOf(getSproutExp()) + ", ")
@@ -157,7 +161,7 @@ public final class User implements Model {
       .toString();
   }
   
-  public static EmailStep builder() {
+  public static TransportationStep builder() {
       return new Builder();
   }
   
@@ -177,6 +181,8 @@ public final class User implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -184,14 +190,26 @@ public final class User implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       game_score,
-      email,
+      transportation,
+      food,
+      action,
       nickname,
       sprout_name,
       sprout_exp,
       carbon_save);
   }
-  public interface EmailStep {
-    NicknameStep email(String email);
+  public interface TransportationStep {
+    FoodStep transportation(List<String> transportation);
+  }
+  
+
+  public interface FoodStep {
+    ActionStep food(List<String> food);
+  }
+  
+
+  public interface ActionStep {
+    NicknameStep action(List<String> action);
   }
   
 
@@ -222,9 +240,11 @@ public final class User implements Model {
   }
   
 
-  public static class Builder implements EmailStep, NicknameStep, SproutNameStep, SproutExpStep, CarbonSaveStep, BuildStep {
+  public static class Builder implements TransportationStep, FoodStep, ActionStep, NicknameStep, SproutNameStep, SproutExpStep, CarbonSaveStep, BuildStep {
     private String id;
-    private String email;
+    private List<String> transportation;
+    private List<String> food;
+    private List<String> action;
     private String nickname;
     private String sprout_name;
     private Integer sprout_exp;
@@ -237,7 +257,9 @@ public final class User implements Model {
         return new User(
           id,
           game_score,
-          email,
+          transportation,
+          food,
+          action,
           nickname,
           sprout_name,
           sprout_exp,
@@ -245,9 +267,23 @@ public final class User implements Model {
     }
     
     @Override
-     public NicknameStep email(String email) {
-        Objects.requireNonNull(email);
-        this.email = email;
+     public FoodStep transportation(List<String> transportation) {
+        Objects.requireNonNull(transportation);
+        this.transportation = transportation;
+        return this;
+    }
+    
+    @Override
+     public ActionStep food(List<String> food) {
+        Objects.requireNonNull(food);
+        this.food = food;
+        return this;
+    }
+    
+    @Override
+     public NicknameStep action(List<String> action) {
+        Objects.requireNonNull(action);
+        this.action = action;
         return this;
     }
     
@@ -297,9 +333,11 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, GameScore gameScore, String email, String nickname, String sproutName, Integer sproutExp, Integer carbonSave) {
+    private CopyOfBuilder(String id, GameScore gameScore, List<String> transportation, List<String> food, List<String> action, String nickname, String sproutName, Integer sproutExp, Integer carbonSave) {
       super.id(id);
-      super.email(email)
+      super.transportation(transportation)
+        .food(food)
+        .action(action)
         .nickname(nickname)
         .sproutName(sproutName)
         .sproutExp(sproutExp)
@@ -308,8 +346,18 @@ public final class User implements Model {
     }
     
     @Override
-     public CopyOfBuilder email(String email) {
-      return (CopyOfBuilder) super.email(email);
+     public CopyOfBuilder transportation(List<String> transportation) {
+      return (CopyOfBuilder) super.transportation(transportation);
+    }
+    
+    @Override
+     public CopyOfBuilder food(List<String> food) {
+      return (CopyOfBuilder) super.food(food);
+    }
+    
+    @Override
+     public CopyOfBuilder action(List<String> action) {
+      return (CopyOfBuilder) super.action(action);
     }
     
     @Override
