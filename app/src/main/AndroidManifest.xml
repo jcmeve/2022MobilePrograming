@@ -33,10 +33,10 @@
         <activity android:name=".userinformation_3"/>
         <activity android:name=".sprout"/>
         <activity android:name=".sprout2"/>
-        <activity android:name=".record_1"/>
-        <activity android:name=".record_2"/>
+        <activity android:name=".RecordHabits"/>
+        <activity android:name=".RecordComplete"/>
         <activity android:name=".record_3"/>
-        <activity android:name=".record_food_1"/>
+        <activity android:name=".RecordFood"/>
         <activity android:name=".record_food_2"/>
         <activity android:name=".record_food_3"/>
         <activity android:name=".record_food_4"/>

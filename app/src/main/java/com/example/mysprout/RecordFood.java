@@ -1,18 +1,9 @@
 package com.example.mysprout;
 
-import android.app.Application;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,9 +18,8 @@ import com.example.mysprout.recycler.RecyclerCustomAdapterFood;
 import com.example.mysprout.recycler.RecyclerItemFood;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class record_food_1 extends AppCompatActivity implements RecyclerCustomAdapterFood.OnItemListener {
+public class RecordFood extends AppCompatActivity implements RecyclerCustomAdapterFood.OnItemListener {
 
     Button bottomsheet;
     private RecyclerCustomAdapterFood adapter;
@@ -37,7 +27,7 @@ public class record_food_1 extends AppCompatActivity implements RecyclerCustomAd
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_food_1);
+        setContentView(R.layout.record_food);
         SearchView searchView = findViewById(R.id.searchView);
 
         setUpRecyclerView();
@@ -54,12 +44,6 @@ public class record_food_1 extends AppCompatActivity implements RecyclerCustomAd
                 adapter.getFilter().filter(newText);
                 return true;
             }
-        });
-
-        //음식 이름 적힌 텍스트뷰 누르면 아래에서 다이얼로그 팝업(현재 임시 버튼으로 동작)
-        bottomsheet = findViewById(R.id.tempbutton_bottomtest);
-        bottomsheet.setOnClickListener(v->{
-            howMuchEat(v, "쌀밥", 500.0f);
         });
     }
 
@@ -105,19 +89,20 @@ public class record_food_1 extends AppCompatActivity implements RecyclerCustomAd
     }
 
     public void howMuchEat(View view, String foodName, float carbonEmiss){
-        BottomSheetDialogFoodRecord bottomFragment = new BottomSheetDialogFoodRecord();
+        BottomSheetDialogFoodRecord bottomFragment = BottomSheetDialogFoodRecord.newInstance(foodName, carbonEmiss);
         
-        Bundle bundle = new Bundle(2);
+        /*Bundle bundle = new Bundle(2);
         bundle.putString("foodname", foodName); //각 아이템의 foodname 들어감
         bundle.putFloat("carbonemiss", carbonEmiss); //각 아이템의 1인분 당 탄소 배출량
 
-        bottomFragment.setArguments(bundle);
+        bottomFragment.setArguments(bundle);*/
         bottomFragment.show(getSupportFragmentManager(), "bottomSheetDialog");
+        //Objects.requireNonNull(bottomFragment.getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     public void onClickfN1(View v) {
         ConstraintLayout container = findViewById(R.id.container);
-        Intent intent = new Intent(getApplicationContext(), record_food_2.class);
+        Intent intent = new Intent(getApplicationContext(), RecordComplete.class);
         startActivity(intent);
     }
 

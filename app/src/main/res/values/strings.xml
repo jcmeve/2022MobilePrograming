@@ -41,12 +41,15 @@
     <string name="const_guide">오늘의 절약량</string>
     <string name="const_unit">CO2eg</string>
 
-    <!--습관 입력-->
+    <!--습관 기록-->
     <string name="title_habitrecord">습관 기록</string>
     <string name="elec">전기 사용 부문</string>
     <string name="trans">교통 이용 부문</string>
     <string name="res">자원 사용 부문</string>
     <string name="habits">-</string>
+
+    <!--식단 기록-->
+    <string name="title_foodrecord">식단 기록</string>
 
     <!--기록 팝업 메뉴-->
     <string name="popup_habit">습관 기록</string>

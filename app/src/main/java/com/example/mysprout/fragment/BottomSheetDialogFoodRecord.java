@@ -1,8 +1,7 @@
 package com.example.mysprout.fragment;
 
-import android.app.AlertDialog;
-import android.app.Application;
-import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mysprout.R;
-import com.example.mysprout.record_food_1;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 //식단 기록, 인분, 그램수 정하는 프래그먼트
@@ -26,10 +23,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * create an instance of this fragment.
  */
 public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
-    /* TODO: Rename parameter arguments, choose names that match
+    //TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";*/
+    private static final String ARG_FOODNAME = "foodname";
+    private static final String ARG_CARBON = "carbonemiss";
 
     // TODO: Rename and change types of parameters
     private String foodName; //음식 이름
@@ -43,7 +40,7 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         // Required empty public constructor
     }
 
-    /**
+    /*/**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
@@ -52,9 +49,11 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
      * @return A new instance of fragment BottomSheetDialogFoodRecord.
      */
     // TODO: Rename and change types and number of parameters
-    public static BottomSheetDialogFoodRecord newInstance(String param1, String param2) {
+    public static BottomSheetDialogFoodRecord newInstance(String foodName, float carbonEmiss) {
         BottomSheetDialogFoodRecord fragment = new BottomSheetDialogFoodRecord();
         Bundle args = new Bundle();
+        args.putString(ARG_FOODNAME, foodName);
+        args.putFloat(ARG_CARBON, carbonEmiss);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +68,8 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
                                Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.bottomsheetlayout_foodrecord, container, false);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운드 둥글게 만들려고 하는데 안 돌아감
+
 
         //추가 버튼
         view.findViewById(R.id.addbtn_food).setOnClickListener(v-> {
@@ -83,8 +84,8 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         NumberPicker numberPicker = view.findViewById(R.id.numberpicker_oneserving);
 
         assert getArguments() != null;
-        foodName = getArguments().getString("foodname"); //선택한 음식 이름 뜨도록
-        carbonEmiss = getArguments().getFloat("carbonemiss"); //선택한 음식, 1인분 당 탄소 배출량 뜨도록
+        foodName = getArguments().getString(ARG_FOODNAME); //선택한 음식 이름 뜨도록
+        carbonEmiss = getArguments().getFloat(ARG_CARBON); //선택한 음식, 1인분 당 탄소 배출량 뜨도록
         minValue = 1; //항상 1인분이 최소
         maxValue = 50; //항상 50인분이 최대
         step = 1; //항상 1칸씩 움직임

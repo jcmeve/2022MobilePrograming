@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout_record_result"
+        android:id="@+id/linearLayout_record1_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -17,14 +18,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.widget.Button
-            android:id="@+id/backBtn_record_result"
+            android:id="@+id/backBtn_recordhabit"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/backward_arrow"/>
+            android:background="@drawable/backward_arrow"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/pagename_record_result"
+            android:id="@+id/pagename_recordhabit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -34,16 +36,30 @@
             android:textColor="@color/mainGreen"
             android:textSize="16sp" />
     </LinearLayout>
-    <Button
-        android:id="@+id/buttonN2"
-        android:layout_width="wrap_content"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_habit"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/habitlistrec"
+        app:layout_constraintBottom_toTopOf="@+id/nextbtn_habit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/nextbtn_habit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickN2"
-        android:text="다음"
+        android:background="@drawable/fullbtn"
+        android:fontFamily="@font/nbold"
+        android:includeFontPadding="false"
+        android:onClick="onClickN1"
+        android:text="@string/nextbtn"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
