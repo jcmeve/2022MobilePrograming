@@ -80,18 +80,24 @@ exports.handler = async (event, context, callback) => {
                     TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub},
 
-                    UpdateExpression: "set transportation =  list_append( transportation, :val1)",
+                    UpdateExpression: "set #transportation =  list_append( #transportation, :val1)",
+                    ExpressionAttributeNames:{
+                        "#transportation" : "transportation",
+                    },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.transportation_name],
                     }
                 }
-                await ddb.update(params2, function(err, data) {
+                console.log([event.arguments.transportation_name]);
+                ddb.update(params2, function(err, data) {
                     if (err) {
                         console.log("Error", err);
                     } else {
                         console.log("Success", data);
                     }
-                }).promise();
+                });
+
+
             }else{//이동수단을 사용한 적이 있는 경우
                 //이동수단 사용량 기록
                 const params = {
@@ -117,7 +123,7 @@ exports.handler = async (event, context, callback) => {
             }
 
             const carbon = event.arguments.count * trans.Item.carbon_per_unit;
-            await addCarbonSave(event.identity.sub, carbon);
+            addCarbonSave(event.identity.sub, carbon);
 
 
             return true;
@@ -174,13 +180,13 @@ exports.handler = async (event, context, callback) => {
                         ":val1" : [event.arguments.food_name],
                     }
                 }
-                await ddb.update(params2, function(err, data) {
+                ddb.update(params2, function(err, data) {
                     if (err) {
                         console.log("Error", err);
                     } else {
                         console.log("Success", data);
                     }
-                }).promise();
+                });
             }else{//음식을 사용한 적이 있는 경우
                 //음식 사용량 기록
                 const params = {
@@ -261,13 +267,13 @@ exports.handler = async (event, context, callback) => {
                         ":val1" : [event.arguments.action_name],
                     }
                 }
-                await ddb.update(params2, function(err, data) {
+                ddb.update(params2, function(err, data) {
                     if (err) {
                         console.log("Error", err);
                     } else {
                         console.log("Success", data);
                     }
-                }).promise();
+                });
             }else{//액션을 사용한 적이 있는 경우
                 //액션 사용량 기록
                 const params = {
@@ -334,7 +340,6 @@ async function getUser(id){
         else console.log(data);
     }).promise();
 
-    console.log(user);
     return user;
 
 }
@@ -350,12 +355,12 @@ async function addCarbonSave(id, value){
             ":val1" : value,
         }
     }
-    await ddb.update(params2, function(err, data) {
+    ddb.update(params2, function(err, data) {
         if (err) {
             console.log("Error", err);
         } else {
             console.log("Success", data);
         }
-    }).promise();
+    });
 
 }
