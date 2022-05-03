@@ -28,22 +28,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @Index(name = "undefined", fields = {"id"})
 public final class UserFood implements Model {
   public static final QueryField ID = field("UserFood", "id");
-  public static final QueryField FOOD_DATA_ID = field("UserFood", "food_data_id");
+  public static final QueryField FOOD_NAME = field("UserFood", "food_name");
   public static final QueryField COUNT = field("UserFood", "count");
-  public static final QueryField USER_FOOD_ID = field("UserFood", "userFoodId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID", isRequired = true) String food_data_id;
-  private final @ModelField(targetType="FoodData") @HasOne(associatedWith = "id", type = FoodData.class) FoodData data = null;
-  private final @ModelField(targetType="Int") List<Integer> count;
+  private final @ModelField(targetType="String", isRequired = true) String food_name;
+  private final @ModelField(targetType="FoodData") @HasOne(associatedWith = "name", type = FoodData.class) FoodData data = null;
+  private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
-  private final @ModelField(targetType="ID") String userFoodId;
   public String getId() {
       return id;
   }
   
-  public String getFoodDataId() {
-      return food_data_id;
+  public String getFoodName() {
+      return food_name;
   }
   
   public FoodData getData() {
@@ -62,15 +60,10 @@ public final class UserFood implements Model {
       return updatedAt;
   }
   
-  public String getUserFoodId() {
-      return userFoodId;
-  }
-  
-  private UserFood(String id, String food_data_id, List<Integer> count, String userFoodId) {
+  private UserFood(String id, String food_name, List<Integer> count) {
     this.id = id;
-    this.food_data_id = food_data_id;
+    this.food_name = food_name;
     this.count = count;
-    this.userFoodId = userFoodId;
   }
   
   @Override
@@ -82,11 +75,10 @@ public final class UserFood implements Model {
       } else {
       UserFood userFood = (UserFood) obj;
       return ObjectsCompat.equals(getId(), userFood.getId()) &&
-              ObjectsCompat.equals(getFoodDataId(), userFood.getFoodDataId()) &&
+              ObjectsCompat.equals(getFoodName(), userFood.getFoodName()) &&
               ObjectsCompat.equals(getCount(), userFood.getCount()) &&
               ObjectsCompat.equals(getCreatedAt(), userFood.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), userFood.getUpdatedAt()) &&
-              ObjectsCompat.equals(getUserFoodId(), userFood.getUserFoodId());
+              ObjectsCompat.equals(getUpdatedAt(), userFood.getUpdatedAt());
       }
   }
   
@@ -94,11 +86,10 @@ public final class UserFood implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getFoodDataId())
+      .append(getFoodName())
       .append(getCount())
       .append(getCreatedAt())
       .append(getUpdatedAt())
-      .append(getUserFoodId())
       .toString()
       .hashCode();
   }
@@ -108,16 +99,15 @@ public final class UserFood implements Model {
     return new StringBuilder()
       .append("UserFood {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("food_data_id=" + String.valueOf(getFoodDataId()) + ", ")
+      .append("food_name=" + String.valueOf(getFoodName()) + ", ")
       .append("count=" + String.valueOf(getCount()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
-      .append("updatedAt=" + String.valueOf(getUpdatedAt()) + ", ")
-      .append("userFoodId=" + String.valueOf(getUserFoodId()))
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static FoodDataIdStep builder() {
+  public static FoodNameStep builder() {
       return new Builder();
   }
   
@@ -133,62 +123,56 @@ public final class UserFood implements Model {
     return new UserFood(
       id,
       null,
-      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      food_data_id,
-      count,
-      userFoodId);
+      food_name,
+      count);
   }
-  public interface FoodDataIdStep {
-    BuildStep foodDataId(String foodDataId);
+  public interface FoodNameStep {
+    CountStep foodName(String foodName);
+  }
+  
+
+  public interface CountStep {
+    BuildStep count(List<Integer> count);
   }
   
 
   public interface BuildStep {
     UserFood build();
     BuildStep id(String id);
-    BuildStep count(List<Integer> count);
-    BuildStep userFoodId(String userFoodId);
   }
   
 
-  public static class Builder implements FoodDataIdStep, BuildStep {
+  public static class Builder implements FoodNameStep, CountStep, BuildStep {
     private String id;
-    private String food_data_id;
+    private String food_name;
     private List<Integer> count;
-    private String userFoodId;
     @Override
      public UserFood build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
         return new UserFood(
           id,
-          food_data_id,
-          count,
-          userFoodId);
+          food_name,
+          count);
     }
     
     @Override
-     public BuildStep foodDataId(String foodDataId) {
-        Objects.requireNonNull(foodDataId);
-        this.food_data_id = foodDataId;
+     public CountStep foodName(String foodName) {
+        Objects.requireNonNull(foodName);
+        this.food_name = foodName;
         return this;
     }
     
     @Override
      public BuildStep count(List<Integer> count) {
+        Objects.requireNonNull(count);
         this.count = count;
-        return this;
-    }
-    
-    @Override
-     public BuildStep userFoodId(String userFoodId) {
-        this.userFoodId = userFoodId;
         return this;
     }
     
@@ -204,26 +188,20 @@ public final class UserFood implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String foodDataId, List<Integer> count, String userFoodId) {
+    private CopyOfBuilder(String id, String foodName, List<Integer> count) {
       super.id(id);
-      super.foodDataId(foodDataId)
-        .count(count)
-        .userFoodId(userFoodId);
+      super.foodName(foodName)
+        .count(count);
     }
     
     @Override
-     public CopyOfBuilder foodDataId(String foodDataId) {
-      return (CopyOfBuilder) super.foodDataId(foodDataId);
+     public CopyOfBuilder foodName(String foodName) {
+      return (CopyOfBuilder) super.foodName(foodName);
     }
     
     @Override
      public CopyOfBuilder count(List<Integer> count) {
       return (CopyOfBuilder) super.count(count);
-    }
-    
-    @Override
-     public CopyOfBuilder userFoodId(String userFoodId) {
-      return (CopyOfBuilder) super.userFoodId(userFoodId);
     }
   }
   
