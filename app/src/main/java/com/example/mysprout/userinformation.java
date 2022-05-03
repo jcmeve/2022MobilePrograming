@@ -3,7 +3,6 @@ package com.example.mysprout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,14 +18,10 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.User;
-import com.google.android.material.textfield.TextInputLayout;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class userinformation extends AppCompatActivity {
@@ -41,13 +36,11 @@ public class userinformation extends AppCompatActivity {
             EditText password = findViewById(R.id.input_password);
             EditText password_check = findViewById(R.id.input_password_check);
             EditText nickname = findViewById(R.id.input_yourname);
-            EditText sproutname = findViewById(R.id.input_sproutname);
 
             String email_txt = email.getText().toString();
             String password_txt = password.getText().toString();
             String password_check_txt = password_check.getText().toString();
             String nickname_txt = nickname.getText().toString();
-            String sproutname_txt = sproutname.getText().toString();
             String birthday_txt = "1999.01.01";
             if(password_txt.compareTo(password_check_txt) != 0){
                 Toast.makeText(getApplicationContext(),"비밀번호가 다릅니다.",Toast.LENGTH_LONG).show();
@@ -109,15 +102,15 @@ public class userinformation extends AppCompatActivity {
     }
 
     private void InitUser(boolean isSuccess){
-        EditText email = findViewById(R.id.input_email);
+        if(!isSuccess)
+            return;
         EditText nickname = findViewById(R.id.input_yourname);
         EditText sproutname = findViewById(R.id.input_sproutname);
 
-        String email_txt = email.getText().toString();
         String nickname_txt = nickname.getText().toString();
         String sproutname_txt = sproutname.getText().toString();
 
-        User user = User.builder().email(email_txt).nickname(nickname_txt).sproutName(sproutname_txt).sproutExp(0).carbonSave(0).build();
+        User user = User.builder().transportation(new ArrayList<>()).food(new ArrayList<>()).action(new ArrayList<>()).nickname(nickname_txt).sproutName(sproutname_txt).sproutExp(0).carbonSave(0).build();
 
         String document =
                 "mutation MyMutation($carbon_save: Int!, $sprout_name: String!, $sprout_exp: Int!, $nickname: String!) {" +
