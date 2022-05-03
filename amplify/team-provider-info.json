@@ -23,7 +23,7 @@
       "function": {
         "mysprout034be500": {
           "deploymentBucketName": "amplify-mysprout-dev-20301-deployment",
-          "s3Key": "amplify-builds/mysprout034be500-5136332f4750596a597a-build.zip"
+          "s3Key": "amplify-builds/mysprout034be500-344254314770705a4255-build.zip"
         }
       }
     }

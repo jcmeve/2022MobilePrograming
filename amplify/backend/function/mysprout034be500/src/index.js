@@ -336,7 +336,7 @@ async function getUser(id){
     var user;
     await ddb.get(gu_params, function(err, data) {
         user = data;
-        if (err) console.log(err);
+        if (err) console.log("ERRPR" + err);
         else console.log(data);
     }).promise();
 
