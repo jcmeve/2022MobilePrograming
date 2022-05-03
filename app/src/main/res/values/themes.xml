@@ -54,4 +54,15 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
+
+    <style name="TextBold" parent="@android:style/Widget.TextView">
+        <item name="fontFamily">@font/nbold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextRegular" parent="@android:style/Widget.TextView">
+        <item name="fontFamily">@font/nregular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 </resources>

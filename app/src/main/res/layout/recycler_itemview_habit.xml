@@ -17,10 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
+            style="@style/TextRegular"
             android:id="@+id/checkbox_itemview_habit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CheckBox"
+            android:text="습관 아이템"
             android:textSize="16sp"
             android:fontFamily="@font/nregular"
             android:includeFontPadding="false"

@@ -5,18 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mysprout.R;
 import com.example.mysprout.data.CheckboxData;
 import com.example.mysprout.databinding.RecyclerItemviewHabitBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //뷰 바인딩 사용
 public class RecyclerCustomAdapterHabit

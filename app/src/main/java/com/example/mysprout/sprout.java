@@ -2,8 +2,6 @@ package com.example.mysprout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -28,12 +26,12 @@ public class sprout extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item){
                         if(item.getItemId() == R.id.record_habit){
                             Toast.makeText(sprout.this, "습관 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(sprout.this, record_1.class);
+                            Intent intent = new Intent(sprout.this, RecordHabits.class);
                             startActivity(intent);
                         }
                         else if(item.getItemId() == R.id.record_food){
                             Toast.makeText(sprout.this, "식단 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(sprout.this, record_food_1.class);
+                            Intent intent = new Intent(sprout.this, RecordFood.class);
                             startActivity(intent);
                         }
                         return true;
