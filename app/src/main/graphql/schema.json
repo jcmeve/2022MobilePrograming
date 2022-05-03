@@ -1154,23 +1154,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "carbon_per_gram",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "gram_per_unit",
+                        "name": "carbon_per_unit",
                         "description": null,
                         "args": [],
                         "type": {
@@ -1242,6 +1226,22 @@
                 "fields": [
                     {
                         "name": "name",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "tag",
                         "description": null,
                         "args": [],
                         "type": {
@@ -2962,17 +2962,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "carbon_per_gram",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelIntInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "gram_per_unit",
+                        "name": "carbon_per_unit",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -3075,6 +3065,16 @@
                 "inputFields": [
                     {
                         "name": "name",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "tag",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -5413,21 +5413,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "carbon_per_gram",
-                        "description": null,
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "gram_per_unit",
+                        "name": "carbon_per_unit",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
@@ -5462,17 +5448,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "carbon_per_gram",
-                        "description": null,
-                        "type": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "ModelIntInput",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "gram_per_unit",
+                        "name": "carbon_per_unit",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -5555,17 +5531,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "carbon_per_gram",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "gram_per_unit",
+                        "name": "carbon_per_unit",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -5625,6 +5591,20 @@
                         "defaultValue": null
                     },
                     {
+                        "name": "tag",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
                         "name": "save_carbon",
                         "description": null,
                         "type": {
@@ -5649,6 +5629,16 @@
                 "description": null,
                 "fields": null,
                 "inputFields": [
+                    {
+                        "name": "tag",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
                     {
                         "name": "save_carbon",
                         "description": null,
@@ -5719,6 +5709,16 @@
                                 "name": "String",
                                 "ofType": null
                             }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "tag",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         },
                         "defaultValue": null
                     },

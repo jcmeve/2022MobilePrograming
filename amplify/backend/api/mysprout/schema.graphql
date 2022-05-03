@@ -55,12 +55,12 @@ type TransportationData @model @auth(rules: [{ allow: owner }]){
 type FoodData @model @auth(rules: [{ allow: owner }]){
   name: String! @primaryKey
   unit: String!
-  carbon_per_gram: Int!
-  gram_per_unit: Int!
+  carbon_per_unit: Int!
 }
 
 type ActionData @model @auth(rules: [{ allow: owner }]){
   name: String! @primaryKey
+  tag: String!
   save_carbon: Int!
 }
 

@@ -160,8 +160,7 @@ mutation CreateUserFood(
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -182,8 +181,7 @@ mutation UpdateUserFood(
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -204,8 +202,7 @@ mutation DeleteUserFood(
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -225,6 +222,7 @@ mutation CreateUserAction(
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -245,6 +243,7 @@ mutation UpdateUserAction(
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -265,6 +264,7 @@ mutation DeleteUserAction(
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -322,8 +322,7 @@ mutation CreateFoodData(
   createFoodData(input: $input, condition: $condition) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -336,8 +335,7 @@ mutation UpdateFoodData(
   updateFoodData(input: $input, condition: $condition) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -350,8 +348,7 @@ mutation DeleteFoodData(
   deleteFoodData(input: $input, condition: $condition) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -363,6 +360,7 @@ mutation CreateActionData(
 ) {
   createActionData(input: $input, condition: $condition) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -375,6 +373,7 @@ mutation UpdateActionData(
 ) {
   updateActionData(input: $input, condition: $condition) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -387,6 +386,7 @@ mutation DeleteActionData(
 ) {
   deleteActionData(input: $input, condition: $condition) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt

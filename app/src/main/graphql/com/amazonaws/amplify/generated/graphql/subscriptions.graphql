@@ -114,8 +114,7 @@ subscription OnCreateUserFood($owner: String) {
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -133,8 +132,7 @@ subscription OnUpdateUserFood($owner: String) {
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -152,8 +150,7 @@ subscription OnDeleteUserFood($owner: String) {
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -170,6 +167,7 @@ subscription OnCreateUserAction($owner: String) {
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -187,6 +185,7 @@ subscription OnUpdateUserAction($owner: String) {
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -204,6 +203,7 @@ subscription OnDeleteUserAction($owner: String) {
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -249,8 +249,7 @@ subscription OnCreateFoodData($owner: String) {
   onCreateFoodData(owner: $owner) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -260,8 +259,7 @@ subscription OnUpdateFoodData($owner: String) {
   onUpdateFoodData(owner: $owner) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -271,8 +269,7 @@ subscription OnDeleteFoodData($owner: String) {
   onDeleteFoodData(owner: $owner) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -281,6 +278,7 @@ subscription OnDeleteFoodData($owner: String) {
 subscription OnCreateActionData($owner: String) {
   onCreateActionData(owner: $owner) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -290,6 +288,7 @@ subscription OnCreateActionData($owner: String) {
 subscription OnUpdateActionData($owner: String) {
   onUpdateActionData(owner: $owner) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -299,6 +298,7 @@ subscription OnUpdateActionData($owner: String) {
 subscription OnDeleteActionData($owner: String) {
   onDeleteActionData(owner: $owner) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt

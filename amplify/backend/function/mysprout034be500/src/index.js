@@ -204,7 +204,7 @@ exports.handler = async (event, context, callback) => {
                     }
                 }).promise();
             }
-            const carbon2 = event.arguments.count * food.Item.gram_per_unit * food.Item.carbon_per_gram;
+            const carbon2 = event.arguments.count * food.Item.carbon_per_unit;
             await addCarbonSave(event.identity.sub, carbon);
 
 

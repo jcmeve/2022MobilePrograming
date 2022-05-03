@@ -34,8 +34,7 @@ query MsGetFoodList {
   msGetFoodList {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -44,6 +43,7 @@ query MsGetFoodList {
 query MsGetActionList {
   msGetActionList {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -159,8 +159,7 @@ query GetUserFood($id: ID!) {
     data {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -191,8 +190,7 @@ query ListUserFoods(
       data {
         name
         unit
-        carbon_per_gram
-        gram_per_unit
+        carbon_per_unit
         createdAt
         updatedAt
         owner
@@ -211,6 +209,7 @@ query GetUserAction($id: ID!) {
     action_name
     data {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
@@ -241,6 +240,7 @@ query ListUserActions(
       action_name
       data {
         name
+        tag
         save_carbon
         createdAt
         updatedAt
@@ -293,8 +293,7 @@ query GetFoodData($name: String!) {
   getFoodData(name: $name) {
     name
     unit
-    carbon_per_gram
-    gram_per_unit
+    carbon_per_unit
     createdAt
     updatedAt
     owner
@@ -317,8 +316,7 @@ query ListFoodData(
     items {
       name
       unit
-      carbon_per_gram
-      gram_per_unit
+      carbon_per_unit
       createdAt
       updatedAt
       owner
@@ -329,6 +327,7 @@ query ListFoodData(
 query GetActionData($name: String!) {
   getActionData(name: $name) {
     name
+    tag
     save_carbon
     createdAt
     updatedAt
@@ -351,6 +350,7 @@ query ListActionData(
   ) {
     items {
       name
+      tag
       save_carbon
       createdAt
       updatedAt
