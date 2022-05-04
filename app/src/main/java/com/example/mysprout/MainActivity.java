@@ -1,27 +1,16 @@
 package com.example.mysprout;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
-
-import com.amplifyframework.api.aws.GsonVariablesSerializer;
-
-import com.amplifyframework.api.graphql.SimpleGraphQLRequest;
-
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
-
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.generated.model.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 () -> Log.i("AuthQuickstart", "Signed out successfully"),
                 error -> Log.e("AuthQuickstart", error.toString())
         );
+
 
 
        

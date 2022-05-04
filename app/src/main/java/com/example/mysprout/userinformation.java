@@ -100,7 +100,7 @@ public class userinformation extends AppCompatActivity {
         String nickname_txt = nickname.getText().toString();
         String sproutname_txt = sproutname.getText().toString();
 
-        DB.CreateUser(nickname_txt, sproutname_txt);
+        DB.getInstance().CreateUser(nickname_txt, sproutname_txt);
 
         /////////// 예제코드입니당
         try {
@@ -108,7 +108,7 @@ public class userinformation extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        DB.AddTransportationData("test", 100);
+        DB.getInstance().AddTransportationData("test", 100);
 
         try {
             Thread.sleep(3000);
@@ -116,7 +116,7 @@ public class userinformation extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        DB.GetTotalExp(value -> Log.i("FSADSFSADDFASF: " , value+""));
+        DB.getInstance().GetTotalExp(value -> Log.i("FSADSFSADDFASF: " , value+""));
         /////////// 예제코드입니당
 
         Intent intent = new Intent(userinformation.this, userinformation_2.class);

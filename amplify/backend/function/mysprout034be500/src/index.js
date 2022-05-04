@@ -42,10 +42,7 @@ exports.handler = async (event, context, callback) => {
                 }
             }
             var trans;
-            await ddb.get(at_params, function(err, data){
-                if (err) {console.log(err);}
-                else {console.log(data); trans = data;}
-            }).promise();
+            trans = await ddb.get(at_params).promise();
             if(trans.Item == null)
                 return false;
             console.log("TRANSPORATTION CHECK COMPLERE");
@@ -113,13 +110,7 @@ exports.handler = async (event, context, callback) => {
                     }
                 }
 
-                await ddb.update(params, function(err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    } else {
-                        console.log("Success", data);
-                    }
-                }).promise();
+                await ddb.update(params).promise();
             }
 
             const carbon = event.arguments.count * trans.Item.carbon_per_unit;
@@ -138,10 +129,7 @@ exports.handler = async (event, context, callback) => {
                 }
             }
             var food;
-            await ddb.get(af_params, function(err, data){
-                if (err) {console.log(err);}
-                else {console.log(data); food = data;}
-            }).promise();
+            food = await ddb.get(af_params).promise();
             if(food.Item == null)
                 return false;
             console.log("FOOD CHECK COMPLERE");
@@ -160,6 +148,7 @@ exports.handler = async (event, context, callback) => {
 
             if(ck == false){//한번도 해당 음식을 사용한 적 없는 경우
                 //유저-음식 테이블 생성 및 사용량 기록
+                console.log("asdfasdfsadf");
                 const params = {
                     TableName: "UserFood-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Item: {
@@ -167,7 +156,7 @@ exports.handler = async (event, context, callback) => {
                         food_name: event.arguments.food_name,
                         count: [event.arguments.count]
                     }
-                }
+                };
                 await ddb.put(params).promise();
 
                 //유저 테이블에 기록. / 삭제가능
@@ -179,16 +168,11 @@ exports.handler = async (event, context, callback) => {
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.food_name],
                     }
-                }
-                ddb.update(params2, function(err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    } else {
-                        console.log("Success", data);
-                    }
-                });
+                };
+                ddb.update(params2).promise();
             }else{//음식을 사용한 적이 있는 경우
                 //음식 사용량 기록
+
                 const params = {
                     TableName: "UserFood-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub + event.arguments.food_name},
@@ -200,18 +184,18 @@ exports.handler = async (event, context, callback) => {
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
                     }
-                }
-
-                await ddb.update(params, function(err, data) {
+                };
+                ddb.update(params, function(err, data) {
                     if (err) {
                         console.log("Error", err);
                     } else {
                         console.log("Success", data);
                     }
-                }).promise();
+                });
+
             }
             const carbon2 = event.arguments.count * food.Item.carbon_per_unit;
-            await addCarbonSave(event.identity.sub, carbon);
+            await addCarbonSave(event.identity.sub, carbon2);
 
 
             return true;
@@ -225,10 +209,7 @@ exports.handler = async (event, context, callback) => {
                 }
             }
             var action;
-            await ddb.get(aa_params, function(err, data){
-                if (err) {console.log(err);}
-                else {console.log(data); action = data;}
-            }).promise();
+            action = await ddb.get(aa_params).promise();
             if(action.Item == null)
                 return false;
             console.log("ACTION CHECK COMPLERE");
@@ -289,22 +270,16 @@ exports.handler = async (event, context, callback) => {
                     }
                 }
 
-                await ddb.update(params, function(err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    } else {
-                        console.log("Success", data);
-                    }
-                }).promise();
+                await ddb.update(params).promise();
             }
             const carbon3 = event.arguments.count * action.Item.save_carbon;
-            await addCarbonSave(event.identity.sub, carbon);
+            await addCarbonSave(event.identity.sub, carbon3);
 
             return true;
 
         case "msGetUserInfo":
-            return await getUser(event.identity.sub);
-
+            var user = await getUser(event.identity.sub);
+            return user.Item ;
         case "msGetTotalExp":
 
             console.log("!@#!DSAFAWSF");
@@ -312,9 +287,13 @@ exports.handler = async (event, context, callback) => {
             var user = await getUser(event.identity.sub);
             var exp = user.Item.carbon_save;
             return exp;
+
         case "msGetTransportationList":
+            return await getDataList("TransportationData");
         case "msGetFoodList":
+            return await getDataList("FoodData");
         case "msGetActionList":
+            return await getDataList("ActionData");
 
 
         default:
@@ -334,11 +313,7 @@ async function getUser(id){
         }
     }
     var user;
-    await ddb.get(gu_params, function(err, data) {
-        user = data;
-        if (err) console.log("ERRPR" + err);
-        else console.log(data);
-    }).promise();
+    user = await ddb.get(gu_params).promise();
 
     return user;
 
@@ -355,12 +330,21 @@ async function addCarbonSave(id, value){
             ":val1" : value,
         }
     }
-    ddb.update(params2, function(err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-            console.log("Success", data);
-        }
-    });
+    await ddb.update(params2).promise();
 
+}
+
+async function getDataList(name){
+    const params = {
+        TableName: name + "-q2vg5zi6bvcavondcdicixh6zi-dev",
+    };
+    const scanResults = [];
+    var items;
+    do{
+        items =  await ddb.scan(params).promise();
+        items.Items.forEach((item) => scanResults.push(item));
+        params.ExclusiveStartKey  = items.LastEvaluatedKey;
+    }while(typeof items.LastEvaluatedKey !== "undefined");
+
+    return scanResults;
 }
