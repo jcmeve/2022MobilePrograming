@@ -28,9 +28,11 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 public final class ActionData implements Model {
   public static final QueryField ID = field("ActionData", "id");
   public static final QueryField NAME = field("ActionData", "name");
+  public static final QueryField TAG = field("ActionData", "tag");
   public static final QueryField SAVE_CARBON = field("ActionData", "save_carbon");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
+  private final @ModelField(targetType="String", isRequired = true) String tag;
   private final @ModelField(targetType="Int", isRequired = true) Integer save_carbon;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -40,6 +42,10 @@ public final class ActionData implements Model {
   
   public String getName() {
       return name;
+  }
+  
+  public String getTag() {
+      return tag;
   }
   
   public Integer getSaveCarbon() {
@@ -54,9 +60,10 @@ public final class ActionData implements Model {
       return updatedAt;
   }
   
-  private ActionData(String id, String name, Integer save_carbon) {
+  private ActionData(String id, String name, String tag, Integer save_carbon) {
     this.id = id;
     this.name = name;
+    this.tag = tag;
     this.save_carbon = save_carbon;
   }
   
@@ -70,6 +77,7 @@ public final class ActionData implements Model {
       ActionData actionData = (ActionData) obj;
       return ObjectsCompat.equals(getId(), actionData.getId()) &&
               ObjectsCompat.equals(getName(), actionData.getName()) &&
+              ObjectsCompat.equals(getTag(), actionData.getTag()) &&
               ObjectsCompat.equals(getSaveCarbon(), actionData.getSaveCarbon()) &&
               ObjectsCompat.equals(getCreatedAt(), actionData.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), actionData.getUpdatedAt());
@@ -81,6 +89,7 @@ public final class ActionData implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getName())
+      .append(getTag())
       .append(getSaveCarbon())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -94,6 +103,7 @@ public final class ActionData implements Model {
       .append("ActionData {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
+      .append("tag=" + String.valueOf(getTag()) + ", ")
       .append("save_carbon=" + String.valueOf(getSaveCarbon()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -117,6 +127,7 @@ public final class ActionData implements Model {
     return new ActionData(
       id,
       null,
+      null,
       null
     );
   }
@@ -124,10 +135,16 @@ public final class ActionData implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       name,
+      tag,
       save_carbon);
   }
   public interface NameStep {
-    SaveCarbonStep name(String name);
+    TagStep name(String name);
+  }
+  
+
+  public interface TagStep {
+    SaveCarbonStep tag(String tag);
   }
   
 
@@ -142,9 +159,10 @@ public final class ActionData implements Model {
   }
   
 
-  public static class Builder implements NameStep, SaveCarbonStep, BuildStep {
+  public static class Builder implements NameStep, TagStep, SaveCarbonStep, BuildStep {
     private String id;
     private String name;
+    private String tag;
     private Integer save_carbon;
     @Override
      public ActionData build() {
@@ -153,13 +171,21 @@ public final class ActionData implements Model {
         return new ActionData(
           id,
           name,
+          tag,
           save_carbon);
     }
     
     @Override
-     public SaveCarbonStep name(String name) {
+     public TagStep name(String name) {
         Objects.requireNonNull(name);
         this.name = name;
+        return this;
+    }
+    
+    @Override
+     public SaveCarbonStep tag(String tag) {
+        Objects.requireNonNull(tag);
+        this.tag = tag;
         return this;
     }
     
@@ -182,15 +208,21 @@ public final class ActionData implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name, Integer saveCarbon) {
+    private CopyOfBuilder(String id, String name, String tag, Integer saveCarbon) {
       super.id(id);
       super.name(name)
+        .tag(tag)
         .saveCarbon(saveCarbon);
     }
     
     @Override
      public CopyOfBuilder name(String name) {
       return (CopyOfBuilder) super.name(name);
+    }
+    
+    @Override
+     public CopyOfBuilder tag(String tag) {
+      return (CopyOfBuilder) super.tag(tag);
     }
     
     @Override

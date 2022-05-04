@@ -161,6 +161,7 @@ mutation CreateUserFood(
       name
       unit
       carbon_per_unit
+      tag
       createdAt
       updatedAt
       owner
@@ -182,6 +183,7 @@ mutation UpdateUserFood(
       name
       unit
       carbon_per_unit
+      tag
       createdAt
       updatedAt
       owner
@@ -203,6 +205,7 @@ mutation DeleteUserFood(
       name
       unit
       carbon_per_unit
+      tag
       createdAt
       updatedAt
       owner
@@ -323,6 +326,7 @@ mutation CreateFoodData(
     name
     unit
     carbon_per_unit
+    tag
     createdAt
     updatedAt
     owner
@@ -336,6 +340,7 @@ mutation UpdateFoodData(
     name
     unit
     carbon_per_unit
+    tag
     createdAt
     updatedAt
     owner
@@ -349,6 +354,7 @@ mutation DeleteFoodData(
     name
     unit
     carbon_per_unit
+    tag
     createdAt
     updatedAt
     owner

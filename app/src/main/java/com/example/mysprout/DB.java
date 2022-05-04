@@ -218,6 +218,7 @@ public  class DB {
                 "    carbon_per_unit" +
                 "    name" +
                 "    unit" +
+                "    tag" +
                 "  }" +
                 "}";
 
@@ -258,6 +259,7 @@ public  class DB {
                 "  msGetActionList {" +
                 "    name" +
                 "    save_carbon" +
+                "    tag" +
                 "  }" +
                 "}";
 
@@ -284,4 +286,51 @@ public  class DB {
         );
 
     }
+
+    /* DO NOT USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private void DBINPUT(){
+        InputStreamReader inputStreamReader = new InputStreamReader(getResources().openRawResource(R.raw.action_data));
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        CSVReader reader = new CSVReader(bufferedReader);
+        String[] nextLine = null;
+        while(true){
+            try {
+                if (!((nextLine = reader.readNext())!= null)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String name =  nextLine[0];
+
+            int carbon = (int)Float.parseFloat(nextLine[1]);
+            String tag =  nextLine[2];
+
+            String document ="mutation MyMutation($name: String!, $save_carbon: Int!, $tag: String!) {" +
+                    "  createActionData(input: {name: $name, save_carbon: $save_carbon, tag: $tag}) {" +
+                    "    name" +
+                    "    save_carbon" +
+                    "    tag" +
+                    "  }" +
+                    "}";
+
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("name", name);
+            variables.put("save_carbon", carbon);
+            variables.put("tag", tag);
+
+            Amplify.API.mutate(
+                    new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
+                    response -> Log.i("MyAmplifyApp", "Added sodo with id: " + response),
+                    error -> Log.e("MyAmplifyApp", "Create failed", error)
+            );
+
+
+
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }*/
 }

@@ -35,6 +35,7 @@ query MsGetFoodList {
     name
     unit
     carbon_per_unit
+    tag
     createdAt
     updatedAt
     owner
@@ -160,6 +161,7 @@ query GetUserFood($id: ID!) {
       name
       unit
       carbon_per_unit
+      tag
       createdAt
       updatedAt
       owner
@@ -191,6 +193,7 @@ query ListUserFoods(
         name
         unit
         carbon_per_unit
+        tag
         createdAt
         updatedAt
         owner
@@ -294,6 +297,7 @@ query GetFoodData($name: String!) {
     name
     unit
     carbon_per_unit
+    tag
     createdAt
     updatedAt
     owner
@@ -317,6 +321,7 @@ query ListFoodData(
       name
       unit
       carbon_per_unit
+      tag
       createdAt
       updatedAt
       owner
