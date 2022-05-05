@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mysprout.R;
+import com.example.mysprout.databinding.BottomsheetlayoutFoodrecordBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 //식단 기록, 인분, 그램수 정하는 프래그먼트
@@ -35,6 +38,8 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
     int maxValue;
     int step; //선택가능 값 간격
     int defValue; //시작 값
+
+    private TextView textViewCarbon; //계속 업데이트 해야 해서 따로 빼놓음
 
     public BottomSheetDialogFoodRecord() {
         // Required empty public constructor
@@ -66,22 +71,28 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.bottomsheetlayout_foodrecord, container, false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운드 둥글게 만들려고 하는데 안 돌아감
 
+        TextView textViewFoodName = view.findViewById(R.id.bottom_text_foodname);
+        textViewCarbon = view.findViewById(R.id.bottom_text_carbon);
+        //Numberpicker -인분-
+        NumberPicker numberPicker = view.findViewById(R.id.numberpicker_oneserving);
 
-        //추가 버튼
+        //추가 버튼 리스너
         view.findViewById(R.id.addbtn_food).setOnClickListener(v-> {
+            if(foodRecordDataPassListener != null){
+                int unit = numberPicker.getValue();
+                Log.d("넘버피커", String.valueOf(unit));
+                String thisName = (String) textViewFoodName.getText();
+                foodRecordDataPassListener.onRecordDataPass(view, thisName, unit);
+            }
             Toast.makeText(getContext(), "식단이 추가되었습니다.", Toast.LENGTH_SHORT).show();
-            
-            //Numberpicker에서 정한 값 따로 저장되도록
             
             dismiss();
         });
-
-        //Numberpicker -인분-
-        NumberPicker numberPicker = view.findViewById(R.id.numberpicker_oneserving);
 
         assert getArguments() != null;
         foodName = getArguments().getString(ARG_FOODNAME); //선택한 음식 이름 뜨도록
@@ -100,17 +111,15 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         numberPicker.setValue(defValue);
         numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
-        TextView textViewFoodName = view.findViewById(R.id.bottom_text_foodname);
         textViewFoodName.setText(foodName);
 
-        TextView textViewCarbon = view.findViewById(R.id.bottom_text_carbon);
         textViewCarbon.setText(String.valueOf(carbonEmiss));
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+            public void onValueChange(NumberPicker numberPicker, int beford, int after) {
                 //numberpicker 움직였을 때 리스너
-                Toast.makeText(getContext(), "넘버피커", Toast.LENGTH_SHORT).show(); //일단 토스트만
+                textViewCarbon.setText(String.valueOf(carbonEmiss*after));
             }
         });
 
@@ -127,5 +136,15 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         }
 
         return  result;
+    }
+
+    //Data from BottomSheetDialog to RecordFood
+    private FoodRecordDataPassListener foodRecordDataPassListener;
+    public void setOnDataPassListener(FoodRecordDataPassListener listener){
+        foodRecordDataPassListener = listener;
+    }
+
+    public interface FoodRecordDataPassListener{
+        void onRecordDataPass(View view, String name, int unit);
     }
 }

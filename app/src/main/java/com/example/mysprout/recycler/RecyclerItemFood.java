@@ -1,20 +1,28 @@
 package com.example.mysprout.recycler;
 
-public class RecyclerItemFood {
+import java.io.Serializable;
+
+public class RecyclerItemFood implements Serializable {
     String foodName;
     float carbonEmiss;
+    String tag;
 
-    public RecyclerItemFood(String foodName, float carbon){
+    public RecyclerItemFood(String foodName, float carbon, String t){
         this.foodName = foodName;
         this.carbonEmiss = carbon;
+        this.tag = t;
     }
 
-    public String getFoodName(){
+    public String getName(){
         return foodName;
     }
 
-    public float getCarbonEmiss(){
+    public float getCarbon(){
         return carbonEmiss;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public void setFoodName(String name){

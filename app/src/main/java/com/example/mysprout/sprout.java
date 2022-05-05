@@ -15,6 +15,7 @@ public class sprout extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sprout);
+
     }
 
     //기록 버튼 눌렀을 때 습관 기록과 식단 기록 중 어디로 넘어갈지 팝업 메뉴로 선택

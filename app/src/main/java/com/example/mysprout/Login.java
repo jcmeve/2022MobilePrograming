@@ -25,7 +25,6 @@ public class Login extends AppCompatActivity {
 
 
 
-
         nextBtn.setOnClickListener(v -> tryLogin());
 
 

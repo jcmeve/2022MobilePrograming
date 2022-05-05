@@ -49,6 +49,7 @@
 
         <TextView
             style="@style/TextBold"
+            android:id="@+id/textview_complete_today"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Day N"
@@ -58,6 +59,7 @@
 
         <TextView
             style="@style/TextRegular"
+            android:id="@+id/textview_complete_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -67,6 +69,7 @@
 
         <TextView
             style="@style/TextRegular"
+            android:id="@+id/textview_complete_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오후 00:00"
@@ -87,17 +90,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal">
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
+
+            <TextView
+                style="@style/TextBold"
+                android:id="@+id/textview_complete_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:text="절약한 탄소 배출량: 0.0 CO2eg"
+                android:textColor="@color/almostBlack"
+                android:textSize="20sp"
+                android:background="@drawable/backgroundrec2"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="18dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/backgroundrec2" />
+                android:layout_marginTop="16dp"
+                android:background="@drawable/backgroundrec2"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp" />
 
         </LinearLayout>
     </FrameLayout>

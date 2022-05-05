@@ -46,8 +46,8 @@ public class RecyclerCustomAdapterHabit
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindItem(habitDatas.get(position), position);
 
-        Log.d("BindViewHolder", String.valueOf(position));
-        Log.d("BindViewHolder", String.valueOf(holder.getItemId()));
+        //Log.d("BindViewHolder", String.valueOf(position));
+        //Log.d("BindViewHolder", String.valueOf(holder.getItemId()));
         }
 
     //출력할 데이터 개수 -어댑터가 반환할 아이템 개수-
@@ -68,12 +68,12 @@ public class RecyclerCustomAdapterHabit
         }
 
         void bindItem(RecyclerItemHabit item, final int pos){
-            itemHabitBinding.checkboxItemviewHabit.setText(item.getTitle());
+            itemHabitBinding.checkboxItemviewHabit.setText(item.getName());
 
             if(pos >= checkboxList.size())
                 checkboxList.add(pos, new CheckboxData(itemHabitBinding.checkboxItemviewHabit.getId()+pos, false));
 
-            Log.d("bindItem", String.valueOf(itemHabitBinding.checkboxItemviewHabit.getId()+pos));
+            //Log.d("bindItem", String.valueOf(itemHabitBinding.checkboxItemviewHabit.getId()+pos));
 
             itemHabitBinding.checkboxItemviewHabit.setChecked(checkboxList.get(pos).getChecked());
 
@@ -90,7 +90,7 @@ public class RecyclerCustomAdapterHabit
                 }
             });
 
-            Log.d("bindItem", String.valueOf(checkedItems));
+            //Log.d("bindItem", String.valueOf(checkedItems));
         }
     }
 

@@ -35,12 +35,6 @@ public class RecyclerCustomAdapterFood
         this.itemFood_layout = item_layout;
     }
 
-    //interface 클릭 인터페이스
-    private OnItemListener itemListener;
-    public void setOnItemListner(OnItemListener listner){
-        this.itemListener = listner;
-    }
-
     //검색할 때마다 데이터 바뀜 -foods만 바뀌고 foodsAll은 고정-
     @SuppressLint("NotifyDataSetChanged")
     public void dataSetChanged(ArrayList<RecyclerItemFood> list) {
@@ -72,7 +66,7 @@ public class RecyclerCustomAdapterFood
         return foodFilter;
     }
 
-    private Filter foodFilter = new Filter() {
+    private final Filter foodFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<RecyclerItemFood> filteredList = new ArrayList<>();
@@ -87,7 +81,7 @@ public class RecyclerCustomAdapterFood
                 for(RecyclerItemFood food : foodsAll){
                     //Log.d("for", String.valueOf(food.getFoodName().contains(filterPattern)));
                     //filter 대상 세팅
-                    if(food.getFoodName().toLowerCase().trim().contains(filterPattern)){
+                    if(food.getName().toLowerCase().trim().contains(filterPattern)){
                         //Log.d("filter", "필터리스트 추가");
                         filteredList.add(food);
                     }
@@ -113,7 +107,6 @@ public class RecyclerCustomAdapterFood
     //뷰 바인딩 사용
     public class ViewHolder extends RecyclerView.ViewHolder{
         RecyclerItemviewFoodBinding itemFoodBinding;
-        //TextView foodName;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -121,7 +114,7 @@ public class RecyclerCustomAdapterFood
         }
 
         void bindItem(RecyclerItemFood item, final int pos){
-            itemFoodBinding.textviewFoodname.setText(item.getFoodName());
+            itemFoodBinding.textviewFoodname.setText(item.getName());
 
             if(itemListener != null){
                 itemFoodBinding.textviewFoodname.setOnClickListener(new View.OnClickListener() {
@@ -133,10 +126,16 @@ public class RecyclerCustomAdapterFood
             }
         }
     }
-    
+
+    //interface 클릭 인터페이스
+    private OnFoodItemListener itemListener;
+    public void setOnItemListner(OnFoodItemListener listner){
+        this.itemListener = listner;
+    }
+
     //interface - 내부 선언, 외부에서 접근 가능하도록 setOnClickListener
     //bindItem에서 처리 중
-    public interface OnItemListener{
+    public interface OnFoodItemListener{
         void onItemClicked(View view, int position, RecyclerItemFood item);
     }
 
