@@ -9,7 +9,7 @@ public class RecyclerItemHabit implements Serializable {
     String tag;
 
     public RecyclerItemHabit(String n, float s, String t){
-        this.name = t;
+        this.name = n;
         this.carbonSave = s;
         this.tag = t;
     }

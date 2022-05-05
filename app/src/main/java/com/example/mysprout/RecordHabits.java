@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.datastore.generated.model.ActionData;
-import com.amplifyframework.datastore.generated.model.FoodData;
 import com.example.mysprout.databinding.RecordHabitsBinding;
 import com.example.mysprout.recycler.RecyclerCustomAdapterHabit;
-import com.example.mysprout.recycler.RecyclerItemFood;
 import com.example.mysprout.recycler.RecyclerItemHabit;
 
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
                         if(actionDatum != null){
                             RecyclerItemHabit item = new RecyclerItemHabit(actionDatum.getName(),
                                     actionDatum.getSaveCarbon(), actionDatum.getId());
-                            Log.d("반복문", item.getName());
+                                Log.d("반복문", item.getName());
                             //Log.d("반복문", "아이템 들어가는 중");
                             habits.add(item);
                         }
