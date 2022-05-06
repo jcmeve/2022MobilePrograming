@@ -15,6 +15,14 @@ type User @model @auth(rules: [{ allow: owner }]){
   sprout_exp: Int!
   carbon_save: Int!
 
+  meat_level: Int
+  transportation_level: Int
+
+}
+
+type LevelData @model @auth(rules: [{ allow: public }]){
+  meat_carbon: [Int]
+  transportation_carbon: [Int]
 }
 
 type GameScore {
@@ -27,6 +35,7 @@ type UserTransportation @model @auth(rules: [{ allow: owner }]){
   data: TransportationData @hasOne(fields:["transportation_name"])
 
   count: [Int!]!
+  date: [AWSTimestamp!]!
 }
 
 type UserFood @model @auth(rules: [{ allow: owner }]){
@@ -35,6 +44,7 @@ type UserFood @model @auth(rules: [{ allow: owner }]){
   data: FoodData @hasOne(fields:["food_name"])
 
   count: [Int!]!
+  date: [AWSTimestamp!]!
 }
 
 type UserAction @model @auth(rules: [{ allow: owner }]){
@@ -43,6 +53,7 @@ type UserAction @model @auth(rules: [{ allow: owner }]){
   data: ActionData @hasOne(fields:["action_name"])
 
   count: [Int!]!
+  date: [AWSTimestamp!]!
 }
 
 
@@ -67,6 +78,8 @@ type ActionData @model @auth(rules: [{ allow: owner }]){
 
 type Mutation{
   msCreateUser(  nickname: String,  sprout_name: String,  sprout_exp: Int, carbon_save: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msSetMeatLevel(meat_level: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msSetTransportationLevel(transportation_level: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddFoodData(  food_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
   msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
@@ -77,5 +90,8 @@ type Query{
   msGetTransportationList:[TransportationData] @function(name: "mysprout034be500-${env}")
   msGetFoodList:[FoodData] @function(name: "mysprout034be500-${env}")
   msGetActionList:[ActionData] @function(name: "mysprout034be500-${env}")
+  msGetUserTransportationHistory:[UserTransportation] @function(name: "mysprout034be500-${env}")
+  msGetUserFoodHistory:[UserFood] @function(name: "mysprout034be500-${env}")
+  msGetUserActionHistory:[UserAction] @function(name: "mysprout034be500-${env}")
 }
 

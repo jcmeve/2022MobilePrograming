@@ -26,11 +26,78 @@ exports.handler = async (event, context, callback) => {
                     sprout_name: event.arguments.sprout_name,
                     transportation: [],
                     food: [],
-                    action: []
+                    action: [],
+                    meat_level: 0,
+                    transportation_level: 0,
+                    createdAt: Date.now()
 
                 }
             }
             await ddb.put(params).promise();
+            return true;
+
+
+
+        case  "msGetUserTransportationHistory":
+            var user = await getUser(event.identity.sub);
+            console.log(user);
+
+            var result = [];
+            for(let transportation_name of user.Item.transportation){
+                var ret = await getHistory("UserTransportation", event.identity.sub + transportation_name);
+                result.push(...ret);
+            }
+            return result;
+
+        case  "msGetUserFoodHistory":
+            var user = await getUser(event.identity.sub);
+            console.log(user);
+
+            var result = [];
+            for(let food_name of user.Item.food){
+                var ret = await getHistory("UserFood", event.identity.sub + food_name);
+                result.push(...ret);
+            }
+
+            return result;
+
+        case  "msGetUserActionHistory":
+            var user = await getUser(event.identity.sub);
+            console.log(user);
+
+            var result = [];
+            for(let action_name of user.Item.action){
+                var ret = await getHistory("UserAction", event.identity.sub + action_name);
+                result.push(...ret);
+            }
+
+            return result;
+
+        case "msSetMeatLevel":
+
+            const params_meat = {
+                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                Key: {id: event.identity.sub},
+
+                UpdateExpression: "set meat_level = :val1",
+                ExpressionAttributeValues: {
+                    ":val1" : event.arguments.meat_level,
+                }
+            }
+            await ddb.update(params_meat).promise();
+            return true;
+
+        case "msSetTransportationLevel":
+            const params_trans = {
+                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                Key: {id: event.identity.sub},
+
+                UpdateExpression: "set transportation_level = :val1",
+                ExpressionAttributeValues: {
+                    ":val1" : event.arguments.transportation_level,
+                }
+            }
+            await ddb.update(params_trans).promise();
             return true;
 
         case "msAddTransportationData":
@@ -67,7 +134,8 @@ exports.handler = async (event, context, callback) => {
                     Item: {
                         id: event.identity.sub + event.arguments.transportation_name,
                         transportation_name: event.arguments.transportation_name,
-                        count: [event.arguments.count]
+                        count: [event.arguments.count],
+                        date: [Date.now()]
                     }
                 }
                 await ddb.put(params).promise();
@@ -101,12 +169,14 @@ exports.handler = async (event, context, callback) => {
                     TableName: "UserTransportation-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub + event.arguments.transportation_name},
 
-                    UpdateExpression: "set #count = list_append( #count ,:val1)",
+                    UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
                     ExpressionAttributeNames:{
                         "#count" : "count",
+                        "#date" : "date",
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
+                        ":val2" : [Date.now()],
                     }
                 }
 
@@ -154,7 +224,8 @@ exports.handler = async (event, context, callback) => {
                     Item: {
                         id: event.identity.sub + event.arguments.food_name,
                         food_name: event.arguments.food_name,
-                        count: [event.arguments.count]
+                        count: [event.arguments.count],
+                        date: [Date.now()]
                     }
                 };
                 await ddb.put(params).promise();
@@ -172,18 +243,21 @@ exports.handler = async (event, context, callback) => {
                 ddb.update(params2).promise();
             }else{//음식을 사용한 적이 있는 경우
                 //음식 사용량 기록
-
                 const params = {
                     TableName: "UserFood-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub + event.arguments.food_name},
 
-                    UpdateExpression: "set #count = list_append( #count ,:val1)",
+                    UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
                     ExpressionAttributeNames:{
                         "#count" : "count",
+                        "#date" : "date",
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
+                        ":val2" : [Date.now()],
                     }
+
+
                 };
                 ddb.update(params, function(err, data) {
                     if (err) {
@@ -192,7 +266,6 @@ exports.handler = async (event, context, callback) => {
                         console.log("Success", data);
                     }
                 });
-
             }
             const carbon2 = event.arguments.count * food.Item.carbon_per_unit;
             await addCarbonSave(event.identity.sub, carbon2);
@@ -233,7 +306,8 @@ exports.handler = async (event, context, callback) => {
                     Item: {
                         id: event.identity.sub + event.arguments.action_name,
                         action_name: event.arguments.action_name,
-                        count: [event.arguments.count]
+                        count: [event.arguments.count],
+                        date: [Date.now()]
                     }
                 }
                 await ddb.put(params).promise();
@@ -261,12 +335,14 @@ exports.handler = async (event, context, callback) => {
                     TableName: "UserAction-q2vg5zi6bvcavondcdicixh6zi-dev",
                     Key: {id: event.identity.sub + event.arguments.action_name},
 
-                    UpdateExpression: "set #count = list_append( #count ,:val1)",
+                    UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
                     ExpressionAttributeNames:{
                         "#count" : "count",
+                        "#date" : "date",
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
+                        ":val2" : [Date.now()],
                     }
                 }
 
@@ -346,5 +422,29 @@ async function getDataList(name){
         params.ExclusiveStartKey  = items.LastEvaluatedKey;
     }while(typeof items.LastEvaluatedKey !== "undefined");
 
+    return scanResults;
+}
+
+
+async function getHistory(type, _id){
+
+    const params = {
+        TableName: type + "-q2vg5zi6bvcavondcdicixh6zi-dev",
+        KeyConditionExpression: "#id = :val",
+        ExpressionAttributeNames:{
+            "#id": "id"
+        },
+        ExpressionAttributeValues: {
+            ":val": _id
+        }
+    };
+    const scanResults = [];
+    var items;
+    do{
+        items =  await ddb.query(params).promise();
+
+        items.Items.forEach((item) => scanResults.push(item));
+        params.ExclusiveStartKey  = items.LastEvaluatedKey;
+    }while(typeof items.LastEvaluatedKey !== "undefined");
     return scanResults;
 }

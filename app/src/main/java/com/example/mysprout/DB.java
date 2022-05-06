@@ -9,6 +9,9 @@ import com.amplifyframework.datastore.generated.model.ActionData;
 import com.amplifyframework.datastore.generated.model.FoodData;
 import com.amplifyframework.datastore.generated.model.TransportationData;
 import com.amplifyframework.datastore.generated.model.User;
+import com.amplifyframework.datastore.generated.model.UserAction;
+import com.amplifyframework.datastore.generated.model.UserFood;
+import com.amplifyframework.datastore.generated.model.UserTransportation;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -40,6 +43,42 @@ public  class DB {
         variables.put("sprout_exp", 0);
         variables.put("sprout_name", sprout_name);
         variables.put("carbon_save", 0);
+
+        Amplify.API.mutate(
+                new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
+                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+        return true;
+    }
+
+    public boolean SetMeatLevel(int meat_level){
+        String document =
+                "mutation MyMutation($meat_level: Int!) {" +
+                        "msSetMeatLevel(" +
+                        "meat_level: $meat_level," +
+                        ")"+
+                        "}";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("meat_level", meat_level);
+
+        Amplify.API.mutate(
+                new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
+                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+        return true;
+    }
+
+    public boolean SetTransportationLevel(int transportation_level){
+        String document =
+                "mutation MyMutation($transportation_level: Int!) {" +
+                        "msSetTransportationLevel(" +
+                        "transportation_level: $transportation_level," +
+                        ")"+
+                        "}";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("transportation_level", transportation_level);
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
@@ -286,6 +325,142 @@ public  class DB {
         );
 
     }
+
+    public interface getTransportationHistoryCallBack{
+        void callback(UserTransportation[] actionData);
+    }
+    private getTransportationHistoryCallBack transportationHistoryCallBack;
+    public void GetUserTransportationHistory(getTransportationHistoryCallBack _callback){
+        transportationHistoryCallBack = _callback;
+
+        String document =
+                "query MyQuery {" +
+                        "  msGetUserTransportationHistory {" +
+                        "    count" +
+                        "    date" +
+                        "    transportation_name" +
+                        "    data {" +
+                        "      carbon_per_unit" +
+                        "      unit" +
+                        "      name" +
+                        "    }" +
+                        "  }" +
+                        "}";
+
+        Amplify.API.query(
+                new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
+                response -> {
+                    Log.i("MyAmplifyApp", "GET Transportation History!!: " + response);
+                    UserTransportation[] data = {};
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.getData().toString());
+                        JSONArray arr = (JSONArray) jsonObject.get("msGetUserTransportationHistory");
+                        Gson gson = new Gson();
+                        data = new UserTransportation[arr.length()];
+                        for(int i = 0; i < arr.length();i++){
+                            Log.i(arr.getString(i),arr.getString(i));
+                            data[i] = (gson.fromJson(arr.getString(i),UserTransportation.class));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    transportationHistoryCallBack.callback(data);
+                },
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+    }
+
+    public interface getFoodHistoryCallBack{
+        void callback(UserFood[] actionData);
+    }
+    private getFoodHistoryCallBack foodHistoryCallBack;
+    public void GetUserFoodHistory(getFoodHistoryCallBack _callback){
+        foodHistoryCallBack = _callback;
+
+        String document =
+                "query MyQuery {" +
+                        "  msGetUserFoodHistory {" +
+                        "    count" +
+                        "    food_name" +
+                        "    date" +
+                        "    data {" +
+                        "      carbon_per_unit" +
+                        "      name" +
+                        "      tag" +
+                        "      unit" +
+                        "    }" +
+                        "  }" +
+                        "}";
+
+        Amplify.API.query(
+                new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
+                response -> {
+                    Log.i("MyAmplifyApp", "GET Food History!!: " + response);
+                    UserFood[] data = {};
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.getData().toString());
+                        JSONArray arr = (JSONArray) jsonObject.get("msGetUserFoodHistory");
+                        Gson gson = new Gson();
+                        data = new UserFood[arr.length()];
+                        for(int i = 0; i < arr.length();i++){
+                            Log.i(arr.getString(i),arr.getString(i));
+                            data[i] = (gson.fromJson(arr.getString(i),UserFood.class));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    foodHistoryCallBack.callback(data);
+                },
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+    }
+
+
+    public interface getActionHistoryCallBack{
+        void callback(UserAction[] actionData);
+    }
+    private getActionHistoryCallBack actionHistoryCallBack;
+    public void GetUserActionHistory(getActionHistoryCallBack _callback){
+        actionHistoryCallBack = _callback;
+
+        String document =
+                "query MyQuery {" +
+                        "  msGetUserActionHistory {" +
+                        "    action_name" +
+                        "    date" +
+                        "    count" +
+                        "    data {" +
+                        "      name" +
+                        "      tag" +
+                        "      save_carbon" +
+                        "    }" +
+                        "  }" +
+                        "}";
+
+        Amplify.API.query(
+                new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
+                response -> {
+                    Log.i("MyAmplifyApp", "GET Action History!!: " + response);
+                    UserAction[] data = {};
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.getData().toString());
+                        JSONArray arr = (JSONArray) jsonObject.get("msGetUserActionHistory");
+                        Gson gson = new Gson();
+                        data = new UserAction[arr.length()];
+                        for(int i = 0; i < arr.length();i++){
+                            Log.i(arr.getString(i),arr.getString(i));
+                            data[i] = (gson.fromJson(arr.getString(i),UserAction.class));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    actionHistoryCallBack.callback(data);
+                },
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+    }
+
+
 
     /* DO NOT USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void DBINPUT(){

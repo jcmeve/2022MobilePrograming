@@ -12,6 +12,12 @@ mutation MsCreateUser(
     carbon_save: $carbon_save
   )
 }
+mutation MsSetMeatLevel($meat_level: Int) {
+  msSetMeatLevel(meat_level: $meat_level)
+}
+mutation MsSetTransportationLevel($transportation_level: Int) {
+  msSetTransportationLevel(transportation_level: $transportation_level)
+}
 mutation MsAddTransportationData($transportation_name: String, $count: Int) {
   msAddTransportationData(
     transportation_name: $transportation_name
@@ -40,6 +46,8 @@ mutation CreateUser(
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -61,6 +69,8 @@ mutation UpdateUser(
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -82,6 +92,8 @@ mutation DeleteUser(
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -103,6 +115,7 @@ mutation CreateUserTransportation(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -124,6 +137,7 @@ mutation UpdateUserTransportation(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -145,6 +159,7 @@ mutation DeleteUserTransportation(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -167,6 +182,7 @@ mutation CreateUserFood(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -189,6 +205,7 @@ mutation UpdateUserFood(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -211,6 +228,7 @@ mutation DeleteUserFood(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -232,6 +250,7 @@ mutation CreateUserAction(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -253,6 +272,7 @@ mutation UpdateUserAction(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -274,6 +294,7 @@ mutation DeleteUserAction(
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -397,5 +418,41 @@ mutation DeleteActionData(
     createdAt
     updatedAt
     owner
+  }
+}
+mutation CreateLevelData(
+  $input: CreateLevelDataInput!
+  $condition: ModelLevelDataConditionInput
+) {
+  createLevelData(input: $input, condition: $condition) {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateLevelData(
+  $input: UpdateLevelDataInput!
+  $condition: ModelLevelDataConditionInput
+) {
+  updateLevelData(input: $input, condition: $condition) {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteLevelData(
+  $input: DeleteLevelDataInput!
+  $condition: ModelLevelDataConditionInput
+) {
+  deleteLevelData(input: $input, condition: $condition) {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
   }
 }

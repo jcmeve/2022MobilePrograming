@@ -12,6 +12,8 @@ subscription OnCreateUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -30,6 +32,8 @@ subscription OnUpdateUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -48,6 +52,8 @@ subscription OnDeleteUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -66,6 +72,7 @@ subscription OnCreateUserTransportation($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -84,6 +91,7 @@ subscription OnUpdateUserTransportation($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -102,6 +110,7 @@ subscription OnDeleteUserTransportation($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -121,6 +130,7 @@ subscription OnCreateUserFood($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -140,6 +150,7 @@ subscription OnUpdateUserFood($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -159,6 +170,7 @@ subscription OnDeleteUserFood($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -177,6 +189,7 @@ subscription OnCreateUserAction($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -195,6 +208,7 @@ subscription OnUpdateUserAction($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -213,6 +227,7 @@ subscription OnDeleteUserAction($owner: String) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -309,5 +324,32 @@ subscription OnDeleteActionData($owner: String) {
     createdAt
     updatedAt
     owner
+  }
+}
+subscription OnCreateLevelData {
+  onCreateLevelData {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateLevelData {
+  onUpdateLevelData {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteLevelData {
+  onDeleteLevelData {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
   }
 }

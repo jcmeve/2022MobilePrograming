@@ -12,6 +12,8 @@ query MsGetUserInfo {
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -51,6 +53,64 @@ query MsGetActionList {
     owner
   }
 }
+query MsGetUserTransportationHistory {
+  msGetUserTransportationHistory {
+    id
+    transportation_name
+    data {
+      name
+      unit
+      carbon_per_unit
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    date
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query MsGetUserFoodHistory {
+  msGetUserFoodHistory {
+    id
+    food_name
+    data {
+      name
+      unit
+      carbon_per_unit
+      tag
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    date
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query MsGetUserActionHistory {
+  msGetUserActionHistory {
+    id
+    action_name
+    data {
+      name
+      tag
+      save_carbon
+      createdAt
+      updatedAt
+      owner
+    }
+    count
+    date
+    createdAt
+    updatedAt
+    owner
+  }
+}
 query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -64,6 +124,8 @@ query GetUser($id: ID!) {
     sprout_name
     sprout_exp
     carbon_save
+    meat_level
+    transportation_level
     createdAt
     updatedAt
     owner
@@ -95,6 +157,8 @@ query ListUsers(
       sprout_name
       sprout_exp
       carbon_save
+      meat_level
+      transportation_level
       createdAt
       updatedAt
       owner
@@ -115,6 +179,7 @@ query GetUserTransportation($id: ID!) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -146,6 +211,7 @@ query ListUserTransportations(
         owner
       }
       count
+      date
       createdAt
       updatedAt
       owner
@@ -167,6 +233,7 @@ query GetUserFood($id: ID!) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -199,6 +266,7 @@ query ListUserFoods(
         owner
       }
       count
+      date
       createdAt
       updatedAt
       owner
@@ -219,6 +287,7 @@ query GetUserAction($id: ID!) {
       owner
     }
     count
+    date
     createdAt
     updatedAt
     owner
@@ -250,6 +319,7 @@ query ListUserActions(
         owner
       }
       count
+      date
       createdAt
       updatedAt
       owner
@@ -360,6 +430,31 @@ query ListActionData(
       createdAt
       updatedAt
       owner
+    }
+    nextToken
+  }
+}
+query GetLevelData($id: ID!) {
+  getLevelData(id: $id) {
+    meat_carbon
+    transportation_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListLevelData(
+  $filter: ModelLevelDataFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLevelData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      meat_carbon
+      transportation_carbon
+      id
+      createdAt
+      updatedAt
     }
     nextToken
   }

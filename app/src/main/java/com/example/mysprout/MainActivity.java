@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
         if(fetchUser && fetchSession){
             Intent intent = new Intent(MainActivity.this, sprout.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
