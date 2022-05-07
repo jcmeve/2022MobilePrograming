@@ -27,8 +27,8 @@ exports.handler = async (event, context, callback) => {
                     transportation: [],
                     food: [],
                     action: [],
-                    meat_level: 0,
-                    transportation_level: 0,
+                    meat_carbon: 0,
+                    transportation_carbon: 0,
                     createdAt: Date.now()
 
                 }
@@ -73,28 +73,28 @@ exports.handler = async (event, context, callback) => {
 
             return result;
 
-        case "msSetMeatLevel":
+        case "msSetMeatCarbon":
 
             const params_meat = {
                 TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                 Key: {id: event.identity.sub},
 
-                UpdateExpression: "set meat_level = :val1",
+                UpdateExpression: "set meat_carbon = :val1",
                 ExpressionAttributeValues: {
-                    ":val1" : event.arguments.meat_level,
+                    ":val1" : event.arguments.meat_carbon,
                 }
             }
             await ddb.update(params_meat).promise();
             return true;
 
-        case "msSetTransportationLevel":
+        case "msSetTransportationCarbon":
             const params_trans = {
                 TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
                 Key: {id: event.identity.sub},
 
-                UpdateExpression: "set transportation_level = :val1",
+                UpdateExpression: "set transportation_carbon = :val1",
                 ExpressionAttributeValues: {
-                    ":val1" : event.arguments.transportation_level,
+                    ":val1" : event.arguments.transportation_carbon,
                 }
             }
             await ddb.update(params_trans).promise();

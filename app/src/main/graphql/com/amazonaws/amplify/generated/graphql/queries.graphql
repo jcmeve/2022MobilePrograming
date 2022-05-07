@@ -12,8 +12,8 @@ query MsGetUserInfo {
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -124,8 +124,8 @@ query GetUser($id: ID!) {
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -157,8 +157,8 @@ query ListUsers(
       sprout_name
       sprout_exp
       carbon_save
-      meat_level
-      transportation_level
+      meat_carbon
+      transportation_carbon
       createdAt
       updatedAt
       owner
@@ -434,24 +434,26 @@ query ListActionData(
     nextToken
   }
 }
-query GetLevelData($id: ID!) {
-  getLevelData(id: $id) {
-    meat_carbon
-    transportation_carbon
+query GetMeatLevelData($id: ID!) {
+  getMeatLevelData(id: $id) {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
   }
 }
-query ListLevelData(
-  $filter: ModelLevelDataFilterInput
+query ListMeatLevelData(
+  $filter: ModelMeatLevelDataFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listLevelData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMeatLevelData(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      meat_carbon
-      transportation_carbon
+      high_carbon
+      low_carbon
+      no_carbon
       id
       createdAt
       updatedAt

@@ -15,14 +15,15 @@ type User @model @auth(rules: [{ allow: owner }]){
   sprout_exp: Int!
   carbon_save: Int!
 
-  meat_level: Int
-  transportation_level: Int
+  meat_carbon: Int
+  transportation_carbon: Int
 
 }
 
-type LevelData @model @auth(rules: [{ allow: public }]){
-  meat_carbon: [Int]
-  transportation_carbon: [Int]
+type MeatLevelData @model @auth(rules: [{ allow: public }]){
+  high_carbon: Int
+  low_carbon: Int
+  no_carbon: Int
 }
 
 type GameScore {
@@ -78,8 +79,8 @@ type ActionData @model @auth(rules: [{ allow: owner }]){
 
 type Mutation{
   msCreateUser(  nickname: String,  sprout_name: String,  sprout_exp: Int, carbon_save: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msSetMeatLevel(meat_level: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msSetTransportationLevel(transportation_level: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msSetMeatCarbon(meat_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msSetTransportationCarbon(transportation_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddFoodData(  food_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
   msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")

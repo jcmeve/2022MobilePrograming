@@ -22,5 +22,6 @@ public class userinformation_2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //TODO: MeatLevelData table을 받아 SetMeatCarbon로 탄소량 저장
     }
 }

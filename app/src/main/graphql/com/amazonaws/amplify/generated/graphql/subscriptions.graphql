@@ -12,8 +12,8 @@ subscription OnCreateUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -32,8 +32,8 @@ subscription OnUpdateUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -52,8 +52,8 @@ subscription OnDeleteUser($owner: String) {
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -326,28 +326,31 @@ subscription OnDeleteActionData($owner: String) {
     owner
   }
 }
-subscription OnCreateLevelData {
-  onCreateLevelData {
-    meat_carbon
-    transportation_carbon
+subscription OnCreateMeatLevelData {
+  onCreateMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateLevelData {
-  onUpdateLevelData {
-    meat_carbon
-    transportation_carbon
+subscription OnUpdateMeatLevelData {
+  onUpdateMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteLevelData {
-  onDeleteLevelData {
-    meat_carbon
-    transportation_carbon
+subscription OnDeleteMeatLevelData {
+  onDeleteMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt

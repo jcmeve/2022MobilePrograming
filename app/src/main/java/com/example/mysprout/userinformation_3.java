@@ -22,5 +22,6 @@ public class userinformation_3 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //TODO: GetTransportationList를 받아 탄소소비량을 계산해 SetTransportationCarbon로 탄소량 저장
     }
 }

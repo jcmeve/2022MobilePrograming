@@ -52,15 +52,15 @@ public  class DB {
         return true;
     }
 
-    public boolean SetMeatLevel(int meat_level){
+    public boolean SetMeatCarbon(int meat_carbon){
         String document =
-                "mutation MyMutation($meat_level: Int!) {" +
-                        "msSetMeatLevel(" +
-                        "meat_level: $meat_level," +
+                "mutation MyMutation($meat_carbon: Int!) {" +
+                        "msSetMeatCarbon(" +
+                        "meat_carbon: $meat_carbon," +
                         ")"+
                         "}";
         Map<String, Object> variables = new HashMap<>();
-        variables.put("meat_level", meat_level);
+        variables.put("meat_carbon", meat_carbon);
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
@@ -70,15 +70,15 @@ public  class DB {
         return true;
     }
 
-    public boolean SetTransportationLevel(int transportation_level){
+    public boolean SetTransportationCarbon(int transportation_carbon){
         String document =
-                "mutation MyMutation($transportation_level: Int!) {" +
-                        "msSetTransportationLevel(" +
-                        "transportation_level: $transportation_level," +
+                "mutation MyMutation($transportation_carbon: Int!) {" +
+                        "msSetTransportationCarbon(" +
+                        "transportation_carbon: $transportation_carbon," +
                         ")"+
                         "}";
         Map<String, Object> variables = new HashMap<>();
-        variables.put("transportation_level", transportation_level);
+        variables.put("transportation_carbon", transportation_carbon);
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
@@ -185,16 +185,18 @@ public  class DB {
 
                 "query MyQuery {" +
                         "  msGetUserInfo {" +
+                        "    carbon_save" +
+                        "    meat_carbon" +
                         "    nickname" +
                         "    sprout_exp" +
                         "    sprout_name" +
-                        "    carbon_save" +
+                        "    transportation_carbon" +
                         "  }" +
                         "}";
         Amplify.API.query(
                 new SimpleGraphQLRequest<>(document, User.class, new GsonVariablesSerializer()),
                 response -> {
-                    Log.i("MyAmplifyApp", "GETUSER!!: " + response);
+                    Log.i("MyAmplifyApp", "GET USER!!: " + response);
                     User user = (User)response.getData();
                     userCallBack.callback(user);
 

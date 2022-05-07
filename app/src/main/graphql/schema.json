@@ -766,7 +766,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "getLevelData",
+                        "name": "getMeatLevelData",
                         "description": null,
                         "args": [
                             {
@@ -786,14 +786,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "listLevelData",
+                        "name": "listMeatLevelData",
                         "description": null,
                         "args": [
                             {
@@ -801,7 +801,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelLevelDataFilterInput",
+                                    "name": "ModelMeatLevelDataFilterInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -829,7 +829,7 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "ModelLevelDataConnection",
+                            "name": "ModelMeatLevelDataConnection",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -1011,7 +1011,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "meat_level",
+                        "name": "meat_carbon",
                         "description": null,
                         "args": [],
                         "type": {
@@ -1023,7 +1023,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "transportation_level",
+                        "name": "transportation_carbon",
                         "description": null,
                         "args": [],
                         "type": {
@@ -2018,7 +2018,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "meat_level",
+                        "name": "meat_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -2028,7 +2028,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_level",
+                        "name": "transportation_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -3481,37 +3481,41 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "LevelData",
+                "name": "MeatLevelData",
                 "description": null,
                 "fields": [
                     {
-                        "name": "meat_carbon",
+                        "name": "high_carbon",
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "transportation_carbon",
+                        "name": "low_carbon",
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "no_carbon",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -3572,12 +3576,12 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "ModelLevelDataFilterInput",
+                "name": "ModelMeatLevelDataFilterInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "meat_carbon",
+                        "name": "high_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -3587,7 +3591,17 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_carbon",
+                        "name": "low_carbon",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "no_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -3604,7 +3618,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelLevelDataFilterInput",
+                                "name": "ModelMeatLevelDataFilterInput",
                                 "ofType": null
                             }
                         },
@@ -3618,7 +3632,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelLevelDataFilterInput",
+                                "name": "ModelMeatLevelDataFilterInput",
                                 "ofType": null
                             }
                         },
@@ -3629,7 +3643,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelLevelDataFilterInput",
+                            "name": "ModelMeatLevelDataFilterInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -3641,7 +3655,7 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "ModelLevelDataConnection",
+                "name": "ModelMeatLevelDataConnection",
                 "description": null,
                 "fields": [
                     {
@@ -3656,7 +3670,7 @@
                                 "name": null,
                                 "ofType": {
                                     "kind": "OBJECT",
-                                    "name": "LevelData",
+                                    "name": "MeatLevelData",
                                     "ofType": null
                                 }
                             }
@@ -3741,11 +3755,11 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "msSetMeatLevel",
+                        "name": "msSetMeatCarbon",
                         "description": null,
                         "args": [
                             {
-                                "name": "meat_level",
+                                "name": "meat_carbon",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -3764,11 +3778,11 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "msSetTransportationLevel",
+                        "name": "msSetTransportationCarbon",
                         "description": null,
                         "args": [
                             {
-                                "name": "transportation_level",
+                                "name": "transportation_carbon",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -4663,7 +4677,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "createLevelData",
+                        "name": "createMeatLevelData",
                         "description": null,
                         "args": [
                             {
@@ -4674,7 +4688,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "CreateLevelDataInput",
+                                        "name": "CreateMeatLevelDataInput",
                                         "ofType": null
                                     }
                                 },
@@ -4685,7 +4699,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelLevelDataConditionInput",
+                                    "name": "ModelMeatLevelDataConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4693,14 +4707,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "updateLevelData",
+                        "name": "updateMeatLevelData",
                         "description": null,
                         "args": [
                             {
@@ -4711,7 +4725,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "UpdateLevelDataInput",
+                                        "name": "UpdateMeatLevelDataInput",
                                         "ofType": null
                                     }
                                 },
@@ -4722,7 +4736,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelLevelDataConditionInput",
+                                    "name": "ModelMeatLevelDataConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4730,14 +4744,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "deleteLevelData",
+                        "name": "deleteMeatLevelData",
                         "description": null,
                         "args": [
                             {
@@ -4748,7 +4762,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "DeleteLevelDataInput",
+                                        "name": "DeleteMeatLevelDataInput",
                                         "ofType": null
                                     }
                                 },
@@ -4759,7 +4773,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelLevelDataConditionInput",
+                                    "name": "ModelMeatLevelDataConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4767,7 +4781,7 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -4928,7 +4942,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "meat_level",
+                        "name": "meat_carbon",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -4938,7 +4952,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_level",
+                        "name": "transportation_carbon",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -5058,7 +5072,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "meat_level",
+                        "name": "meat_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -5068,7 +5082,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_level",
+                        "name": "transportation_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -5245,7 +5259,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "meat_level",
+                        "name": "meat_carbon",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -5255,7 +5269,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_level",
+                        "name": "transportation_carbon",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -6668,35 +6682,37 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "CreateLevelDataInput",
+                "name": "CreateMeatLevelDataInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "meat_carbon",
+                        "name": "high_carbon",
                         "description": null,
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_carbon",
+                        "name": "low_carbon",
                         "description": null,
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "no_carbon",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "defaultValue": null
                     },
@@ -6717,12 +6733,12 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "ModelLevelDataConditionInput",
+                "name": "ModelMeatLevelDataConditionInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "meat_carbon",
+                        "name": "high_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -6732,7 +6748,17 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_carbon",
+                        "name": "low_carbon",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "no_carbon",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -6749,7 +6775,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelLevelDataConditionInput",
+                                "name": "ModelMeatLevelDataConditionInput",
                                 "ofType": null
                             }
                         },
@@ -6763,7 +6789,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelLevelDataConditionInput",
+                                "name": "ModelMeatLevelDataConditionInput",
                                 "ofType": null
                             }
                         },
@@ -6774,7 +6800,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelLevelDataConditionInput",
+                            "name": "ModelMeatLevelDataConditionInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -6786,35 +6812,37 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "UpdateLevelDataInput",
+                "name": "UpdateMeatLevelDataInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "meat_carbon",
+                        "name": "high_carbon",
                         "description": null,
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "defaultValue": null
                     },
                     {
-                        "name": "transportation_carbon",
+                        "name": "low_carbon",
                         "description": null,
                         "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "no_carbon",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
                         },
                         "defaultValue": null
                     },
@@ -6839,7 +6867,7 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "DeleteLevelDataInput",
+                "name": "DeleteMeatLevelDataInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
@@ -7351,36 +7379,36 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "onCreateLevelData",
+                        "name": "onCreateMeatLevelData",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "onUpdateLevelData",
+                        "name": "onUpdateMeatLevelData",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "onDeleteLevelData",
+                        "name": "onDeleteMeatLevelData",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LevelData",
+                            "name": "MeatLevelData",
                             "ofType": null
                         },
                         "isDeprecated": false,

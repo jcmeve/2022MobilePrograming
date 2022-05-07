@@ -12,11 +12,11 @@ mutation MsCreateUser(
     carbon_save: $carbon_save
   )
 }
-mutation MsSetMeatLevel($meat_level: Int) {
-  msSetMeatLevel(meat_level: $meat_level)
+mutation MsSetMeatCarbon($meat_carbon: Int) {
+  msSetMeatCarbon(meat_carbon: $meat_carbon)
 }
-mutation MsSetTransportationLevel($transportation_level: Int) {
-  msSetTransportationLevel(transportation_level: $transportation_level)
+mutation MsSetTransportationCarbon($transportation_carbon: Int) {
+  msSetTransportationCarbon(transportation_carbon: $transportation_carbon)
 }
 mutation MsAddTransportationData($transportation_name: String, $count: Int) {
   msAddTransportationData(
@@ -46,8 +46,8 @@ mutation CreateUser(
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -69,8 +69,8 @@ mutation UpdateUser(
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -92,8 +92,8 @@ mutation DeleteUser(
     sprout_name
     sprout_exp
     carbon_save
-    meat_level
-    transportation_level
+    meat_carbon
+    transportation_carbon
     createdAt
     updatedAt
     owner
@@ -420,37 +420,40 @@ mutation DeleteActionData(
     owner
   }
 }
-mutation CreateLevelData(
-  $input: CreateLevelDataInput!
-  $condition: ModelLevelDataConditionInput
+mutation CreateMeatLevelData(
+  $input: CreateMeatLevelDataInput!
+  $condition: ModelMeatLevelDataConditionInput
 ) {
-  createLevelData(input: $input, condition: $condition) {
-    meat_carbon
-    transportation_carbon
+  createMeatLevelData(input: $input, condition: $condition) {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
   }
 }
-mutation UpdateLevelData(
-  $input: UpdateLevelDataInput!
-  $condition: ModelLevelDataConditionInput
+mutation UpdateMeatLevelData(
+  $input: UpdateMeatLevelDataInput!
+  $condition: ModelMeatLevelDataConditionInput
 ) {
-  updateLevelData(input: $input, condition: $condition) {
-    meat_carbon
-    transportation_carbon
+  updateMeatLevelData(input: $input, condition: $condition) {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
   }
 }
-mutation DeleteLevelData(
-  $input: DeleteLevelDataInput!
-  $condition: ModelLevelDataConditionInput
+mutation DeleteMeatLevelData(
+  $input: DeleteMeatLevelDataInput!
+  $condition: ModelMeatLevelDataConditionInput
 ) {
-  deleteLevelData(input: $input, condition: $condition) {
-    meat_carbon
-    transportation_carbon
+  deleteMeatLevelData(input: $input, condition: $condition) {
+    high_carbon
+    low_carbon
+    no_carbon
     id
     createdAt
     updatedAt
