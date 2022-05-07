@@ -30,10 +30,12 @@ public final class FoodData implements Model {
   public static final QueryField NAME = field("FoodData", "name");
   public static final QueryField UNIT = field("FoodData", "unit");
   public static final QueryField CARBON_PER_UNIT = field("FoodData", "carbon_per_unit");
+  public static final QueryField TAG = field("FoodData", "tag");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
   private final @ModelField(targetType="String", isRequired = true) String unit;
   private final @ModelField(targetType="Int", isRequired = true) Integer carbon_per_unit;
+  private final @ModelField(targetType="String", isRequired = true) String tag;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -52,6 +54,10 @@ public final class FoodData implements Model {
       return carbon_per_unit;
   }
   
+  public String getTag() {
+      return tag;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -60,11 +66,12 @@ public final class FoodData implements Model {
       return updatedAt;
   }
   
-  private FoodData(String id, String name, String unit, Integer carbon_per_unit) {
+  private FoodData(String id, String name, String unit, Integer carbon_per_unit, String tag) {
     this.id = id;
     this.name = name;
     this.unit = unit;
     this.carbon_per_unit = carbon_per_unit;
+    this.tag = tag;
   }
   
   @Override
@@ -79,6 +86,7 @@ public final class FoodData implements Model {
               ObjectsCompat.equals(getName(), foodData.getName()) &&
               ObjectsCompat.equals(getUnit(), foodData.getUnit()) &&
               ObjectsCompat.equals(getCarbonPerUnit(), foodData.getCarbonPerUnit()) &&
+              ObjectsCompat.equals(getTag(), foodData.getTag()) &&
               ObjectsCompat.equals(getCreatedAt(), foodData.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), foodData.getUpdatedAt());
       }
@@ -91,6 +99,7 @@ public final class FoodData implements Model {
       .append(getName())
       .append(getUnit())
       .append(getCarbonPerUnit())
+      .append(getTag())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -105,6 +114,7 @@ public final class FoodData implements Model {
       .append("name=" + String.valueOf(getName()) + ", ")
       .append("unit=" + String.valueOf(getUnit()) + ", ")
       .append("carbon_per_unit=" + String.valueOf(getCarbonPerUnit()) + ", ")
+      .append("tag=" + String.valueOf(getTag()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -128,6 +138,7 @@ public final class FoodData implements Model {
       id,
       null,
       null,
+      null,
       null
     );
   }
@@ -136,7 +147,8 @@ public final class FoodData implements Model {
     return new CopyOfBuilder(id,
       name,
       unit,
-      carbon_per_unit);
+      carbon_per_unit,
+      tag);
   }
   public interface NameStep {
     UnitStep name(String name);
@@ -149,7 +161,12 @@ public final class FoodData implements Model {
   
 
   public interface CarbonPerUnitStep {
-    BuildStep carbonPerUnit(Integer carbonPerUnit);
+    TagStep carbonPerUnit(Integer carbonPerUnit);
+  }
+  
+
+  public interface TagStep {
+    BuildStep tag(String tag);
   }
   
 
@@ -159,11 +176,12 @@ public final class FoodData implements Model {
   }
   
 
-  public static class Builder implements NameStep, UnitStep, CarbonPerUnitStep, BuildStep {
+  public static class Builder implements NameStep, UnitStep, CarbonPerUnitStep, TagStep, BuildStep {
     private String id;
     private String name;
     private String unit;
     private Integer carbon_per_unit;
+    private String tag;
     @Override
      public FoodData build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -172,7 +190,8 @@ public final class FoodData implements Model {
           id,
           name,
           unit,
-          carbon_per_unit);
+          carbon_per_unit,
+          tag);
     }
     
     @Override
@@ -190,9 +209,16 @@ public final class FoodData implements Model {
     }
     
     @Override
-     public BuildStep carbonPerUnit(Integer carbonPerUnit) {
+     public TagStep carbonPerUnit(Integer carbonPerUnit) {
         Objects.requireNonNull(carbonPerUnit);
         this.carbon_per_unit = carbonPerUnit;
+        return this;
+    }
+    
+    @Override
+     public BuildStep tag(String tag) {
+        Objects.requireNonNull(tag);
+        this.tag = tag;
         return this;
     }
     
@@ -208,11 +234,12 @@ public final class FoodData implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name, String unit, Integer carbonPerUnit) {
+    private CopyOfBuilder(String id, String name, String unit, Integer carbonPerUnit, String tag) {
       super.id(id);
       super.name(name)
         .unit(unit)
-        .carbonPerUnit(carbonPerUnit);
+        .carbonPerUnit(carbonPerUnit)
+        .tag(tag);
     }
     
     @Override
@@ -228,6 +255,11 @@ public final class FoodData implements Model {
     @Override
      public CopyOfBuilder carbonPerUnit(Integer carbonPerUnit) {
       return (CopyOfBuilder) super.carbonPerUnit(carbonPerUnit);
+    }
+    
+    @Override
+     public CopyOfBuilder tag(String tag) {
+      return (CopyOfBuilder) super.tag(tag);
     }
   }
   

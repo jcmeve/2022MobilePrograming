@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        DB.getInstance().msGetMeatLevelData((data)-> Log.i(data.toString(),data.toString()));
 
 
         if(fetchUser && fetchSession){

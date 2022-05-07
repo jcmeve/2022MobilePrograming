@@ -30,10 +30,12 @@ public final class UserFood implements Model {
   public static final QueryField ID = field("UserFood", "id");
   public static final QueryField FOOD_NAME = field("UserFood", "food_name");
   public static final QueryField COUNT = field("UserFood", "count");
+  public static final QueryField DATE = field("UserFood", "date");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String food_name;
   private final @ModelField(targetType="FoodData") @HasOne(associatedWith = "name", type = FoodData.class) FoodData data = null;
   private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
+  private final @ModelField(targetType="AWSTimestamp", isRequired = true) List<Temporal.Timestamp> date;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -52,6 +54,10 @@ public final class UserFood implements Model {
       return count;
   }
   
+  public List<Temporal.Timestamp> getDate() {
+      return date;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -60,10 +66,11 @@ public final class UserFood implements Model {
       return updatedAt;
   }
   
-  private UserFood(String id, String food_name, List<Integer> count) {
+  private UserFood(String id, String food_name, List<Integer> count, List<Temporal.Timestamp> date) {
     this.id = id;
     this.food_name = food_name;
     this.count = count;
+    this.date = date;
   }
   
   @Override
@@ -77,6 +84,7 @@ public final class UserFood implements Model {
       return ObjectsCompat.equals(getId(), userFood.getId()) &&
               ObjectsCompat.equals(getFoodName(), userFood.getFoodName()) &&
               ObjectsCompat.equals(getCount(), userFood.getCount()) &&
+              ObjectsCompat.equals(getDate(), userFood.getDate()) &&
               ObjectsCompat.equals(getCreatedAt(), userFood.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), userFood.getUpdatedAt());
       }
@@ -88,6 +96,7 @@ public final class UserFood implements Model {
       .append(getId())
       .append(getFoodName())
       .append(getCount())
+      .append(getDate())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -101,6 +110,7 @@ public final class UserFood implements Model {
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("food_name=" + String.valueOf(getFoodName()) + ", ")
       .append("count=" + String.valueOf(getCount()) + ", ")
+      .append("date=" + String.valueOf(getDate()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -123,6 +133,7 @@ public final class UserFood implements Model {
     return new UserFood(
       id,
       null,
+      null,
       null
     );
   }
@@ -130,7 +141,8 @@ public final class UserFood implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       food_name,
-      count);
+      count,
+      date);
   }
   public interface FoodNameStep {
     CountStep foodName(String foodName);
@@ -138,7 +150,12 @@ public final class UserFood implements Model {
   
 
   public interface CountStep {
-    BuildStep count(List<Integer> count);
+    DateStep count(List<Integer> count);
+  }
+  
+
+  public interface DateStep {
+    BuildStep date(List<Temporal.Timestamp> date);
   }
   
 
@@ -148,10 +165,11 @@ public final class UserFood implements Model {
   }
   
 
-  public static class Builder implements FoodNameStep, CountStep, BuildStep {
+  public static class Builder implements FoodNameStep, CountStep, DateStep, BuildStep {
     private String id;
     private String food_name;
     private List<Integer> count;
+    private List<Temporal.Timestamp> date;
     @Override
      public UserFood build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -159,7 +177,8 @@ public final class UserFood implements Model {
         return new UserFood(
           id,
           food_name,
-          count);
+          count,
+          date);
     }
     
     @Override
@@ -170,9 +189,16 @@ public final class UserFood implements Model {
     }
     
     @Override
-     public BuildStep count(List<Integer> count) {
+     public DateStep count(List<Integer> count) {
         Objects.requireNonNull(count);
         this.count = count;
+        return this;
+    }
+    
+    @Override
+     public BuildStep date(List<Temporal.Timestamp> date) {
+        Objects.requireNonNull(date);
+        this.date = date;
         return this;
     }
     
@@ -188,10 +214,11 @@ public final class UserFood implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String foodName, List<Integer> count) {
+    private CopyOfBuilder(String id, String foodName, List<Integer> count, List<Temporal.Timestamp> date) {
       super.id(id);
       super.foodName(foodName)
-        .count(count);
+        .count(count)
+        .date(date);
     }
     
     @Override
@@ -202,6 +229,11 @@ public final class UserFood implements Model {
     @Override
      public CopyOfBuilder count(List<Integer> count) {
       return (CopyOfBuilder) super.count(count);
+    }
+    
+    @Override
+     public CopyOfBuilder date(List<Temporal.Timestamp> date) {
+      return (CopyOfBuilder) super.date(date);
     }
   }
   

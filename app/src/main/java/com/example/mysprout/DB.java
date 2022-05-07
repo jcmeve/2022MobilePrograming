@@ -7,6 +7,7 @@ import com.amplifyframework.api.graphql.SimpleGraphQLRequest;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.ActionData;
 import com.amplifyframework.datastore.generated.model.FoodData;
+import com.amplifyframework.datastore.generated.model.MeatLevelData;
 import com.amplifyframework.datastore.generated.model.TransportationData;
 import com.amplifyframework.datastore.generated.model.User;
 import com.amplifyframework.datastore.generated.model.UserAction;
@@ -51,6 +52,8 @@ public  class DB {
         );
         return true;
     }
+
+
 
     public boolean SetMeatCarbon(int meat_carbon){
         String document =
@@ -205,6 +208,42 @@ public  class DB {
         );
 
     }
+
+    public interface getMeatLevelDataCallBack{
+        void callback(MeatLevelData data);
+    }
+    private getMeatLevelDataCallBack meatLevelDataCallBack;
+    public void msGetMeatLevelData(getMeatLevelDataCallBack _callBack) {
+        meatLevelDataCallBack = _callBack;
+
+        String document =
+
+                "query MyQuery($id: ID!) {" +
+                        "  getMeatLevelData(id: $id) {" +
+                        "    high_carbon" +
+                        "    low_carbon" +
+                        "    no_carbon" +
+                        "  }" +
+                        "}";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("id", 1);
+
+        Amplify.API.query(
+                new SimpleGraphQLRequest<>(document,variables, MeatLevelData.class, new GsonVariablesSerializer()),
+                response -> {
+                    Log.i("MyAmplifyApp", "GET MeatLevelData!!: " + response);
+                    MeatLevelData data = (MeatLevelData)response.getData();
+                    meatLevelDataCallBack.callback(data);
+
+                },
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+
+    }
+
+    //msGetMeatLevelData:MeatLevelData @function(name: "mysprout034be500-${env}")
+
+
 
     public interface getTransportationListCallBack{
         void callback(TransportationData[] transportationData);

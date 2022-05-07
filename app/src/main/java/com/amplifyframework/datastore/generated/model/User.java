@@ -35,6 +35,8 @@ public final class User implements Model {
   public static final QueryField SPROUT_NAME = field("User", "sprout_name");
   public static final QueryField SPROUT_EXP = field("User", "sprout_exp");
   public static final QueryField CARBON_SAVE = field("User", "carbon_save");
+  public static final QueryField MEAT_CARBON = field("User", "meat_carbon");
+  public static final QueryField TRANSPORTATION_CARBON = field("User", "transportation_carbon");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="GameScore") GameScore game_score;
   private final @ModelField(targetType="ID", isRequired = true) List<String> transportation;
@@ -44,6 +46,8 @@ public final class User implements Model {
   private final @ModelField(targetType="String", isRequired = true) String sprout_name;
   private final @ModelField(targetType="Int", isRequired = true) Integer sprout_exp;
   private final @ModelField(targetType="Int", isRequired = true) Integer carbon_save;
+  private final @ModelField(targetType="Int") Integer meat_carbon;
+  private final @ModelField(targetType="Int") Integer transportation_carbon;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -82,6 +86,14 @@ public final class User implements Model {
       return carbon_save;
   }
   
+  public Integer getMeatCarbon() {
+      return meat_carbon;
+  }
+  
+  public Integer getTransportationCarbon() {
+      return transportation_carbon;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -90,7 +102,7 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, GameScore game_score, List<String> transportation, List<String> food, List<String> action, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save) {
+  private User(String id, GameScore game_score, List<String> transportation, List<String> food, List<String> action, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save, Integer meat_carbon, Integer transportation_carbon) {
     this.id = id;
     this.game_score = game_score;
     this.transportation = transportation;
@@ -100,6 +112,8 @@ public final class User implements Model {
     this.sprout_name = sprout_name;
     this.sprout_exp = sprout_exp;
     this.carbon_save = carbon_save;
+    this.meat_carbon = meat_carbon;
+    this.transportation_carbon = transportation_carbon;
   }
   
   @Override
@@ -119,6 +133,8 @@ public final class User implements Model {
               ObjectsCompat.equals(getSproutName(), user.getSproutName()) &&
               ObjectsCompat.equals(getSproutExp(), user.getSproutExp()) &&
               ObjectsCompat.equals(getCarbonSave(), user.getCarbonSave()) &&
+              ObjectsCompat.equals(getMeatCarbon(), user.getMeatCarbon()) &&
+              ObjectsCompat.equals(getTransportationCarbon(), user.getTransportationCarbon()) &&
               ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
@@ -136,6 +152,8 @@ public final class User implements Model {
       .append(getSproutName())
       .append(getSproutExp())
       .append(getCarbonSave())
+      .append(getMeatCarbon())
+      .append(getTransportationCarbon())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -155,6 +173,8 @@ public final class User implements Model {
       .append("sprout_name=" + String.valueOf(getSproutName()) + ", ")
       .append("sprout_exp=" + String.valueOf(getSproutExp()) + ", ")
       .append("carbon_save=" + String.valueOf(getCarbonSave()) + ", ")
+      .append("meat_carbon=" + String.valueOf(getMeatCarbon()) + ", ")
+      .append("transportation_carbon=" + String.valueOf(getTransportationCarbon()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -183,6 +203,8 @@ public final class User implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -196,7 +218,9 @@ public final class User implements Model {
       nickname,
       sprout_name,
       sprout_exp,
-      carbon_save);
+      carbon_save,
+      meat_carbon,
+      transportation_carbon);
   }
   public interface TransportationStep {
     FoodStep transportation(List<String> transportation);
@@ -237,6 +261,8 @@ public final class User implements Model {
     User build();
     BuildStep id(String id);
     BuildStep gameScore(GameScore gameScore);
+    BuildStep meatCarbon(Integer meatCarbon);
+    BuildStep transportationCarbon(Integer transportationCarbon);
   }
   
 
@@ -250,6 +276,8 @@ public final class User implements Model {
     private Integer sprout_exp;
     private Integer carbon_save;
     private GameScore game_score;
+    private Integer meat_carbon;
+    private Integer transportation_carbon;
     @Override
      public User build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -263,7 +291,9 @@ public final class User implements Model {
           nickname,
           sprout_name,
           sprout_exp,
-          carbon_save);
+          carbon_save,
+          meat_carbon,
+          transportation_carbon);
     }
     
     @Override
@@ -321,6 +351,18 @@ public final class User implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep meatCarbon(Integer meatCarbon) {
+        this.meat_carbon = meatCarbon;
+        return this;
+    }
+    
+    @Override
+     public BuildStep transportationCarbon(Integer transportationCarbon) {
+        this.transportation_carbon = transportationCarbon;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -333,7 +375,7 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, GameScore gameScore, List<String> transportation, List<String> food, List<String> action, String nickname, String sproutName, Integer sproutExp, Integer carbonSave) {
+    private CopyOfBuilder(String id, GameScore gameScore, List<String> transportation, List<String> food, List<String> action, String nickname, String sproutName, Integer sproutExp, Integer carbonSave, Integer meatCarbon, Integer transportationCarbon) {
       super.id(id);
       super.transportation(transportation)
         .food(food)
@@ -342,7 +384,9 @@ public final class User implements Model {
         .sproutName(sproutName)
         .sproutExp(sproutExp)
         .carbonSave(carbonSave)
-        .gameScore(gameScore);
+        .gameScore(gameScore)
+        .meatCarbon(meatCarbon)
+        .transportationCarbon(transportationCarbon);
     }
     
     @Override
@@ -383,6 +427,16 @@ public final class User implements Model {
     @Override
      public CopyOfBuilder gameScore(GameScore gameScore) {
       return (CopyOfBuilder) super.gameScore(gameScore);
+    }
+    
+    @Override
+     public CopyOfBuilder meatCarbon(Integer meatCarbon) {
+      return (CopyOfBuilder) super.meatCarbon(meatCarbon);
+    }
+    
+    @Override
+     public CopyOfBuilder transportationCarbon(Integer transportationCarbon) {
+      return (CopyOfBuilder) super.transportationCarbon(transportationCarbon);
     }
   }
   
