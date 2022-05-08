@@ -17,7 +17,7 @@ exports.handler = async (event, context, callback) => {
     switch(event.fieldName){
         case "msCreateUser":
             const params = {
-                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Item: {
                     id: event.identity.sub,
                     carbon_save: event.arguments.carbon_save,
@@ -76,7 +76,7 @@ exports.handler = async (event, context, callback) => {
         case "msSetMeatCarbon":
 
             const params_meat = {
-                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Key: {id: event.identity.sub},
 
                 UpdateExpression: "set meat_carbon = :val1",
@@ -89,7 +89,7 @@ exports.handler = async (event, context, callback) => {
 
         case "msSetTransportationCarbon":
             const params_trans = {
-                TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Key: {id: event.identity.sub},
 
                 UpdateExpression: "set transportation_carbon = :val1",
@@ -103,7 +103,7 @@ exports.handler = async (event, context, callback) => {
         case "msAddTransportationData":
             //이동수단 종류 있는지 확인
             const at_params = {
-                TableName: 	"TransportationData-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: 	"TransportationData-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Key: {
                     name: event.arguments.transportation_name
                 }
@@ -130,7 +130,7 @@ exports.handler = async (event, context, callback) => {
             if(ck == false){//한번도 해당 이동수단을 사용한 적 없는 경우
                 //유저-이동수단 테이블 생성 및 사용량 기록
                 const params = {
-                    TableName: "UserTransportation-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserTransportation-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Item: {
                         id: event.identity.sub + event.arguments.transportation_name,
                         transportation_name: event.arguments.transportation_name,
@@ -142,7 +142,7 @@ exports.handler = async (event, context, callback) => {
 
                 //유저 테이블에 기록. / 삭제가능
                 const params2 = {
-                    TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub},
 
                     UpdateExpression: "set #transportation =  list_append( #transportation, :val1)",
@@ -166,7 +166,7 @@ exports.handler = async (event, context, callback) => {
             }else{//이동수단을 사용한 적이 있는 경우
                 //이동수단 사용량 기록
                 const params = {
-                    TableName: "UserTransportation-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserTransportation-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub + event.arguments.transportation_name},
 
                     UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
@@ -193,7 +193,7 @@ exports.handler = async (event, context, callback) => {
 
             //음식 종류 있는지 확인
             const af_params = {
-                TableName: 	"FoodData-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: 	"FoodData-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Key: {
                     name: event.arguments.food_name
                 }
@@ -220,7 +220,7 @@ exports.handler = async (event, context, callback) => {
                 //유저-음식 테이블 생성 및 사용량 기록
                 console.log("asdfasdfsadf");
                 const params = {
-                    TableName: "UserFood-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserFood-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Item: {
                         id: event.identity.sub + event.arguments.food_name,
                         food_name: event.arguments.food_name,
@@ -232,7 +232,7 @@ exports.handler = async (event, context, callback) => {
 
                 //유저 테이블에 기록. / 삭제가능
                 const params2 = {
-                    TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub},
 
                     UpdateExpression: "set food =  list_append( food, :val1)",
@@ -244,7 +244,7 @@ exports.handler = async (event, context, callback) => {
             }else{//음식을 사용한 적이 있는 경우
                 //음식 사용량 기록
                 const params = {
-                    TableName: "UserFood-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserFood-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub + event.arguments.food_name},
 
                     UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
@@ -276,7 +276,7 @@ exports.handler = async (event, context, callback) => {
         case "msAddActionData":
             //액션 종류 있는지 확인
             const aa_params = {
-                TableName: 	"ActionData-q2vg5zi6bvcavondcdicixh6zi-dev",
+                TableName: 	"ActionData-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                 Key: {
                     name: event.arguments.action_name
                 }
@@ -302,7 +302,7 @@ exports.handler = async (event, context, callback) => {
             if(ck == false){//한번도 해당 액션을 사용한 적 없는 경우
                 //유저-액션 테이블 생성 및 사용량 기록
                 const params = {
-                    TableName: "UserAction-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserAction-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Item: {
                         id: event.identity.sub + event.arguments.action_name,
                         action_name: event.arguments.action_name,
@@ -314,7 +314,7 @@ exports.handler = async (event, context, callback) => {
 
                 //유저 테이블에 기록. / 삭제가능
                 const params2 = {
-                    TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub},
 
                     UpdateExpression: "set action =  list_append( action, :val1)",
@@ -332,7 +332,7 @@ exports.handler = async (event, context, callback) => {
             }else{//액션을 사용한 적이 있는 경우
                 //액션 사용량 기록
                 const params = {
-                    TableName: "UserAction-q2vg5zi6bvcavondcdicixh6zi-dev",
+                    TableName: "UserAction-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub + event.arguments.action_name},
 
                     UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2)",
@@ -383,7 +383,7 @@ exports.handler = async (event, context, callback) => {
 async function getUser(id){
     //유저 return
     const gu_params = {
-        TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+        TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
         Key: {
             id: id
         }
@@ -398,7 +398,7 @@ async function getUser(id){
 async function addCarbonSave(id, value){
     //유저 테이블에 기록. / 삭제가능
     const params2 = {
-        TableName: "User-q2vg5zi6bvcavondcdicixh6zi-dev",
+        TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
         Key: {id: id},
 
         UpdateExpression: "set carbon_save = carbon_save + :val1",
@@ -412,7 +412,7 @@ async function addCarbonSave(id, value){
 
 async function getDataList(name){
     const params = {
-        TableName: name + "-q2vg5zi6bvcavondcdicixh6zi-dev",
+        TableName: name + "-lxhzoxuizzfwrbzgkmwilkkpse-dev",
     };
     const scanResults = [];
     var items;
@@ -429,7 +429,7 @@ async function getDataList(name){
 async function getHistory(type, _id){
 
     const params = {
-        TableName: type + "-q2vg5zi6bvcavondcdicixh6zi-dev",
+        TableName: type + "-lxhzoxuizzfwrbzgkmwilkkpse-dev",
         KeyConditionExpression: "#id = :val",
         ExpressionAttributeNames:{
             "#id": "id"

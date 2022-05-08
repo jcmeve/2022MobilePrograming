@@ -59,39 +59,6 @@ subscription OnDeleteUser($owner: String) {
     owner
   }
 }
-subscription OnCreateMeatLevelData($owner: String) {
-  onCreateMeatLevelData(owner: $owner) {
-    high_carbon
-    low_carbon
-    no_carbon
-    id
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnUpdateMeatLevelData($owner: String) {
-  onUpdateMeatLevelData(owner: $owner) {
-    high_carbon
-    low_carbon
-    no_carbon
-    id
-    createdAt
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteMeatLevelData($owner: String) {
-  onDeleteMeatLevelData(owner: $owner) {
-    high_carbon
-    low_carbon
-    no_carbon
-    id
-    createdAt
-    updatedAt
-    owner
-  }
-}
 subscription OnCreateUserTransportation($owner: String) {
   onCreateUserTransportation(owner: $owner) {
     id
@@ -264,6 +231,36 @@ subscription OnDeleteUserAction($owner: String) {
     createdAt
     updatedAt
     owner
+  }
+}
+subscription OnCreateMeatLevelData {
+  onCreateMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateMeatLevelData {
+  onUpdateMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteMeatLevelData {
+  onDeleteMeatLevelData {
+    high_carbon
+    low_carbon
+    no_carbon
+    id
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateTransportationData($owner: String) {

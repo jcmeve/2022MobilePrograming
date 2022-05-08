@@ -502,10 +502,9 @@ public  class DB {
     }
 
 
-
-    /* DO NOT USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    private void DBINPUT(){
-        InputStreamReader inputStreamReader = new InputStreamReader(getResources().openRawResource(R.raw.action_data));
+/*
+    public void DBINPUT(Context context){
+        InputStreamReader inputStreamReader = new InputStreamReader(context.getResources().openRawResource(R.raw.food_data));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         CSVReader reader = new CSVReader(bufferedReader);
         String[] nextLine = null;
@@ -516,23 +515,25 @@ public  class DB {
                 e.printStackTrace();
             }
 
-            String name =  nextLine[0];
+            String tag =  nextLine[0];
+            String name = nextLine[1];
+            int carbon = (int)Float.parseFloat(nextLine[2]);
+            String unit =  nextLine[3];
 
-            int carbon = (int)Float.parseFloat(nextLine[1]);
-            String tag =  nextLine[2];
-
-            String document ="mutation MyMutation($name: String!, $save_carbon: Int!, $tag: String!) {" +
-                    "  createActionData(input: {name: $name, save_carbon: $save_carbon, tag: $tag}) {" +
-                    "    name" +
-                    "    save_carbon" +
-                    "    tag" +
-                    "  }" +
-                    "}";
+            String document ="mutation MyMutation($carbon_per_unit: Int!, $name: String! , $tag: String!, $unit: String! ) {\n" +
+                    "  createFoodData(input: {carbon_per_unit: $carbon_per_unit, name: $name, tag: $tag, unit: $unit}) {\n" +
+                    "    carbon_per_unit\n" +
+                    "    name\n" +
+                    "    tag\n" +
+                    "    unit\n" +
+                    "  }\n" +
+                    "}\n";
 
             Map<String, Object> variables = new HashMap<>();
-            variables.put("name", name);
-            variables.put("save_carbon", carbon);
             variables.put("tag", tag);
+            variables.put("name", name);
+            variables.put("carbon_per_unit", carbon);
+            variables.put("unit", unit);
 
             Amplify.API.mutate(
                     new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
@@ -548,5 +549,9 @@ public  class DB {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }*/
+    }
+ */
+
 }
+
+

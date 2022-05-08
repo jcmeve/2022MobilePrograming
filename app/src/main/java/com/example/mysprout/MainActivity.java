@@ -65,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        DB.getInstance().msGetMeatLevelData((data)-> Log.i(data.toString(),data.toString()));
 
 
         if(fetchUser && fetchSession){

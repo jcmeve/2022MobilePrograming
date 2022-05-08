@@ -166,35 +166,6 @@ query ListUsers(
     nextToken
   }
 }
-query GetMeatLevelData($id: ID!) {
-  getMeatLevelData(id: $id) {
-    high_carbon
-    low_carbon
-    no_carbon
-    id
-    createdAt
-    updatedAt
-    owner
-  }
-}
-query ListMeatLevelData(
-  $filter: ModelMeatLevelDataFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listMeatLevelData(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      high_carbon
-      low_carbon
-      no_carbon
-      id
-      createdAt
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
 query GetUserTransportation($id: ID!) {
   getUserTransportation(id: $id) {
     id
@@ -352,6 +323,33 @@ query ListUserActions(
       createdAt
       updatedAt
       owner
+    }
+    nextToken
+  }
+}
+query GetMeatLevelData($id: ID!) {
+  getMeatLevelData(id: $id) {
+    high_carbon
+    low_carbon
+    no_carbon
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListMeatLevelData(
+  $filter: ModelMeatLevelDataFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMeatLevelData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      high_carbon
+      low_carbon
+      no_carbon
+      id
+      createdAt
+      updatedAt
     }
     nextToken
   }

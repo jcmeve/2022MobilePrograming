@@ -20,7 +20,7 @@ type User @model @auth(rules: [{ allow: owner }]){
 
 }
 
-type MeatLevelData @model @auth(rules: [{ allow: owner }]){
+type MeatLevelData @model @auth(rules: [{ allow: public }]){
   high_carbon: Int
   low_carbon: Int
   no_carbon: Int
@@ -58,20 +58,38 @@ type UserAction @model @auth(rules: [{ allow: owner }]){
 }
 
 
-type TransportationData @model @auth(rules: [{ allow: owner }]){
+type TransportationData @model @auth (
+                                   rules: [
+                                     { allow: owner },
+                                     { allow: private, operations: [read] },
+                                     { allow: public, operations: [read] }
+                                   ]
+                                 ){
   name: String! @primaryKey
   unit: String!
   carbon_per_unit: Int!
 }
 
-type FoodData @model @auth(rules: [{ allow: owner }]){
+type FoodData @model  @auth (
+                                                         rules: [
+                                                           { allow: owner },
+                                                           { allow: private, operations: [read] },
+                                                           { allow: public, operations: [read] }
+                                                         ]
+                                                       ){
   name: String! @primaryKey
   unit: String!
   carbon_per_unit: Int!
   tag: String!
 }
 
-type ActionData @model @auth(rules: [{ allow: owner }]){
+type ActionData @model @auth (
+                                                          rules: [
+                                                            { allow: owner },
+                                                            { allow: private, operations: [read] },
+                                                            { allow: public, operations: [read] }
+                                                          ]
+                                                        ){
   name: String! @primaryKey
   tag: String!
   save_carbon: Int!

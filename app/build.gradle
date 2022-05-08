@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.amplifyframework:aws-auth-cognito:1.35.2'
     implementation 'com.amplifyframework:core:1.35.2'
     implementation 'com.amplifyframework:aws-api:1.35.2'
+    implementation 'com.opencsv:opencsv:4.4'
 
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
