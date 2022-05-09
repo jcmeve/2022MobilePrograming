@@ -65,7 +65,9 @@ public class RecordFood extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.recyclerview_food);
         recyclerView.setHasFixedSize(true);
 
-        getDBData();
+        if(foods.isEmpty()){
+            getDBData();
+        }
 
         adapter = new RecyclerCustomAdapterFood(this,
                 foods, R.layout.recycler_itemview_food);

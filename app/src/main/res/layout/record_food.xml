@@ -72,16 +72,20 @@
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/buttonfN1"
-        android:layout_width="wrap_content"
+    <android.widget.Button
+        android:id="@+id/nextbtn_food"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/fullbtn"
+        android:fontFamily="@font/nbold"
+        android:includeFontPadding="false"
         android:onClick="onClickfN1"
-        android:text="다음"
+        android:text="@string/nextbtn"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:ignore="UsingOnClickInXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

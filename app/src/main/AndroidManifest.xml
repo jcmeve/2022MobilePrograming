@@ -35,7 +35,7 @@
         <activity android:name=".sprout2"/>
         <activity android:name=".RecordHabits"/>
         <activity android:name=".RecordComplete"/>
-        <activity android:name=".record_3"/>
+        <activity android:name=".GrowSprout"/>
         <activity android:name=".RecordFood"/>
         <activity android:name=".record_food_2"/>
         <activity android:name=".record_food_3"/>

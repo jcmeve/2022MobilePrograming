@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mysprout.data.FoodPassData;
@@ -24,6 +26,7 @@ import java.util.Locale;
 
 public class RecordComplete extends AppCompatActivity implements RecyclerCustomAdapterResult.OnResultItemListener {
     private float total;
+    private String tag;
     ArrayList selects;
 
     int givenSize;
@@ -44,21 +47,22 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         getDate();
 
         Intent intent = getIntent();
+        tag = intent.getStringExtra("tag");
 
-        if(intent.getStringExtra("tag").equals("Food")){
+        if(tag.equals("Food")){
             selects = new ArrayList<FoodPassData>();
             selects = intent.getParcelableArrayListExtra("selectList");
 
             calTotal(selects);
             setTextOfRecordFoods();
-
-            setRecyclerView("Food");
-        }else if(intent.getStringExtra("tag").equals("Habits")){
+        }else if(tag.equals("Habits")){
+            //Habits
             selects = new ArrayList<RecyclerItemHabit>();
             selects = intent.getParcelableArrayListExtra("selectList");
             setTextOfRecordHabits();
-            setRecyclerView("Habits");
         }
+
+        setRecyclerView();
 
     }
 
@@ -108,7 +112,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         recordCompleteBinding.textviewCompleteTotal.setText("총 탄소 배출량: " + total + "CO2eg");
     }
 
-    private void setRecyclerView(String tag){
+    private void setRecyclerView(){
         RecyclerCustomAdapterResult adapter
                 = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
 
@@ -129,7 +133,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
 
             @Override
             public void onItemButtonClicked(View view, int position, RecyclerItemHabit item) {
-
+                //Habits
             }
         });
 
@@ -139,8 +143,33 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
     }
 
+    public float calSavings(){
+        //DB에서 meatlevel 받아오기, 일단 LowMeat로 받았다 생각하고 진행
+        float save = 6061 - total;
+        if(save < 0){
+            save = 0;
+        }
+        return save;
+    }
+
     public void onClickN2(View v) {
-        Intent intent = new Intent(getApplicationContext(), record_3.class);
+        ConstraintLayout container = findViewById(R.id.container);
+        Log.d("넘겨줄 리스트 컴플릿", String.valueOf(selects));
+        Intent intent = new Intent(getApplicationContext(), GrowSprout.class);
+
+        if(tag.equals("Food")){
+            intent.putExtra("tag", "Food");
+            float save = calSavings();
+            intent.putExtra("save", save);
+            //아침, 점심, 저녁 중에 무엇인지 나중에 추가
+        }else if(tag.equals("Habits")){
+            intent.putExtra("tag", "Habits");
+            intent.putExtra("save", total);
+            intent.putExtra("num", selects.size());
+        }else{
+
+        }
+
         startActivity(intent);
     }
 
