@@ -29,7 +29,7 @@ exports.handler = async (event, context, callback) => {
                     action: [],
                     meat_carbon: 0,
                     transportation_carbon: 0,
-                    createdAt: Date.now()
+                    mcreatedAt: parseInt(Date.now() / 1000)
 
                 }
             }

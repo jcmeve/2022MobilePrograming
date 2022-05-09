@@ -5,17 +5,81 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.datastore.generated.model.User;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 public class sprout extends AppCompatActivity {
+    static User getUserResult = null;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sprout);
 
+
+        DB.getInstance().GetUserInfo((result)->{
+            getUserResult = result;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView days_txt = findViewById(R.id.todayText);
+                    Calendar curr = Calendar.getInstance();
+                    long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - sprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
+                    days_txt.setText("Day "+days);
+                }
+            });
+        });
+
+        CalculateTodayCarbon();
+
     }
+
+    private void CalculateTodayCarbon(){
+        _Action();
+
+    }
+    private void _Action(){
+        DB.getInstance().GetUserActionHistory(
+                result->{
+                    Calendar curr = Calendar.getInstance();
+
+                    int carbon = 0;
+                    for(int i = 0; i< result.length; i++){//종류
+                        for(int j = 0; j < result[i].action_history.getCount().size();j++){//각 기록
+                            long miles = result[i].action_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                            long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                            if(days == 0) {
+                                carbon += result[i].action_history.getCount().get(j) * result[i].data.getSaveCarbon();
+                            }
+                        }
+                    }
+                    SetTodayCarbonTxt(carbon);
+                }
+        );
+    }
+
+    static int total = 0;
+    public synchronized void SetTodayCarbonTxt(int value){
+        total += value;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView txt = findViewById(R.id.estimateText);
+                txt.setText(sprout.total+"");
+            }
+        });
+
+    }
+
+
+
 
     //기록 버튼 눌렀을 때 습관 기록과 식단 기록 중 어디로 넘어갈지 팝업 메뉴로 선택
     public void recordButton(View button){

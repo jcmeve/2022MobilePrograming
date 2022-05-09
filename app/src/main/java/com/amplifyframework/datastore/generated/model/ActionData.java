@@ -22,7 +22,9 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the ActionData type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "ActionData", authRules = {
-  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
+  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
+  @AuthRule(allow = AuthStrategy.PRIVATE, operations = { ModelOperation.READ }),
+  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.READ })
 })
 @Index(name = "undefined", fields = {"name"})
 public final class ActionData implements Model {

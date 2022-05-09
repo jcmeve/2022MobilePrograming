@@ -48,6 +48,7 @@ mutation CreateUser(
     carbon_save
     meat_carbon
     transportation_carbon
+    mcreatedAt
     createdAt
     updatedAt
     owner
@@ -71,6 +72,7 @@ mutation UpdateUser(
     carbon_save
     meat_carbon
     transportation_carbon
+    mcreatedAt
     createdAt
     updatedAt
     owner
@@ -94,6 +96,7 @@ mutation DeleteUser(
     carbon_save
     meat_carbon
     transportation_carbon
+    mcreatedAt
     createdAt
     updatedAt
     owner

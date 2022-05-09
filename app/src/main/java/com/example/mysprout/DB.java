@@ -189,16 +189,20 @@ public  class DB {
 
         String document =
 
-                "query MyQuery {" +
-                        "  msGetUserInfo {" +
-                        "    carbon_save" +
-                        "    meat_carbon" +
-                        "    nickname" +
-                        "    sprout_exp" +
-                        "    sprout_name" +
-                        "    transportation_carbon" +
-                        "  }" +
-                        "}";
+                "query MyQuery {\n" +
+                        "  msGetUserInfo {\n" +
+                        "    action\n" +
+                        "    carbon_save\n" +
+                        "    mcreatedAt\n" +
+                        "    food\n" +
+                        "    meat_carbon\n" +
+                        "    nickname\n" +
+                        "    sprout_exp\n" +
+                        "    sprout_name\n" +
+                        "    transportation\n" +
+                        "    transportation_carbon\n" +
+                        "  }\n" +
+                        "}\n";
         Amplify.API.query(
                 new SimpleGraphQLRequest<>(document, User.class, new GsonVariablesSerializer()),
                 response -> {

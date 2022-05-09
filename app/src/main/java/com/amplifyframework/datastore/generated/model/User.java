@@ -37,6 +37,7 @@ public final class User implements Model {
   public static final QueryField CARBON_SAVE = field("User", "carbon_save");
   public static final QueryField MEAT_CARBON = field("User", "meat_carbon");
   public static final QueryField TRANSPORTATION_CARBON = field("User", "transportation_carbon");
+  public static final QueryField MCREATED_AT = field("User", "mcreatedAt");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="GameScore") GameScore game_score;
   private final @ModelField(targetType="ID", isRequired = true) List<String> transportation;
@@ -48,6 +49,7 @@ public final class User implements Model {
   private final @ModelField(targetType="Int", isRequired = true) Integer carbon_save;
   private final @ModelField(targetType="Int") Integer meat_carbon;
   private final @ModelField(targetType="Int") Integer transportation_carbon;
+  private final @ModelField(targetType="AWSTimestamp") Temporal.Timestamp mcreatedAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -94,6 +96,10 @@ public final class User implements Model {
       return transportation_carbon;
   }
   
+  public Temporal.Timestamp getMcreatedAt() {
+      return mcreatedAt;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -102,7 +108,7 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, GameScore game_score, List<String> transportation, List<String> food, List<String> action, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save, Integer meat_carbon, Integer transportation_carbon) {
+  private User(String id, GameScore game_score, List<String> transportation, List<String> food, List<String> action, String nickname, String sprout_name, Integer sprout_exp, Integer carbon_save, Integer meat_carbon, Integer transportation_carbon, Temporal.Timestamp mcreatedAt) {
     this.id = id;
     this.game_score = game_score;
     this.transportation = transportation;
@@ -114,6 +120,7 @@ public final class User implements Model {
     this.carbon_save = carbon_save;
     this.meat_carbon = meat_carbon;
     this.transportation_carbon = transportation_carbon;
+    this.mcreatedAt = mcreatedAt;
   }
   
   @Override
@@ -135,6 +142,7 @@ public final class User implements Model {
               ObjectsCompat.equals(getCarbonSave(), user.getCarbonSave()) &&
               ObjectsCompat.equals(getMeatCarbon(), user.getMeatCarbon()) &&
               ObjectsCompat.equals(getTransportationCarbon(), user.getTransportationCarbon()) &&
+              ObjectsCompat.equals(getMcreatedAt(), user.getMcreatedAt()) &&
               ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
@@ -154,6 +162,7 @@ public final class User implements Model {
       .append(getCarbonSave())
       .append(getMeatCarbon())
       .append(getTransportationCarbon())
+      .append(getMcreatedAt())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -175,6 +184,7 @@ public final class User implements Model {
       .append("carbon_save=" + String.valueOf(getCarbonSave()) + ", ")
       .append("meat_carbon=" + String.valueOf(getMeatCarbon()) + ", ")
       .append("transportation_carbon=" + String.valueOf(getTransportationCarbon()) + ", ")
+      .append("mcreatedAt=" + String.valueOf(getMcreatedAt()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -205,6 +215,7 @@ public final class User implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -220,7 +231,8 @@ public final class User implements Model {
       sprout_exp,
       carbon_save,
       meat_carbon,
-      transportation_carbon);
+      transportation_carbon,
+      mcreatedAt);
   }
   public interface TransportationStep {
     FoodStep transportation(List<String> transportation);
@@ -263,6 +275,7 @@ public final class User implements Model {
     BuildStep gameScore(GameScore gameScore);
     BuildStep meatCarbon(Integer meatCarbon);
     BuildStep transportationCarbon(Integer transportationCarbon);
+    BuildStep mcreatedAt(Temporal.Timestamp mcreatedAt);
   }
   
 
@@ -278,6 +291,7 @@ public final class User implements Model {
     private GameScore game_score;
     private Integer meat_carbon;
     private Integer transportation_carbon;
+    private Temporal.Timestamp mcreatedAt;
     @Override
      public User build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -293,7 +307,8 @@ public final class User implements Model {
           sprout_exp,
           carbon_save,
           meat_carbon,
-          transportation_carbon);
+          transportation_carbon,
+          mcreatedAt);
     }
     
     @Override
@@ -363,6 +378,12 @@ public final class User implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep mcreatedAt(Temporal.Timestamp mcreatedAt) {
+        this.mcreatedAt = mcreatedAt;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -375,7 +396,7 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, GameScore gameScore, List<String> transportation, List<String> food, List<String> action, String nickname, String sproutName, Integer sproutExp, Integer carbonSave, Integer meatCarbon, Integer transportationCarbon) {
+    private CopyOfBuilder(String id, GameScore gameScore, List<String> transportation, List<String> food, List<String> action, String nickname, String sproutName, Integer sproutExp, Integer carbonSave, Integer meatCarbon, Integer transportationCarbon, Temporal.Timestamp mcreatedAt) {
       super.id(id);
       super.transportation(transportation)
         .food(food)
@@ -386,7 +407,8 @@ public final class User implements Model {
         .carbonSave(carbonSave)
         .gameScore(gameScore)
         .meatCarbon(meatCarbon)
-        .transportationCarbon(transportationCarbon);
+        .transportationCarbon(transportationCarbon)
+        .mcreatedAt(mcreatedAt);
     }
     
     @Override
@@ -437,6 +459,11 @@ public final class User implements Model {
     @Override
      public CopyOfBuilder transportationCarbon(Integer transportationCarbon) {
       return (CopyOfBuilder) super.transportationCarbon(transportationCarbon);
+    }
+    
+    @Override
+     public CopyOfBuilder mcreatedAt(Temporal.Timestamp mcreatedAt) {
+      return (CopyOfBuilder) super.mcreatedAt(mcreatedAt);
     }
   }
   

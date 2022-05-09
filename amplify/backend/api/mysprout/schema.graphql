@@ -18,6 +18,9 @@ type User @model @auth(rules: [{ allow: owner }]){
   meat_carbon: Int
   transportation_carbon: Int
 
+  mcreatedAt: AWSTimestamp
+
+
 }
 
 type MeatLevelData @model @auth (

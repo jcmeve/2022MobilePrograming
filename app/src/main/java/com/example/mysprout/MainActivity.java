@@ -28,15 +28,19 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
-/*
+
         Amplify.Auth.signOut(
                 () -> Log.i("AuthQuickstart", "Signed out successfully"),
                 error -> Log.e("AuthQuickstart", error.toString())
         );
-*/
 
 
-       
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         tryAutoLogin();
 

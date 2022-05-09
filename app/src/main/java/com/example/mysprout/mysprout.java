@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.amplifyframework.datastore.generated.model.User;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class mysprout extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +69,9 @@ public class mysprout extends AppCompatActivity {
                     int action_carbon_val = 0;
                     for(int i = 0; i< mysprout.action_result.length; i++){//종류
                         for(int j = 0; j < mysprout.action_result[i].action_history.getCount().size();j++){//각 기록
-                            long miles = mysprout.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch();
-
-                            Calendar c = Calendar.getInstance();
-                            c.setTimeInMillis(miles);
-                            if(c.get(Calendar.DATE) == curr.get(Calendar.DATE) && c.get(Calendar.MONTH) == curr.get(Calendar.MONTH) && c.get(Calendar.YEAR) == curr.get(Calendar.YEAR) ){
+                            long miles = mysprout.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                            long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                            if(days == 0) {
                                 action_val += 1;
                                 action_carbon_val += mysprout.action_result[i].action_history.getCount().get(j) * mysprout.action_result[i].data.getSaveCarbon();
                             }
@@ -102,11 +101,9 @@ public class mysprout extends AppCompatActivity {
                         int Food_carbon_val = 0;
                         for(int i = 0; i< mysprout.Food_result.length; i++){//종류
                             for(int j = 0; j < mysprout.Food_result[i].food_history.getCount().size();j++){//각 기록
-                                long miles = mysprout.Food_result[i].food_history.getDate().get(j).getSecondsSinceEpoch();
-
-                                Calendar c = Calendar.getInstance();
-                                c.setTimeInMillis(miles);
-                                if(c.get(Calendar.DATE) == curr.get(Calendar.DATE) && c.get(Calendar.MONTH) == curr.get(Calendar.MONTH) && c.get(Calendar.YEAR) == curr.get(Calendar.YEAR) ){
+                                long miles = mysprout.Food_result[i].food_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                                long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                                if(days == 0) {
                                     Food_val += 1;
                                     Food_carbon_val += mysprout.Food_result[i].food_history.getCount().get(j) * mysprout.Food_result[i].data.getCarbonPerUnit();
                                 }
