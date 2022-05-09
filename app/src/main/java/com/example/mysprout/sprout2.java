@@ -6,7 +6,6 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class sprout2 extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,14 +14,12 @@ public class sprout2 extends AppCompatActivity {
     }
 
     public void onClicks2_1(View v) {
-        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         Intent intent = new Intent(getApplicationContext(), RecordHabits.class);
         startActivity(intent);
 
     }
 
     public void onClicks2_2(View v) {
-        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         Intent intent = new Intent(getApplicationContext(), RecordFood.class);
         startActivity(intent);
 

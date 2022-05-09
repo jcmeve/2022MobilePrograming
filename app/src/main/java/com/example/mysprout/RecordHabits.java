@@ -7,7 +7,6 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,7 +85,6 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
     }
 
     public void onClickN1(View v) {
-        ConstraintLayout container = findViewById(R.id.container);
         Intent intent = new Intent(getApplicationContext(), RecordComplete.class);
         startActivity(intent);
 

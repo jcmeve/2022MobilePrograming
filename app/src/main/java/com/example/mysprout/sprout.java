@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class sprout extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +68,6 @@ public class sprout extends AppCompatActivity {
 
 
     public void onClick3(View v) {
-        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         Intent intent = new Intent(getApplicationContext(), sprout2.class);
         startActivity(intent);
     }

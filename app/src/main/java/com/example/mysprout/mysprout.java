@@ -46,7 +46,7 @@ public class mysprout extends AppCompatActivity {
                         TextView name = findViewById(R.id.mysprout_sprout_name);
                         TextView level = findViewById(R.id.mysprout_sprout_level);
                         name.setText(mysprout.user_result.getSproutName());
-                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + result.getSproutExp());
+                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + mysprout.user_result.getSproutExp());
                     });
                 }
         );

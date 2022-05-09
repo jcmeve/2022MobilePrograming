@@ -6,17 +6,14 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mysprout.data.FoodPassData;
 import com.example.mysprout.databinding.RecordCompleteBinding;
 import com.example.mysprout.recycler.RecyclerCustomAdapterResult;
-import com.example.mysprout.recycler.RecyclerItemFood;
 import com.example.mysprout.recycler.RecyclerItemHabit;
 
 import java.text.SimpleDateFormat;
@@ -143,7 +140,6 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
     }
 
     public void onClickN2(View v) {
-        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         Intent intent = new Intent(getApplicationContext(), record_3.class);
         startActivity(intent);
     }
