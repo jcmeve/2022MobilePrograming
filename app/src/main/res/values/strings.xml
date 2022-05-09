@@ -3,6 +3,7 @@
 
     <!--공통-->
     <string name="nextbtn">다음으로</string>
+    <string name="add">추가</string>
     <string name="level_of_sprout">Lv.N</string>
     <string name="name_of_sprout">새싹이</string>
     <string name="until_today">Day N</string>

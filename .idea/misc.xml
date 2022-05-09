@@ -17,6 +17,7 @@
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/userinformation_2.xml" value="0.32864583333333336" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/userinformation_3.xml" value="0.32864583333333336" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/drawable/backgroundrec2.xml" value="0.164" />
+        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/drawable/backgroundrec3.xml" value="0.147" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/drawable/dialog_background.xml" value="0.164" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/drawable/dialog_bg_bottom.xml" value="0.164" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/drawable/icon_baseline_arrow_left.xml" value="0.164" />
@@ -34,6 +35,7 @@
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/custom_numberpicker_layout.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/fragment_bottom_sheet_dialog__record_food.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/fragment_bottom_sheet_dialog_food_record.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/grow_sprout.xml" value="0.264" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/login.xml" value="0.4" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/mysprout.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/nickname.xml" value="0.19623770842240273" />
@@ -46,7 +48,7 @@
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_2.xml" value="0.19623770842240273" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_3.xml" value="0.19623770842240273" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_4.xml" value="0.19623770842240273" />
-        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_habits.xml" value="0.536" />
+        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_habits.xml" value="0.43771626297577854" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_food.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_habit.xml" value="0.4" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_result.xml" value="0.264" />

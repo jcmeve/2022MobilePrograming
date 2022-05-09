@@ -82,7 +82,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/completeBtn"
+        app:layout_constraintBottom_toTopOf="@+id/nextbtn_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_record_result2">
@@ -122,14 +122,14 @@
     </FrameLayout>
 
     <android.widget.Button
-        android:id="@+id/completeBtn"
+        android:id="@+id/nextbtn_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/fullbtn"
         android:fontFamily="@font/nbold"
         android:includeFontPadding="false"
         android:onClick="onClickN2"
-        android:text="완료"
+        android:text="기록 완료하기"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
