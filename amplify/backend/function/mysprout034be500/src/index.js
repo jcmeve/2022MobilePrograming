@@ -317,18 +317,15 @@ exports.handler = async (event, context, callback) => {
                     TableName: "User-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub},
 
-                    UpdateExpression: "set action =  list_append( action, :val1)",
+                    UpdateExpression: "set #action =  list_append( #action, :val1)",
+                    ExpressionAttributeNames:{
+                        "#action" : "action",
+                    },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.action_name],
                     }
                 }
-                ddb.update(params2, function(err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    } else {
-                        console.log("Success", data);
-                    }
-                });
+                await ddb.update(params2).promise();
             }else{//액션을 사용한 적이 있는 경우
                 //액션 사용량 기록
                 const params = {

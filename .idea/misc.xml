@@ -5,10 +5,13 @@
       <map>
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/activity_game.xml" value="0.5739583333333333" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/activity_main.xml" value="0.5739583333333333" />
-        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/mysprout.xml" value="0.33" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/mysprout.xml" value="0.5" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/nickname.xml" value="0.32864583333333336" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_3.xml" value="0.42604166666666665" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_complete.xml" value="0.32760416666666664" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_food.xml" value="0.32708333333333334" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_food_2.xml" value="0.1" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_habits.xml" value="0.67" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/recycler_itemview_food.xml" value="0.42604166666666665" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/save.xml" value="0.32864583333333336" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/sprout.xml" value="0.33" />

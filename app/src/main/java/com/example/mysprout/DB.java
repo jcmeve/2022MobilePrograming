@@ -5,6 +5,7 @@ import android.util.Log;
 import com.amplifyframework.api.aws.GsonVariablesSerializer;
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.ActionData;
 import com.amplifyframework.datastore.generated.model.FoodData;
 import com.amplifyframework.datastore.generated.model.MeatLevelData;
@@ -19,8 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public  class DB {
     public static DB getInstance(){
@@ -367,8 +370,17 @@ public  class DB {
 
     }
 
+    public class Transportation_Pair{
+        public Transportation_Pair(UserTransportation a, TransportationData b){
+            transportation_history = a;
+            data = b;
+        }
+        public UserTransportation transportation_history;
+        public TransportationData data;
+    }
+
     public interface getTransportationHistoryCallBack{
-        void callback(UserTransportation[] actionData);
+        void callback(Transportation_Pair[] result);
     }
     private getTransportationHistoryCallBack transportationHistoryCallBack;
     public void GetUserTransportationHistory(getTransportationHistoryCallBack _callback){
@@ -392,15 +404,27 @@ public  class DB {
                 new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
                 response -> {
                     Log.i("MyAmplifyApp", "GET Transportation History!!: " + response);
-                    UserTransportation[] data = {};
+                    Transportation_Pair[] data = {};
                     try {
                         JSONObject jsonObject = new JSONObject(response.getData().toString());
                         JSONArray arr = (JSONArray) jsonObject.get("msGetUserTransportationHistory");
                         Gson gson = new Gson();
-                        data = new UserTransportation[arr.length()];
+                        data = new Transportation_Pair[arr.length()];
                         for(int i = 0; i < arr.length();i++){
                             Log.i(arr.getString(i),arr.getString(i));
-                            data[i] = (gson.fromJson(arr.getString(i),UserTransportation.class));
+                            JSONArray counts = arr.getJSONObject(i).getJSONArray("count");
+                            JSONArray dates = arr.getJSONObject(i).getJSONArray("date");
+
+                            ArrayList count = new ArrayList();
+                            ArrayList date = new ArrayList();
+
+                            JSONObject t = arr.getJSONObject(i).getJSONObject("data");
+                            TransportationData tt = TransportationData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).build();
+                            for(int j = 0; j<counts.length(); j++){
+                                count.add( counts.getInt(j));
+                                date.add((dates.getLong(j)));
+                            }
+                            data[i] = new Transportation_Pair(UserTransportation.builder().transportationName(arr.getJSONObject(i).getString("transportation_name")).count(count).date(date).build(), tt);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -411,8 +435,17 @@ public  class DB {
         );
     }
 
+    public class Food_Pair{
+        public Food_Pair(UserFood a, FoodData b){
+            food_history = a;
+            data = b;
+        }
+        public UserFood food_history;
+        public FoodData data;
+    }
+
     public interface getFoodHistoryCallBack{
-        void callback(UserFood[] actionData);
+        void callback(Food_Pair[] result);
     }
     private getFoodHistoryCallBack foodHistoryCallBack;
     public void GetUserFoodHistory(getFoodHistoryCallBack _callback){
@@ -437,15 +470,26 @@ public  class DB {
                 new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
                 response -> {
                     Log.i("MyAmplifyApp", "GET Food History!!: " + response);
-                    UserFood[] data = {};
+                    Food_Pair[] data = {};
                     try {
                         JSONObject jsonObject = new JSONObject(response.getData().toString());
                         JSONArray arr = (JSONArray) jsonObject.get("msGetUserFoodHistory");
                         Gson gson = new Gson();
-                        data = new UserFood[arr.length()];
+                        data = new Food_Pair[arr.length()];
                         for(int i = 0; i < arr.length();i++){
                             Log.i(arr.getString(i),arr.getString(i));
-                            data[i] = (gson.fromJson(arr.getString(i),UserFood.class));
+                            JSONArray counts = arr.getJSONObject(i).getJSONArray("count");
+                            JSONArray dates = arr.getJSONObject(i).getJSONArray("date");
+
+                            ArrayList count = new ArrayList();
+                            ArrayList date = new ArrayList();
+                            JSONObject t = arr.getJSONObject(i).getJSONObject("data");
+                            FoodData tt = FoodData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).tag("tag").build();
+                            for(int j = 0; j<counts.length(); j++){
+                                count.add( counts.getInt(j));
+                                date.add((dates.getLong(j)));
+                            }
+                            data[i] = new Food_Pair(UserFood.builder().foodName(arr.getJSONObject(i).getString("food_name")).count(count).date(date).build(), tt);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -457,8 +501,16 @@ public  class DB {
     }
 
 
+    public class Action_Pair{
+        public Action_Pair(UserAction a, ActionData b){
+            action_history = a;
+            data = b;
+        }
+        public UserAction action_history;
+        public ActionData data;
+    }
     public interface getActionHistoryCallBack{
-        void callback(UserAction[] actionData);
+        void callback(Action_Pair[] result);
     }
     private getActionHistoryCallBack actionHistoryCallBack;
     public void GetUserActionHistory(getActionHistoryCallBack _callback){
@@ -482,15 +534,27 @@ public  class DB {
                 new SimpleGraphQLRequest<>(document, String.class, new GsonVariablesSerializer()),
                 response -> {
                     Log.i("MyAmplifyApp", "GET Action History!!: " + response);
-                    UserAction[] data = {};
+                    Action_Pair[] data = {};
                     try {
                         JSONObject jsonObject = new JSONObject(response.getData().toString());
                         JSONArray arr = (JSONArray) jsonObject.get("msGetUserActionHistory");
                         Gson gson = new Gson();
-                        data = new UserAction[arr.length()];
+                        data = new Action_Pair[arr.length()];
                         for(int i = 0; i < arr.length();i++){
                             Log.i(arr.getString(i),arr.getString(i));
-                            data[i] = (gson.fromJson(arr.getString(i),UserAction.class));
+                            JSONArray counts = arr.getJSONObject(i).getJSONArray("count");
+                            JSONArray dates = arr.getJSONObject(i).getJSONArray("date");
+
+                            ArrayList count = new ArrayList();
+                            ArrayList date = new ArrayList();
+                            for(int j = 0; j<counts.length(); j++){
+                                count.add( counts.getInt(j));
+                                date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
+                            }
+                            JSONObject t = arr.getJSONObject(i).getJSONObject("data");
+                            ActionData tt = ActionData.builder().name(t.getString("name")).tag(t.getString("tag")).saveCarbon(t.getInt("save_carbon")).build();
+                            data[i] = new Action_Pair(UserAction.builder().actionName(arr.getJSONObject(i).getString("action_name")).count(count).date(date).build(), tt);
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
