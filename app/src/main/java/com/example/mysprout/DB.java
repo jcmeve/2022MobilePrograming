@@ -422,7 +422,7 @@ public  class DB {
                             TransportationData tt = TransportationData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).build();
                             for(int j = 0; j<counts.length(); j++){
                                 count.add( counts.getInt(j));
-                                date.add((dates.getLong(j)));
+                                date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
                             }
                             data[i] = new Transportation_Pair(UserTransportation.builder().transportationName(arr.getJSONObject(i).getString("transportation_name")).count(count).date(date).build(), tt);
                         }
@@ -487,7 +487,7 @@ public  class DB {
                             FoodData tt = FoodData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).tag("tag").build();
                             for(int j = 0; j<counts.length(); j++){
                                 count.add( counts.getInt(j));
-                                date.add((dates.getLong(j)));
+                                date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
                             }
                             data[i] = new Food_Pair(UserFood.builder().foodName(arr.getJSONObject(i).getString("food_name")).count(count).date(date).build(), tt);
                         }

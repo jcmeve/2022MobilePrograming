@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/activity_game.xml" value="0.5739583333333333" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/activity_main.xml" value="0.5739583333333333" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/custom_numberpicker_layout.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/login.xml" value="0.3645833333333333" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/mysprout.xml" value="0.5" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/nickname.xml" value="0.32864583333333336" />
         <entry key="..\:/Users/CM/AndroidStudioProjects/MySprout/app/src/main/res/layout/record_3.xml" value="0.42604166666666665" />
@@ -49,7 +51,7 @@
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_2.xml" value="0.19623770842240273" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_3.xml" value="0.19623770842240273" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_food_4.xml" value="0.19623770842240273" />
-        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_habits.xml" value="0.536" />
+        <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/record_habits.xml" value="0.18012820512820513" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_food.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_habit.xml" value="0.4" />
         <entry key="..\:/Users/Public/Android/2022MobilePrograming/app/src/main/res/layout/recycler_itemview_result.xml" value="0.264" />

@@ -1,7 +1,9 @@
 package com.example.mysprout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,15 +22,16 @@ public class mysprout extends AppCompatActivity {
 
         SetAction();
 
+        SetFood();
+
         findViewById(R.id.mysprout_today_walk);
         findViewById(R.id.mysprout_today_walk_carbon);
 
-
-
-
-        findViewById(R.id.mysprout_today_food);
-        findViewById(R.id.mysprout_today_food_carbon);
-
+        Button btn = findViewById(R.id.backBtn_mysprout);
+        btn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), sprout.class);
+            startActivity(intent);
+        });
 
     }
 
@@ -39,52 +42,81 @@ public class mysprout extends AppCompatActivity {
         DB.getInstance().GetUserInfo(
                 result->{
                     mysprout.user_result = result;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            TextView name = findViewById(R.id.mysprout_sprout_name);
-                            TextView level = findViewById(R.id.mysprout_sprout_level);
-                            name.setText(mysprout.user_result.getSproutName());
-                            level.setText(getResources().getString(R.string.mysprout_level_str) + " " + result.getSproutExp());
-                        }
+                    runOnUiThread(() -> {
+                        TextView name = findViewById(R.id.mysprout_sprout_name);
+                        TextView level = findViewById(R.id.mysprout_sprout_level);
+                        name.setText(mysprout.user_result.getSproutName());
+                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + result.getSproutExp());
                     });
                 }
         );
     }
 
     static DB.Action_Pair[] action_result = null;
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void SetAction(){
         DB.getInstance().GetUserActionHistory(
             result->{
                 action_result = result;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                runOnUiThread(() -> {
 
-                        TextView action = findViewById(R.id.mysprout_today_action);
-                        TextView action_carbon = findViewById(R.id.mysprout_today_action_carbon);
+                    TextView action = findViewById(R.id.mysprout_today_action);
+                    TextView action_carbon = findViewById(R.id.mysprout_today_action_carbon);
+                    Calendar curr = Calendar.getInstance();
+
+                    int action_val = 0;
+                    int action_carbon_val = 0;
+                    for(int i = 0; i< mysprout.action_result.length; i++){//종류
+                        for(int j = 0; j < mysprout.action_result[i].action_history.getCount().size();j++){//각 기록
+                            long miles = mysprout.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch();
+
+                            Calendar c = Calendar.getInstance();
+                            c.setTimeInMillis(miles);
+                            if(c.get(Calendar.DATE) == curr.get(Calendar.DATE) && c.get(Calendar.MONTH) == curr.get(Calendar.MONTH) && c.get(Calendar.YEAR) == curr.get(Calendar.YEAR) ){
+                                action_val += 1;
+                                action_carbon_val += mysprout.action_result[i].action_history.getCount().get(j) * mysprout.action_result[i].data.getSaveCarbon();
+                            }
+                        }
+                    }
+                    action.setText(action_val+ "가지");
+                    action_carbon.setText(String.format("%.1f",(float) action_carbon_val) + "g");
+
+                });
+            }
+        );
+    }
+
+    static DB.Food_Pair[] Food_result = null;
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void SetFood(){
+        DB.getInstance().GetUserFoodHistory(
+                result->{
+                    Food_result = result;
+                    runOnUiThread(() -> {
+
+                        TextView Food = findViewById(R.id.mysprout_today_food);
+                        TextView Food_carbon = findViewById(R.id.mysprout_today_food_carbon);
                         Calendar curr = Calendar.getInstance();
 
-                        int action_val = 0;
-                        int action_carbon_val = 0;
-                        for(int i = 0; i< mysprout.action_result.length; i++){//종류
-                            for(int j = 0; j < mysprout.action_result[i].action_history.getCount().size();j++){//각 기록
-                                long miles = mysprout.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch();
+                        int Food_val = 0;
+                        int Food_carbon_val = 0;
+                        for(int i = 0; i< mysprout.Food_result.length; i++){//종류
+                            for(int j = 0; j < mysprout.Food_result[i].food_history.getCount().size();j++){//각 기록
+                                long miles = mysprout.Food_result[i].food_history.getDate().get(j).getSecondsSinceEpoch();
 
                                 Calendar c = Calendar.getInstance();
                                 c.setTimeInMillis(miles);
                                 if(c.get(Calendar.DATE) == curr.get(Calendar.DATE) && c.get(Calendar.MONTH) == curr.get(Calendar.MONTH) && c.get(Calendar.YEAR) == curr.get(Calendar.YEAR) ){
-                                    action_val += 1;
-                                    action_carbon_val += mysprout.action_result[i].action_history.getCount().get(j) * mysprout.action_result[i].data.getSaveCarbon();
+                                    Food_val += 1;
+                                    Food_carbon_val += mysprout.Food_result[i].food_history.getCount().get(j) * mysprout.Food_result[i].data.getCarbonPerUnit();
                                 }
                             }
                         }
-                        action.setText(action_val+ "가지");
-                        action_carbon.setText(String.format("%.1f",(float) action_carbon_val) + "g");
+                        Food.setText(Food_val+ "회");
+                        Food_carbon.setText(String.format("%.1f",(float) Food_carbon_val) + "g");
 
-                    }
-                });
-            }
+                    });
+                }
         );
     }
 }
