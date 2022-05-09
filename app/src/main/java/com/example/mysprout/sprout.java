@@ -2,6 +2,7 @@ package com.example.mysprout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -53,7 +54,7 @@ public class sprout extends AppCompatActivity {
                     int carbon = 0;
                     for(int i = 0; i< result.length; i++){//종류
                         for(int j = 0; j < result[i].action_history.getCount().size();j++){//각 기록
-                            long miles = result[i].action_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                            long miles = result[i].action_history.getDate().get(j).getSecondsSinceEpoch()*1000;
                             long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
                             if(days == 0) {
                                 carbon += result[i].action_history.getCount().get(j) * result[i].data.getSaveCarbon();
@@ -68,6 +69,7 @@ public class sprout extends AppCompatActivity {
     static int total = 0;
     public synchronized void SetTodayCarbonTxt(int value){
         total += value;
+        Log.i("tatasta",total+"");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

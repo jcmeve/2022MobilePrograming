@@ -135,7 +135,7 @@ exports.handler = async (event, context, callback) => {
                         id: event.identity.sub + event.arguments.transportation_name,
                         transportation_name: event.arguments.transportation_name,
                         count: [event.arguments.count],
-                        date: [Date.now()]
+                        date: [parseInt(Date.now() / 1000)]
                     }
                 }
                 await ddb.put(params).promise();
@@ -176,7 +176,7 @@ exports.handler = async (event, context, callback) => {
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
-                        ":val2" : [Date.now()],
+                        ":val2" : [parseInt(Date.now() / 1000)],
                     }
                 }
 
@@ -225,7 +225,7 @@ exports.handler = async (event, context, callback) => {
                         id: event.identity.sub + event.arguments.food_name,
                         food_name: event.arguments.food_name,
                         count: [event.arguments.count],
-                        date: [Date.now()]
+                        date: [parseInt(Date.now() / 1000)]
                     }
                 };
                 await ddb.put(params).promise();
@@ -254,7 +254,7 @@ exports.handler = async (event, context, callback) => {
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
-                        ":val2" : [Date.now()],
+                        ":val2" : [parseInt(Date.now() / 1000)],
                     }
 
 
@@ -307,7 +307,7 @@ exports.handler = async (event, context, callback) => {
                         id: event.identity.sub + event.arguments.action_name,
                         action_name: event.arguments.action_name,
                         count: [event.arguments.count],
-                        date: [Date.now()]
+                        date: [parseInt(Date.now() / 1000)]
                     }
                 }
                 await ddb.put(params).promise();
@@ -339,7 +339,7 @@ exports.handler = async (event, context, callback) => {
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
-                        ":val2" : [Date.now()],
+                        ":val2" : [parseInt(Date.now() / 1000)],
                     }
                 }
 
