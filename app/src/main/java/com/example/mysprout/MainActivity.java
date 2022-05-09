@@ -44,34 +44,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    boolean fetchUser = false;
-    boolean fetchSession = false;
     public void tryAutoLogin(){
         Amplify.Auth.fetchUserAttributes(
                 attributes -> {
                     Log.i("AuthDemo", "User attributes = " + attributes);
-                    fetchUser = true;
+                    _tryAuroLogin();
                 },
                 error -> Log.i("AuthDemo", "Failed to fetch user attributes.", error)
         );
 
 
+    }
+    private void _tryAuroLogin(){
         Amplify.Auth.fetchAuthSession(
                 result -> {
                     Log.i("AmplifyQuickstart", result.toString());
-                    fetchSession = true;
+
+                    Intent intent = new Intent(MainActivity.this, sprout.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
                 },
                 error -> Log.i("AmplifyQuickstart", error.toString())
         );
 
-
-
-
-        if(fetchUser && fetchSession){
-            Intent intent = new Intent(MainActivity.this, sprout.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
 
     }
 

@@ -335,6 +335,7 @@ query GetMeatLevelData($id: ID!) {
     id
     createdAt
     updatedAt
+    owner
   }
 }
 query ListMeatLevelData(
@@ -350,6 +351,7 @@ query ListMeatLevelData(
       id
       createdAt
       updatedAt
+      owner
     }
     nextToken
   }

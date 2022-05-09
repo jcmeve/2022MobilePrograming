@@ -20,7 +20,13 @@ type User @model @auth(rules: [{ allow: owner }]){
 
 }
 
-type MeatLevelData @model @auth(rules: [{ allow: public }]){
+type MeatLevelData @model @auth (
+                             rules: [
+                               { allow: owner },
+                               { allow: private, operations: [read] },
+                               { allow: public, operations: [read] }
+                             ]
+                           ){
   high_carbon: Int
   low_carbon: Int
   no_carbon: Int
@@ -71,12 +77,12 @@ type TransportationData @model @auth (
 }
 
 type FoodData @model  @auth (
-                                                         rules: [
-                                                           { allow: owner },
-                                                           { allow: private, operations: [read] },
-                                                           { allow: public, operations: [read] }
-                                                         ]
-                                                       ){
+                         rules: [
+                           { allow: owner },
+                           { allow: private, operations: [read] },
+                           { allow: public, operations: [read] }
+                         ]
+                       ){
   name: String! @primaryKey
   unit: String!
   carbon_per_unit: Int!
@@ -84,12 +90,12 @@ type FoodData @model  @auth (
 }
 
 type ActionData @model @auth (
-                                                          rules: [
-                                                            { allow: owner },
-                                                            { allow: private, operations: [read] },
-                                                            { allow: public, operations: [read] }
-                                                          ]
-                                                        ){
+                          rules: [
+                            { allow: owner },
+                            { allow: private, operations: [read] },
+                            { allow: public, operations: [read] }
+                          ]
+                        ){
   name: String! @primaryKey
   tag: String!
   save_carbon: Int!
