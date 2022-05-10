@@ -111,6 +111,7 @@ type Mutation{
   msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddFoodData(  food_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
   msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+  msAddSaveCarbon(carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
 }
 type Query{
   msGetUserInfo:User @function(name: "mysprout034be500-${env}")

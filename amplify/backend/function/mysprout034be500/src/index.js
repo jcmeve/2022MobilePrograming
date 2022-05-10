@@ -184,7 +184,6 @@ exports.handler = async (event, context, callback) => {
             }
 
             const carbon = event.arguments.count * trans.Item.carbon_per_unit;
-            addCarbonSave(event.identity.sub, carbon);
 
 
             return true;
@@ -268,7 +267,6 @@ exports.handler = async (event, context, callback) => {
                 });
             }
             const carbon2 = event.arguments.count * food.Item.carbon_per_unit;
-            await addCarbonSave(event.identity.sub, carbon2);
 
 
             return true;
@@ -367,6 +365,11 @@ exports.handler = async (event, context, callback) => {
             return await getDataList("FoodData");
         case "msGetActionList":
             return await getDataList("ActionData");
+
+
+        case "msAddSaveCarbon":
+            return await addCarbonSave(event.identity.sub, event.arguments.carbon);
+
 
 
         default:

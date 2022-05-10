@@ -56,6 +56,24 @@ public  class DB {
         return true;
     }
 
+    public boolean AddSaveCarbon( int carbon){
+        //User user = User.builder().transportation(new ArrayList<>()).food(new ArrayList<>()).action(new ArrayList<>()).nickname(nickname).sproutName(sprout_name).sproutExp(0).carbonSave(0).build();
+
+        String document =
+                "mutation MyMutation($carbon: Int!) {\n" +
+                        "  msAddSaveCarbon(carbon: $carbon)\n" +
+                        "}\n";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("carbon", carbon);
+
+        Amplify.API.mutate(
+                new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
+                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+        return true;
+    }
+
 
 
     public boolean SetMeatCarbon(int meat_carbon){

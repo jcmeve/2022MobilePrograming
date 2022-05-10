@@ -30,6 +30,9 @@ mutation MsAddFoodData($food_name: String, $count: Int) {
 mutation MsAddActionData($action_name: String, $count: Int) {
   msAddActionData(action_name: $action_name, count: $count)
 }
+mutation MsAddSaveCarbon($carbon: Int) {
+  msAddSaveCarbon(carbon: $carbon)
+}
 mutation CreateUser(
   $input: CreateUserInput!
   $condition: ModelUserConditionInput

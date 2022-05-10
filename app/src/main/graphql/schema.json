@@ -3934,6 +3934,29 @@
                         "deprecationReason": null
                     },
                     {
+                        "name": "msAddSaveCarbon",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "carbon",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Int",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Boolean",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
                         "name": "createUser",
                         "description": null,
                         "args": [
