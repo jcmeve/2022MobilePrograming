@@ -35,6 +35,12 @@ public class MainSprout extends AppCompatActivity {
                 Calendar curr = Calendar.getInstance();
                 long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
                 days_txt.setText("Day "+days);
+
+                TextView level_txt = findViewById(R.id.level_main);
+                TextView sprout_name_txt = findViewById(R.id.sproutName_main);
+                level_txt.setText("Lv. "+(int)(MainSprout.getUserResult.getSproutExp()/ 1000));
+                sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
+
             });
         });
 
