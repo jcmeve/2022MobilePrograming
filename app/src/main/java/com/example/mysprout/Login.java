@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity {
         if(result) {
 
 
-            Intent intent = new Intent(Login.this, sprout.class);
+            Intent intent = new Intent(Login.this, MainSprout.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else {

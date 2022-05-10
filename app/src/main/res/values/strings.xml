@@ -17,8 +17,6 @@
     <string name="forget_password">Forget password?</string>
 
     <!--첫 입력화면 텍스트-->
-    <string name="welcome">환영해요!</string>
-    <string name="greeting_ment">우리의 작은 습관이\n미래를 아름답게 가꿀 거예요</string>
     <string name="your_nick">당신의 이름과</string>
     <string name="your_sprout">함께 성장할 새싹의 이름을 적고</string>
     <string name="title_start">회원정보 입력</string>

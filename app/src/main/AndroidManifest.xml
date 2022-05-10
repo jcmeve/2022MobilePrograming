@@ -28,21 +28,16 @@
         </activity>
 
         <!--남은수-->
-        <activity android:name=".userinformation"/>
-        <activity android:name=".userinformation_2"/>
-        <activity android:name=".userinformation_3"/>
-        <activity android:name=".sprout"/>
-        <activity android:name=".sprout2"/>
+        <activity android:name=".UserInformation"/>
+        <activity android:name=".UserInformationMeat"/>
+        <activity android:name=".UserInformationTransport"/>
+        <activity android:name=".MainSprout"/>
         <activity android:name=".RecordHabits"/>
         <activity android:name=".RecordComplete"/>
         <activity android:name=".GrowSprout"/>
         <activity android:name=".RecordFood"/>
-        <activity android:name=".record_food_2"/>
-        <activity android:name=".record_food_3"/>
-        <activity android:name=".record_food_4"/>
-        <activity android:name=".save"/>
-        <activity android:name=".nickname"/>
-        <activity android:name=".mysprout"/>
+        <activity android:name=".Menu"/>
+        <activity android:name=".MySprout"/>
         <activity android:name=".Login" />
 
     </application>

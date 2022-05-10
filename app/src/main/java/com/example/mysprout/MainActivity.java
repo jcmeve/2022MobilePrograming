@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     Log.i("AmplifyQuickstart", result.toString());
 
-                    Intent intent = new Intent(MainActivity.this, sprout.class);
+                    Intent intent = new Intent(MainActivity.this, MainSprout.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     //남은수
     public void onClick1(View v) {
-        Intent intent = new Intent(getApplicationContext(), userinformation.class);
+        Intent intent = new Intent(getApplicationContext(), UserInformation.class);
         startActivity(intent);
 
     }

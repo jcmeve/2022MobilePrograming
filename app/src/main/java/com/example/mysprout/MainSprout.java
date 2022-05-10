@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,18 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.amplifyframework.datastore.generated.model.User;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class sprout extends AppCompatActivity {
+public class MainSprout extends AppCompatActivity {
     static User getUserResult = null;
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sprout);
+        setContentView(R.layout.main_sprout);
 
 
         DB.getInstance().GetUserInfo((result)->{
@@ -31,12 +33,33 @@ public class sprout extends AppCompatActivity {
             runOnUiThread(() -> {
                 TextView days_txt = findViewById(R.id.todayText);
                 Calendar curr = Calendar.getInstance();
-                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - sprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
+                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
                 days_txt.setText("Day "+days);
             });
         });
 
         CalculateTodayCarbon();
+
+        //새싹 애니메이션 누르면 상세 화면(mysprout)으로 이동
+        LottieAnimationView sproutAnim = findViewById(R.id.sprout_main);
+        sproutAnim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainSprout.this, "상세 화면으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainSprout.this, MySprout.class);
+                startActivity(intent);
+            }
+        });
+
+        Button menuButton = findViewById(R.id.menubtn);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainSprout.this, "메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainSprout.this, Menu.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -113,7 +136,7 @@ public class sprout extends AppCompatActivity {
         Log.i("tatasta",total+"");
         runOnUiThread(() -> {
             TextView txt = findViewById(R.id.estimateText);
-            txt.setText(sprout.total+"");
+            txt.setText(MainSprout.total+"");
         });
 
     }
@@ -126,50 +149,18 @@ public class sprout extends AppCompatActivity {
         chooseRecord.setOnMenuItemClickListener(
                 item -> {
                     if(item.getItemId() == R.id.record_habit){
-                        Toast.makeText(sprout.this, "습관 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(sprout.this, RecordHabits.class);
+                        Toast.makeText(MainSprout.this, "습관 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainSprout.this, RecordHabits.class);
                         startActivity(intent);
                     }
                     else if(item.getItemId() == R.id.record_food){
-                        Toast.makeText(sprout.this, "식단 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(sprout.this, RecordFood.class);
+                        Toast.makeText(MainSprout.this, "식단 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainSprout.this, RecordFood.class);
                         startActivity(intent);
                     }
                     return true;
                 });
         chooseRecord.show();
     }
-
-    //팝업메뉴
-    public void onClick4(View button4) {
-        PopupMenu popup = new PopupMenu(this, button4);
-        popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
-        popup.setOnMenuItemClickListener(
-                item -> {
-                    if (item.getItemId() == R.id.action_menu1) {
-                        Toast.makeText(sprout.this, "메뉴 1 클릭", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), nickname.class);
-                        startActivity(intent);
-                    } else if (item.getItemId() == R.id.action_menu2) {
-                        Toast.makeText(sprout.this, "메뉴 2 클릭", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), mysprout.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(sprout.this, "메뉴 3 클릭", Toast.LENGTH_SHORT).show();
-
-                    }
-                    return false;
-                });
-        popup.show();
-    }
-
-
-
-    public void onClick3(View v) {
-        Intent intent = new Intent(getApplicationContext(), sprout2.class);
-        startActivity(intent);
-    }
-
-
 
 }

@@ -18,7 +18,7 @@ import com.amplifyframework.core.Amplify;
 
 import java.util.Arrays;
 
-public class userinformation extends AppCompatActivity {
+public class UserInformation extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userinformation);
@@ -119,7 +119,7 @@ public class userinformation extends AppCompatActivity {
         DB.getInstance().GetTotalExp(value -> Log.i("FSADSFSADDFASF: " , value+""));
         /////////// 예제코드입니당
 
-        Intent intent = new Intent(userinformation.this, userinformation_2.class);
+        Intent intent = new Intent(UserInformation.this, UserInformationMeat.class);
         startActivity(intent);
     }
 }

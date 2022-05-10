@@ -1,22 +1,18 @@
 package com.example.mysprout;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.FloatRange;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.Lottie;
 
 public class GrowSprout extends AppCompatActivity {
 
@@ -93,7 +89,7 @@ public class GrowSprout extends AppCompatActivity {
 
     public void onClickN3(View v) {
         ConstraintLayout container = findViewById(R.id.container);
-        Intent intent = new Intent(GrowSprout.this, sprout.class);
+        Intent intent = new Intent(GrowSprout.this, MainSprout.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 

@@ -59,4 +59,7 @@ dependencies {
     //Lottie
     def lottieVersion = "5.0.3"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //circle view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
