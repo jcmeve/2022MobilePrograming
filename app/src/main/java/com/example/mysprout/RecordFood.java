@@ -111,7 +111,7 @@ public class RecordFood extends AppCompatActivity
 
             DB.getInstance().GetFoodList(foodListCallBack);
 
-            //Wait to make List
+            //Wait for making List
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
