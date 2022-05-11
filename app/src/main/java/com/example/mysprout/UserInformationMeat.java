@@ -13,11 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.amplifyframework.datastore.generated.model.MeatLevelData;
 
 public class UserInformationMeat extends AppCompatActivity {
-    private enum MEAT_LEVEL{
-        HIGH,LOW,NO,NULL
-    }
 
-    static MEAT_LEVEL meatLevel = MEAT_LEVEL.NULL;
     static MeatLevelData meatLevelData;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,34 +22,20 @@ public class UserInformationMeat extends AppCompatActivity {
 
         DB.getInstance().msGetMeatLevelData(data -> UserInformationMeat.meatLevelData = data);
 
-        RadioGroup radioGroup = findViewById(R.id.meat_radio_group);
-        radioGroup.setOnCheckedChangeListener((radioGroup1, id) -> {
-            if (id == R.id.highMeat_btn) {
-                UserInformationMeat.meatLevel = MEAT_LEVEL.HIGH;
-            } else if (id == R.id.lowMeat_btn) {
-                UserInformationMeat.meatLevel = MEAT_LEVEL.LOW;
-            } else if (id == R.id.noMeat_btn) {
-                UserInformationMeat.meatLevel = MEAT_LEVEL.NO;
-            } else {
-                Log.e("ERROR", "SELECT MEAT");
-            }
-        });
 
         Button nextBtn;
         nextBtn = (Button)findViewById(R.id.nextbtn_meat);
         nextBtn.setOnClickListener(v -> {
-            switch (meatLevel){
-                case HIGH:
-                    DB.getInstance().SetMeatCarbon(meatLevelData.getHighCarbon());
-                    break;
-                case LOW:
-                    DB.getInstance().SetMeatCarbon(meatLevelData.getLowCarbon());
-                    break;
-                case NO:
-                    DB.getInstance().SetMeatCarbon(meatLevelData.getNoCarbon());
-                    break;
-                default:
-                    Log.e("ERROR", "SELECT MEAT");
+            RadioGroup radioGroup = findViewById(R.id.meat_radio_group);
+            int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+            if (checkedRadioButtonId == R.id.highMeat_btn) {
+                DB.getInstance().SetMeatCarbon(meatLevelData.getHighCarbon());
+            } else if (checkedRadioButtonId == R.id.lowMeat_btn) {
+                DB.getInstance().SetMeatCarbon(meatLevelData.getLowCarbon());
+            } else if (checkedRadioButtonId == R.id.noMeat_btn) {
+                DB.getInstance().SetMeatCarbon(meatLevelData.getNoCarbon());
+            } else {
+                Log.e("ERROR", "SELECT MEAT");
             }
 
 
