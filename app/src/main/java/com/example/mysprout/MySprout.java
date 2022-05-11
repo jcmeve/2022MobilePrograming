@@ -19,6 +19,19 @@ public class MySprout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mysprout);
 
+
+
+        Button btn = findViewById(R.id.backBtn_mysprout);
+        btn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MainSprout.class);
+            startActivity(intent);
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         SetSprout();
 
         SetAction();
@@ -27,13 +40,6 @@ public class MySprout extends AppCompatActivity {
 
         findViewById(R.id.mysprout_today_walk);
         findViewById(R.id.mysprout_today_walk_carbon);
-
-        Button btn = findViewById(R.id.backBtn_mysprout);
-        btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainSprout.class);
-            startActivity(intent);
-        });
-
     }
 
     static User user_result = null;
