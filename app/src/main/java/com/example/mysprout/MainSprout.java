@@ -153,6 +153,11 @@ public class MainSprout extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        total = 0;
+    }
 
     //기록 버튼 눌렀을 때 습관 기록과 식단 기록 중 어디로 넘어갈지 팝업 메뉴로 선택
     public void recordButton(View button){
