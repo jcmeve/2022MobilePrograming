@@ -239,7 +239,7 @@ exports.handler = async (event, context, callback) => {
                         ":val1" : [event.arguments.food_name],
                     }
                 };
-                ddb.update(params2).promise();
+                await ddb.update(params2).promise();
             }else{//음식을 사용한 적이 있는 경우
                 //음식 사용량 기록
                 const params = {

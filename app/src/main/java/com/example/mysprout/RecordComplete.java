@@ -158,6 +158,10 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         Intent intent = new Intent(getApplicationContext(), GrowSprout.class);
 
         if(tag.equals("Food")){
+            for(int i = 0; i < selects.size();i++){
+                FoodPassData foodPassData = (FoodPassData)selects.get(i);
+                DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit());
+            }
             intent.putExtra("tag", "Food");
             float save = calSavings();
             intent.putExtra("save", save);
