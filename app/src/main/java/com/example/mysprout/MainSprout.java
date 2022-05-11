@@ -28,23 +28,7 @@ public class MainSprout extends AppCompatActivity {
         setContentView(R.layout.main_sprout);
 
 
-        DB.getInstance().GetUserInfo((result)->{
-            getUserResult = result;
-            runOnUiThread(() -> {
-                TextView days_txt = findViewById(R.id.todayText);
-                Calendar curr = Calendar.getInstance();
-                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
-                days_txt.setText("Day "+days);
 
-                TextView level_txt = findViewById(R.id.level_main);
-                TextView sprout_name_txt = findViewById(R.id.sproutName_main);
-                level_txt.setText("Lv. "+(int)(MainSprout.getUserResult.getSproutExp()/ 1000));
-                sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
-
-            });
-        });
-
-        CalculateTodayCarbon();
 
         //새싹 애니메이션 누르면 상세 화면(mysprout)으로 이동
         LottieAnimationView sproutAnim = findViewById(R.id.sprout_main);
@@ -67,6 +51,28 @@ public class MainSprout extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DB.getInstance().GetUserInfo((result)->{
+            getUserResult = result;
+            runOnUiThread(() -> {
+                TextView days_txt = findViewById(R.id.todayText);
+                Calendar curr = Calendar.getInstance();
+                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
+                days_txt.setText("Day "+days);
+
+                TextView level_txt = findViewById(R.id.level_main);
+                TextView sprout_name_txt = findViewById(R.id.sproutName_main);
+                level_txt.setText("Lv. "+(int)(MainSprout.getUserResult.getSproutExp()/ 1000));
+                sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
+
+            });
+        });
+
+        CalculateTodayCarbon();
     }
 
     private void CalculateTodayCarbon(){
