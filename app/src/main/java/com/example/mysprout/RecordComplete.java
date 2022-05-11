@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.data.FoodPassData;
 import com.example.mysprout.databinding.RecordCompleteBinding;
 import com.example.mysprout.recycler.RecyclerCustomAdapterResult;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class RecordComplete extends AppCompatActivity implements RecyclerCustomAdapterResult.OnResultItemListener {
     private float total;
@@ -66,6 +68,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
 
     }
 
+    static User getUserResult;
     @SuppressLint("SetTextI18n")
     private void getDate(){
         Calendar now = Calendar.getInstance();
@@ -73,6 +76,18 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
 
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
         SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm", Locale.getDefault());
+
+
+        DB.getInstance().GetUserInfo((result)->{
+            getUserResult = result;
+            runOnUiThread(() -> {
+                Calendar curr = Calendar.getInstance();
+                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
+                recordCompleteBinding.textviewCompleteToday.setText("Day "+days);
+
+            });
+        });
+
 
         recordCompleteBinding.textviewCompleteToday.setText("Day 0"); //여기 며칠째인지 들어가야 함 -아마 DB 연동-
         recordCompleteBinding.textviewCompleteDate.setText(formatDate.format(currentTime));
