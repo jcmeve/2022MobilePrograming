@@ -75,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/how_much_eat">
 
         <RadioGroup
+            android:id="@+id/meat_radio_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
