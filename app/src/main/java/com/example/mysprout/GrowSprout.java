@@ -29,6 +29,7 @@ public class GrowSprout extends AppCompatActivity {
         Intent intent = getIntent();
         String tag = intent.getStringExtra("tag");
         float save = intent.getFloatExtra("save", 0.f);
+        Log.d("절약량", String.valueOf(save));
         int habitNum = intent.getIntExtra("num", 0);
 
         setText(tag, save, habitNum);
@@ -48,6 +49,7 @@ public class GrowSprout extends AppCompatActivity {
         endPoint = (expUpdate - expBefore) / 1000;
         Log.d("calEXP", String.valueOf(startPoint)+("/")+String.valueOf(endPoint));
         //기록된 절약량 추가한 EXP, level DB로 전송
+        DB.getInstance().AddSaveCarbon((int) save);
     }
 
     void makeAnim(){

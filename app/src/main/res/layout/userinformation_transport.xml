@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/nbold"
         android:includeFontPadding="false"
@@ -61,11 +61,11 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="348dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/backgroundrec1"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/order2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,30 +76,31 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp">
 
             <RadioButton
-                android:id="@+id/car_btn"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/selector_radiohighmeat"
+                android:id="@+id/userinfo_transport_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_radio_transport_car"
                 android:button="@null"
                 android:text="" />
 
             <RadioButton
-                android:id="@+id/bus_btn"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/selector_radiolowmeat"
+                android:id="@+id/userinfo_transport_bus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_radio_transport_bus"
                 android:button="@null"
                 android:text="" />
 
             <RadioButton
-                android:id="@+id/subway_btn"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/selector_radionomeat"
+                android:id="@+id/userinfo_transport_subway"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_radio_transport_subway"
                 android:button="@null"
                 android:text="" />
         </RadioGroup>
