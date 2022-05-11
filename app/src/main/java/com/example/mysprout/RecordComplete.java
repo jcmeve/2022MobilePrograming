@@ -74,7 +74,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
         SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm", Locale.getDefault());
 
-        recordCompleteBinding.textviewCompleteToday.setText("Day 1"); //여기 며칠째인지 들어가야 함 -아마 DB 연동-
+        recordCompleteBinding.textviewCompleteToday.setText("Day 0"); //여기 며칠째인지 들어가야 함 -아마 DB 연동-
         recordCompleteBinding.textviewCompleteDate.setText(formatDate.format(currentTime));
 
         int isAMorPM = now.get(Calendar.AM_PM);
