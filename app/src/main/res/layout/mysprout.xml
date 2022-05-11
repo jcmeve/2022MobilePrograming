@@ -35,6 +35,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/backward_arrow"
+            android:onClick="onClick_my_back"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView

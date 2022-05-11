@@ -182,4 +182,9 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
     public void onItemButtonClicked(View view, int position, RecyclerItemHabit itemHabit) {
 
     }
+
+
+    public void onClick_r_c_back(View v) {
+        finish();
+    }
 }

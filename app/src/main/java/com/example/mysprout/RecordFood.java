@@ -156,4 +156,9 @@ public class RecordFood extends AppCompatActivity
     @Override
     public void onRecordDataPass(View view, String name, int unit) {
     }
+
+
+    public void onClick_r_f_back(View v) {
+        finish();
+    }
 }

@@ -3,6 +3,7 @@ package com.example.mysprout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -121,5 +122,10 @@ public class UserInformation extends AppCompatActivity {
 
         Intent intent = new Intent(UserInformation.this, UserInformationMeat.class);
         startActivity(intent);
+    }
+
+
+    public void onClick_u_back(View v) {
+        finish();
     }
 }

@@ -43,6 +43,7 @@
             android:layout_marginStart="16dp"
             android:background="@drawable/backward_arrow"
             android:backgroundTint="@color/lightGrey"
+            android:onClick="onClick_u_m_back"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
