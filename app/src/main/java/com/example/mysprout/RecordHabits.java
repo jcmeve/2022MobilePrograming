@@ -103,23 +103,6 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
         finish();
     }
 
-    //뒤로가기 2번 클릭 시 종료
-    private long lastTimeBackPressed; //뒤로가기 버튼이 클릭된 시간
-    @Override
-    public void onBackPressed()
-    {
-        //2초 이내에 뒤로가기 버튼을 재 클릭 시 앱 종료
-        if (System.currentTimeMillis() - lastTimeBackPressed < 2000)
-        {
-            finish();
-            return;
-        }
-        //'뒤로' 버튼 한번 클릭 시 메시지
-        Toast.makeText(this, "'뒤로' 버튼을 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
-        //lastTimeBackPressed에 '뒤로'버튼이 눌린 시간을 기록
-        lastTimeBackPressed = System.currentTimeMillis();
-    }
-
 
 
 }
