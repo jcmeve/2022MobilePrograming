@@ -75,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/which_transport">
 
         <RadioGroup
+            android:id="@+id/userinfo_transport_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -87,7 +88,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_radio_transport_car"
                 android:button="@null"
-                android:text="" />
+                android:text=""
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:id="@+id/userinfo_transport_bus"
@@ -95,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_radio_transport_bus"
                 android:button="@null"
-                android:text="" />
+                android:text=""
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:id="@+id/userinfo_transport_subway"
@@ -103,9 +106,23 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_radio_transport_subway"
                 android:button="@null"
-                android:text="" />
+                android:text=""
+                android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
     </LinearLayout>
+
+    <TextView
+        style="@style/TextBold"
+        android:id="@+id/userinfo_transport_text_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:text="버스 평균 10km"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/order2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <ImageView
         android:id="@+id/order2"
