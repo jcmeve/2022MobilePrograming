@@ -16,12 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mysprout.fragment.DialogMovementAmount;
 
 public class UserInformationTransport extends AppCompatActivity implements DialogMovementAmount.MovementAmountDataListener {
-    private int moveAmount = -1; //사용자 이동량 저장
+    int moveAmount; //사용자 이동량 저장
+    String transportationName; //이동수단 이름 저장
     TextView resultText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userinformation_transport);
+
+        moveAmount = -1;
+        transportationName = null;
 
         resultText = findViewById(R.id.userinfo_transport_text_result);
         resultText.setVisibility(View.INVISIBLE);
@@ -46,16 +50,19 @@ public class UserInformationTransport extends AppCompatActivity implements Dialo
         switch(view.getId()) {
             case R.id.userinfo_transport_car:
                 if(checked){
+                    transportationName = "자동차";
                     setAmount("CAR", view);
                 }
                 break;
             case R.id.userinfo_transport_bus:
                 if(checked){
+                    transportationName = "버스";
                     setAmount("BUS", view);
                 }
                 break;
             case R.id.userinfo_transport_subway:
                 if(checked){
+                    transportationName = "지하철";
                     setAmount("SUBWAY", view);
                 }
                 break;
@@ -73,6 +80,7 @@ public class UserInformationTransport extends AppCompatActivity implements Dialo
 
                 if(moveAmount == -1){
                     Log.d("moveAmount", String.valueOf(moveAmount));
+                    transportationName = null;
                     resultText.setVisibility(View.INVISIBLE);
                     ((RadioButton) view).setChecked(false);
                 }else{
