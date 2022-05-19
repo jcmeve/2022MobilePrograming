@@ -79,12 +79,6 @@
                         "AuthMode": "API_KEY",
                         "ApiKey": "da2-vsyhzf7z4raohgxua4m6twjlfm",
                         "ClientDatabasePrefix": "mysprout_API_KEY"
-                    },
-                    "mysprout_AWS_IAM": {
-                        "ApiUrl": "https://7l3rtskunrfe3nl3blv2j3vp3q.appsync-api.us-west-2.amazonaws.com/graphql",
-                        "Region": "us-west-2",
-                        "AuthMode": "AWS_IAM",
-                        "ClientDatabasePrefix": "mysprout_AWS_IAM"
                     }
                 }
             }

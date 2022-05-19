@@ -55,6 +55,7 @@ type UserFood @model @auth(rules: [{ allow: owner }]){
 
   count: [Int!]!
   date: [AWSTimestamp!]!
+  time: [String!]!
 }
 
 type UserAction @model @auth(rules: [{ allow: owner }]){
@@ -109,7 +110,7 @@ type Mutation{
   msSetMeatCarbon(meat_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
   msSetTransportationCarbon(transportation_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
   msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msAddFoodData(  food_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
+  msAddFoodData(  food_name: String, count: Int, time: String) :Boolean @function(name: "mysprout034be500-${env}")
   msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
   msAddSaveCarbon(carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
 }

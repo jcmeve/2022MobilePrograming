@@ -23,7 +23,7 @@
       "function": {
         "mysprout034be500": {
           "deploymentBucketName": "amplify-mysprout-dev-20301-deployment",
-          "s3Key": "amplify-builds/mysprout034be500-393371724d62636a4d37-build.zip"
+          "s3Key": "amplify-builds/mysprout034be500-4b496c6671474c4c3967-build.zip"
         }
       }
     }
@@ -83,6 +83,32 @@
           "deploymentBucketName": "amplify-mysprout-strkey-200816-deployment",
           "s3Key": "amplify-builds/mysprout034be500-746d6d36545a52556a4f-build.zip"
         }
+      }
+    }
+  },
+  "sandbox": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mysprout-sandbox-211000-authRole",
+      "UnauthRoleArn": "arn:aws:iam::799131647040:role/amplify-mysprout-sandbox-211000-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::799131647040:role/amplify-mysprout-sandbox-211000-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-mysprout-sandbox-211000-deployment",
+      "UnauthRoleName": "amplify-mysprout-sandbox-211000-unauthRole",
+      "StackName": "amplify-mysprout-sandbox-211000",
+      "StackId": "arn:aws:cloudformation:us-west-2:799131647040:stack/amplify-mysprout-sandbox-211000/9ebdc740-d76c-11ec-b5b6-02d019b4a545",
+      "AmplifyAppId": "d3302iiab8jtwq"
+    },
+    "categories": {
+      "auth": {
+        "mysproutbb07d4b0": {
+          "userPoolId": "us-west-2_iZxNHolqT",
+          "userPoolName": "mysprout_userpoll",
+          "webClientId": "a7tm0evf0lek4ivkao5ua7hak",
+          "nativeClientId": "a7tm0evf0lek4ivkao5ua7hak"
+        }
+      },
+      "function": {
+        "mysprout034be500": {}
       }
     }
   }

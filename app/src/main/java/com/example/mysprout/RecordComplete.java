@@ -176,7 +176,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         if(tag.equals("Food")){
             for(int i = 0; i < selects.size();i++){
                 FoodPassData foodPassData = (FoodPassData)selects.get(i);
-                DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit());
+                DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.BREAKFAST);
             }
             intent.putExtra("tag", "Food");
             float save = calSavings();

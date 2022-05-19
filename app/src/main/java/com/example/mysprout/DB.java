@@ -133,17 +133,37 @@ public  class DB {
         return true;
     }
 
-    public boolean AddFoodData(String food_name,  int count){
-            String document =
-                "mutation MyMutation($food_name: String!, $count: Int!) {" +
-                    "msAddFoodData(" +
-                        "food_name: $food_name," +
-                        "count: $count" +
-                    ")"+
-                "}";
+    public enum TIME{
+        BREAKFAST,LUNCH,DINNER
+    }
+    public boolean AddFoodData(String food_name,  int count, TIME _time){
+        String time = null;
+        switch (_time){
+            case BREAKFAST:
+                time = "b";
+                break;
+            case LUNCH:
+                time = "l";
+                break;
+            case DINNER:
+                time = "d";
+                break;
+            default:
+                Log.e("DB ERROR","TIME");
+        }
+
+        String document =
+            "mutation MyMutation($food_name: String!, $count: Int!, $time: String!) {" +
+                "msAddFoodData(" +
+                    "food_name: $food_name," +
+                    "count: $count" +
+                    "time: $time" +
+                ")"+
+            "}";
         Map<String, Object> variables = new HashMap<>();
         variables.put("food_name", food_name);
         variables.put("count", count);
+        variables.put("time", time);
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
