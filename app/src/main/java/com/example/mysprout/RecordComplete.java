@@ -216,6 +216,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         //2초 이내에 뒤로가기 버튼을 재 클릭 시 앱 종료
         if (System.currentTimeMillis() - lastTimeBackPressed < 2000)
         {
+            Toast.makeText(this, "기록을 취소합니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             return;
