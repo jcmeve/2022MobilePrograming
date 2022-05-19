@@ -54,10 +54,11 @@ public class MySprout extends AppCompatActivity {
                         TextView name = findViewById(R.id.mysprout_sprout_name);
                         TextView level = findViewById(R.id.mysprout_sprout_level);
                         name.setText(MySprout.user_result.getSproutName());
-                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + MySprout.user_result.getSproutExp());
+                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + DB.ExpToLevel(MySprout.user_result.getCarbonSave()));
                     });
                 }
         );
+
     }
 
     static DB.Action_Pair[] action_result = null;
