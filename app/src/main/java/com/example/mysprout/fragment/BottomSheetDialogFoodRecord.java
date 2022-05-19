@@ -81,11 +81,18 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         //Numberpicker -인분-
         NumberPicker numberPicker = view.findViewById(R.id.numberpicker_oneserving);
 
+        view.findViewById(R.id.exit_bottomdialog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
         //추가 버튼 리스너
         view.findViewById(R.id.addbtn_food).setOnClickListener(v-> {
             if(foodRecordDataPassListener != null){
                 int unit = numberPicker.getValue();
-                Log.d("넘버피커", String.valueOf(unit));
+                //Log.d("넘버피커", String.valueOf(unit));
                 String thisName = (String) textViewFoodName.getText();
                 foodRecordDataPassListener.onRecordDataPass(view, thisName, unit);
             }

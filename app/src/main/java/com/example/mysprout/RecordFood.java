@@ -61,7 +61,7 @@ public class RecordFood extends AppCompatActivity
         });
     }
 
-    private void setUpRecyclerView(){
+    void setUpRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recyclerview_food);
         recyclerView.setHasFixedSize(true);
 
@@ -89,7 +89,7 @@ public class RecordFood extends AppCompatActivity
         recyclerView.setAdapter(adapter);
     }
 
-    public void getDBData(){
+    void getDBData(){
         if(foods.isEmpty()){
             DB.getFoodListCallBack foodListCallBack = new DB.getFoodListCallBack() {
                 @Override
@@ -120,7 +120,7 @@ public class RecordFood extends AppCompatActivity
         }
     }
 
-    public void howMuchEat(View view, String foodName, float carbonEmiss){
+    void howMuchEat(View view, String foodName, float carbonEmiss){
         BottomSheetDialogFoodRecord bottomFragment = BottomSheetDialogFoodRecord.newInstance(foodName, carbonEmiss);
         bottomFragment.setOnDataPassListener(new BottomSheetDialogFoodRecord.FoodRecordDataPassListener() {
             @Override

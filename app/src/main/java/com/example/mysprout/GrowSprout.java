@@ -41,11 +41,13 @@ public class GrowSprout extends AppCompatActivity {
 
     void calEXP(float save){
         //DB에서 유저 level, EXP 불러오기 / 임시 값: leve 1, exp 0
-        int level = 1; //임시값
         expBefore = 0; //임시값
         expUpdate = expBefore + save;
+
+        int level = DB.ExpToLevel((int)expBefore);//curr level
+
         //level * 1000을 목표 EXP로 생각
-        startPoint = (expBefore - ((level-1)*1000)) / 1000; //progress bar 시작 지점
+        startPoint = (expBefore - (DB.GetStartExp(level))) / 1000; //progress bar 시작 지점
         endPoint = (expUpdate - expBefore) / 1000;
         Log.d("calEXP", String.valueOf(startPoint)+("/")+String.valueOf(endPoint));
         //기록된 절약량 추가한 EXP, level DB로 전송

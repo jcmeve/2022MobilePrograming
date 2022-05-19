@@ -65,7 +65,7 @@ public class MainSprout extends AppCompatActivity {
 
                 TextView level_txt = findViewById(R.id.level_main);
                 TextView sprout_name_txt = findViewById(R.id.sproutName_main);
-                level_txt.setText("Lv. "+(int)(MainSprout.getUserResult.getSproutExp()/ 1000));
+                level_txt.setText("Lv. "+DB.ExpToLevel (MainSprout.getUserResult.getSproutExp()));
                 sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
 
             });
