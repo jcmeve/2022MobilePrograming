@@ -23,7 +23,7 @@ public class RecyclerCustomAdapterHabit
 
     ArrayList<CheckboxData> checkboxList;
 
-    ArrayList<RecyclerItemHabit> checkedItems;
+    //ArrayList<RecyclerItemHabit> checkedItems;
 
     public RecyclerCustomAdapterHabit(Context context, ArrayList<RecyclerItemHabit> habitDatas,
                                       int itemHabit_layout) {
@@ -31,7 +31,6 @@ public class RecyclerCustomAdapterHabit
         this.habitDatas = habitDatas;
         this.itemHabit_layout = itemHabit_layout;
         this.checkboxList = new ArrayList<>();
-        this.checkedItems = new ArrayList<>();
     }
 
     @NonNull
@@ -82,10 +81,12 @@ public class RecyclerCustomAdapterHabit
                 public void onClick(View view) {
                     if(itemHabitBinding.checkboxItemviewHabit.isChecked()){
                         checkboxList.get(pos).setChecked(true);
-                        checkedItems.add(item);
+                        actionItemListener.onItemChecked("TRUE", item);
+                        //checkedItems.add(item);
                     }else{
                         checkboxList.get(pos).setChecked(false);
-                        checkedItems.remove(item);
+                        actionItemListener.onItemChecked("FALSE", item);
+                        //checkedItems.remove(item);
                     }
                 }
             });
@@ -94,8 +95,16 @@ public class RecyclerCustomAdapterHabit
         }
     }
 
-    //일단 체크된 아이템들을 ArrayList에 따로 저장했고 밖에서 접근할 수 있게 만들어는 뒀습니다
-    public ArrayList<RecyclerItemHabit> getCheckedItems(){
-        return checkedItems;
+    private OnActionItemListener actionItemListener;
+    public void setOnActionItemListener(OnActionItemListener listner){
+        this.actionItemListener = listner;
     }
+
+    public interface OnActionItemListener{
+        void onItemChecked(String tag, RecyclerItemHabit item);
+    }
+
+    /*public ArrayList<RecyclerItemHabit> getCheckedItems(){
+        return checkedItems;
+    }*/
 }

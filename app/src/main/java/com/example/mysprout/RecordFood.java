@@ -34,8 +34,6 @@ public class RecordFood extends AppCompatActivity
 
     RecyclerItemFood tempItem;
 
-    float totalEmiss = 0.f;
-
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_food);

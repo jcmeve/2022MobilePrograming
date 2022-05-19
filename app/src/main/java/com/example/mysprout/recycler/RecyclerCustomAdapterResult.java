@@ -91,12 +91,15 @@ public class RecyclerCustomAdapterResult
         }
 
         void bindItem(RecyclerItemHabit item, final int pos){
+            itemviewResultBinding.constraintlayoutResultItem.setMinWidth(givenSize - 160);
+            itemviewResultBinding.textviewResultItem.setTextSize(12);
             itemviewResultBinding.textviewResultItem.setText(item.getName());
 
             if(resultItemListener != null){
                 itemviewResultBinding.buttonResultItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        removeItem(pos);
                         resultItemListener.onItemButtonClicked(view, pos, item);
                     }
                 });

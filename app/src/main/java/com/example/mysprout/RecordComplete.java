@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -56,12 +57,13 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
             selects = new ArrayList<FoodPassData>();
             selects = intent.getParcelableArrayListExtra("selectList");
 
-            calTotal(selects);
+            calTotalFood(selects);
             setTextOfRecordFoods();
         }else if(tag.equals("Habits")){
-            //Habits
             selects = new ArrayList<RecyclerItemHabit>();
             selects = intent.getParcelableArrayListExtra("selectList");
+
+            calTotalHabit(selects);
             setTextOfRecordHabits();
         }
 
@@ -106,11 +108,21 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         }
     }
 
-    private void calTotal(ArrayList<FoodPassData> data){
+    private void calTotalFood(ArrayList<FoodPassData> data){
         float beforeTotal = 0.f;
 
         for(FoodPassData datum : data){
             beforeTotal += datum.getItem().getCarbon() * datum.getUnit();
+        }
+
+        total = beforeTotal;
+    }
+
+    private void calTotalHabit(ArrayList<RecyclerItemHabit> data){
+        float beforeTotal = 0.f;
+
+        for(RecyclerItemHabit datum : data){
+            beforeTotal += datum.getCarbon();
         }
 
         total = beforeTotal;
@@ -143,13 +155,15 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
             @Override
             public void onItemButtonClicked(View view, int position, FoodPassData item) {
                 selects.remove(item);
-                calTotal(selects);
+                calTotalFood(selects);
                 setTextOfRecordFoods();
             }
 
             @Override
             public void onItemButtonClicked(View view, int position, RecyclerItemHabit item) {
-                //Habits
+                selects.remove(item);
+                calTotalHabit(selects);
+                setTextOfRecordHabits();
             }
         });
 
@@ -184,10 +198,8 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
             //아침, 점심, 저녁 중에 무엇인지 나중에 추가
         }else if(tag.equals("Habits")){
             intent.putExtra("tag", "Habits");
-            intent.putExtra("save", total);
+            intent.putExtra("save", total); //습관 기록은 total 자체가 절약량
             intent.putExtra("num", selects.size());
-        }else{
-
         }
 
         startActivity(intent);

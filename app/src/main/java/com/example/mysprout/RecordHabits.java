@@ -18,14 +18,18 @@ import com.example.mysprout.recycler.RecyclerItemHabit;
 
 import java.util.ArrayList;
 
-public class RecordHabits extends AppCompatActivity implements DB.getActionListCallBack {
+public class RecordHabits extends AppCompatActivity
+        implements DB.getActionListCallBack, RecyclerCustomAdapterHabit.OnActionItemListener {
     RecordHabitsBinding record1Binding;
     RecyclerView recyclerView_habit;
     ArrayList<RecyclerItemHabit> habits;
 
+    ArrayList<RecyclerItemHabit> selects;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         habits = new ArrayList<>();
+        selects = new ArrayList<>();
         //setContentView(R.layout.record_1); 뷰 바인딩 사용
 
         setUpRecyclerView();
@@ -47,6 +51,22 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView_habit.setLayoutManager(layoutManager);
 
+        adapterHabit.setOnActionItemListener(new RecyclerCustomAdapterHabit.OnActionItemListener() {
+            @Override
+            public void onItemChecked(String tag, RecyclerItemHabit item) {
+                switch (tag){
+                    case "TRUE":
+                        selects.add(item);
+                        //Log.d("item", selects.get(0).getName());
+                        break;
+                    case "FALSE":
+                        selects.remove(item);
+                        //Log.d("item", String.valueOf(selects));
+                        break;
+                }
+            }
+        });
+
         recyclerView_habit.setAdapter(adapterHabit);
     }
 
@@ -59,8 +79,7 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
                         if(actionDatum != null){
                             RecyclerItemHabit item = new RecyclerItemHabit(actionDatum.getName(),
                                     actionDatum.getSaveCarbon(), actionDatum.getId());
-                                Log.d("반복문", item.getName());
-                            //Log.d("반복문", "아이템 들어가는 중");
+                                //Log.d("반복문", item.getName());
                             habits.add(item);
                         }
                         else{
@@ -86,7 +105,9 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
     }
 
     public void onClickN1(View v) {
-        Intent intent = new Intent(getApplicationContext(), RecordComplete.class);
+        Intent intent = new Intent(this, RecordComplete.class);
+        intent.putExtra("tag", "Habits");
+        intent.putExtra("selectList", selects);
         startActivity(intent);
 
     }
@@ -104,5 +125,8 @@ public class RecordHabits extends AppCompatActivity implements DB.getActionListC
     }
 
 
+    @Override
+    public void onItemChecked(String tag, RecyclerItemHabit item) {
 
+    }
 }
