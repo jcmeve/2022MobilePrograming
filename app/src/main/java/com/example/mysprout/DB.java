@@ -173,7 +173,7 @@ public  class DB {
     }
 
     public interface getExpCallBack{
-        void callback(int value);
+        void callback(int exp, int lvl);
     }
     private getExpCallBack expCallBack;
     public void GetTotalExp(getExpCallBack _callBack){
@@ -189,7 +189,8 @@ public  class DB {
                     Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData());
                     try {
                         JSONObject jsonObject = new JSONObject(response.getData().toString());
-                        expCallBack.callback(jsonObject.getInt("msGetTotalExp"));
+                        int exp = jsonObject.getInt("msGetTotalExp");
+                        expCallBack.callback(exp, ExpToLevel(exp));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -198,6 +199,24 @@ public  class DB {
         );
 
     }
+    public static int ExpToLevel(int exp){
+        if(exp == 0)
+            return  1;
+        exp += 1000;
+        exp /= 1000;
+        int lvl = (int)(Math.log(exp)/Math.log(2) + 1e-10);
+        return lvl + 1;
+    }
+    //레벨3이라면 2->3지점을 알려줌
+    public static int GetStartExp(int level){
+        int exp = 0;
+        for (int i = 0; i < level -1; ++i){
+            exp += Math.pow(2,i);
+        }
+        exp *= 1000;
+        return  exp;
+    }
+
     public interface getUserCallBack{
         void callback(User user);
     }

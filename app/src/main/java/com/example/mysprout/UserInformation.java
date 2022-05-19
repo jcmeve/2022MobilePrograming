@@ -103,22 +103,6 @@ public class UserInformation extends AppCompatActivity {
 
         DB.getInstance().CreateUser(nickname_txt, sproutname_txt);
 
-        /////////// 예제코드입니당
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        DB.getInstance().AddTransportationData("test", 100);
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        DB.getInstance().GetTotalExp(value -> Log.i("FSADSFSADDFASF: " , value+""));
-        /////////// 예제코드입니당
 
         Intent intent = new Intent(UserInformation.this, UserInformationMeat.class);
         startActivity(intent);
