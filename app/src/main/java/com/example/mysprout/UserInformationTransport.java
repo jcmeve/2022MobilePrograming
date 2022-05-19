@@ -7,18 +7,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.datastore.generated.model.TransportationData;
 import com.example.mysprout.fragment.DialogMovementAmount;
 
 public class UserInformationTransport extends AppCompatActivity implements DialogMovementAmount.MovementAmountDataListener {
     int moveAmount; //사용자 이동량 저장
     String transportationName; //이동수단 이름 저장
     TextView resultText;
+
+    static TransportationData[] transportationDatas;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +34,19 @@ public class UserInformationTransport extends AppCompatActivity implements Dialo
 
         Button nextBtn;
         nextBtn = (Button)findViewById(R.id.nextbtn_trans);
-        nextBtn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(UserInformationTransport.this, MainSprout.class);
-                startActivity(intent);
+        DB.getInstance().GetTransportationList((result)-> UserInformationTransport.transportationDatas = result);
+
+        nextBtn.setOnClickListener(v -> {
+            for(int i = 0; i < transportationDatas.length;i++){
+                if(transportationDatas[i].getName().equals( transportationName)){
+                    Log.i("dd",transportationName);
+                    DB.getInstance().SetTransportationCarbon(transportationDatas[i].getCarbonPerUnit() * moveAmount);
+                    break;
+                }
             }
+
+            Intent intent = new Intent(UserInformationTransport.this, MainSprout.class);
+            startActivity(intent);
         });
         //TODO: GetTransportationList를 받아 탄소소비량을 계산해 SetTransportationCarbon로 탄소량 저장
     }
