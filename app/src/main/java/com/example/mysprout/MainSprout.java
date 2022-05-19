@@ -29,7 +29,6 @@ public class MainSprout extends AppCompatActivity {
 
 
 
-
         //새싹 애니메이션 누르면 상세 화면(mysprout)으로 이동
         LottieAnimationView sproutAnim = findViewById(R.id.sprout_main);
         sproutAnim.setOnClickListener(new View.OnClickListener() {
