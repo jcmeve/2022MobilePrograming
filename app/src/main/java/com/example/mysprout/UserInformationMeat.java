@@ -39,7 +39,7 @@ public class UserInformationMeat extends AppCompatActivity {
             }
 
 
-            Intent intent = new Intent(UserInformationMeat.this, UserInformationTransport.class);
+            Intent intent = new Intent(UserInformationMeat.this, Home.class);
             startActivity(intent);
         });
     }

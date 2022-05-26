@@ -2,7 +2,7 @@
     <!-- Base application theme. ActionBar, MaterialComponents 임의로 제거.-->
     <style name="Theme.MySprout" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/mainGreen</item>
+        <item name="colorPrimary">@color/backGroundGrey</item>
         <item name="colorPrimaryVariant">@color/mintGreen</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/backGroundGrey</item>
     </style>
 
     <style name="EditTextMainGreenStyle" parent="Widget.Design.TextInputLayout"> <!--별명, 새싹 이름 입력 부분-->
@@ -64,5 +65,30 @@
         <item name="fontFamily">@font/nregular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    
+    <!--<style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/nbold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/mainGreen</item>
+    </style>
+
+    <style name="ToolBarTitleTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/mainGreen</item>
+        <item name="android:fontFamily">@font/nbold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorSurface">@color/backGroundGrey</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="android:textColor">@drawable/selector_navigation_item_color</item>
+        <item name="android:iconTint" tools:targetApi="o">@drawable/selector_navigation_item_color</item>
+        <item name="fontFamily">@font/nregular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>-->
 
 </resources>

@@ -22,11 +22,11 @@ public class MySprout extends AppCompatActivity {
 
 
 
-        Button btn = findViewById(R.id.backBtn_mysprout);
-        btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainSprout.class);
-            startActivity(intent);
-        });
+//        Button btn = findViewById(R.id.backBtn_mysprout);
+//        btn.setOnClickListener(view -> {
+//            Intent intent = new Intent(getApplicationContext(), MainSprout.class);
+//            startActivity(intent);
+//        });
 
     }
 
