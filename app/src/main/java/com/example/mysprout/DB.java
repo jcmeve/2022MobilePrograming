@@ -50,8 +50,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added CreateUser with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "CreateUser failed", error)
         );
         return true;
     }
@@ -68,8 +68,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added SaveCarbon with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "SaveCarbon failed", error)
         );
         return true;
     }
@@ -88,8 +88,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added SetMeatCarbon with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "SetMeatCarbon failed", error)
         );
         return true;
     }
@@ -106,8 +106,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added SetTransportationCarbon with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "SetTransportationCarbon failed", error)
         );
         return true;
     }
@@ -127,8 +127,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added AddTransportationData with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "AddTransportationData failed", error)
         );
         return true;
     }
@@ -160,15 +160,26 @@ public  class DB {
                     "time: $time" +
                 ")"+
             "}";
+
+        document =
+                "mutation MyMutation($count: Int!, $food_name: String!, $time: String!) {" +
+                    "msAddFoodData(" +
+                        "count: $count," +
+                        "food_name: $food_name," +
+                        "time: $time" +
+                        ")" +
+                "}";
+
+
         Map<String, Object> variables = new HashMap<>();
         variables.put("food_name", food_name);
         variables.put("count", count);
         variables.put("time", time);
-
+        Log.i("TAG" ,"food_name : " + food_name + "count : "+ count + "time : " + time);
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added AddFoodData with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "AddFoodData failed", error)
         );
         return true;
     }
@@ -186,8 +197,8 @@ public  class DB {
 
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("MyAmplifyApp", "Added AddActionData with id: " + response.getData()),
+                error -> Log.e("MyAmplifyApp", "AddActionData failed", error)
         );
         return true;
     }
@@ -300,7 +311,7 @@ public  class DB {
                     meatLevelDataCallBack.callback(data);
 
                 },
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                error -> Log.e("MyAmplifyApp", "msGetMeatLevelData failed", error)
         );
 
     }

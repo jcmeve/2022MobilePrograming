@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.data.FoodPassData;
 import com.example.mysprout.databinding.RecordCompleteBinding;
-import com.example.mysprout.fragment.MainSproutFragment;
 import com.example.mysprout.recycler.RecyclerCustomAdapterResult;
 import com.example.mysprout.recycler.RecyclerItemHabit;
 
@@ -86,7 +84,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
             getUserResult = result;
             runOnUiThread(() -> {
                 Calendar curr = Calendar.getInstance();
-                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSprout.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
+                long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - RecordComplete.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
                 recordCompleteBinding.textviewCompleteToday.setText("Day "+days);
 
             });
