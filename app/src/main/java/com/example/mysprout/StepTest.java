@@ -77,7 +77,7 @@ public class StepTest extends AppCompatActivity {
         cal.setTime(now);
 
         // 시작 시간
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+        cal.set(cal.get(Calendar.YEAR)-1, cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH), 6, 0, 0);
         long startTime = cal.getTimeInMillis();
 
