@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.data.FoodPassData;
 import com.example.mysprout.databinding.RecordCompleteBinding;
+import com.example.mysprout.fragment.MainSproutFragment;
 import com.example.mysprout.recycler.RecyclerCustomAdapterResult;
 import com.example.mysprout.recycler.RecyclerItemHabit;
 
@@ -185,7 +186,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
     public void onClickN2(View v) {
         ConstraintLayout container = findViewById(R.id.container);
         Log.d("넘겨줄 리스트 컴플릿", String.valueOf(selects));
-        Intent intent = new Intent(getApplicationContext(), GrowSprout.class);
+        Intent intent = new Intent(this, GrowSprout.class);
 
         if(tag.equals("Food")){
             for(int i = 0; i < selects.size();i++){

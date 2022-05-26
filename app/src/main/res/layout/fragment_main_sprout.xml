@@ -21,6 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:background="@drawable/backgroundrec2"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -128,9 +130,61 @@
                         android:includeFontPadding="false"
                         android:text="@string/name_of_sprout"
                         android:textColor="@color/mintGreen"
-                        android:textSize="32sp" />
+                        android:textSize="28sp" />
                 </LinearLayout>
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:background="@drawable/backgroundrec2">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="기록하기"
+                    android:textColor="@color/almostBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/home_button_to_meal"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/icon_recordmeal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <ImageButton
+                    android:id="@+id/home_button_to_habit"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/icon_recordaction"
+                    app:layout_constraintEnd_toStartOf="@+id/home_button_to_walk"
+                    app:layout_constraintStart_toEndOf="@+id/home_button_to_meal"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <ImageButton
+                    android:id="@+id/home_button_to_walk"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/icon_recordwalk"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>

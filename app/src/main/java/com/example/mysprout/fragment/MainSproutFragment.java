@@ -3,12 +3,14 @@ package com.example.mysprout.fragment;
 import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +18,10 @@ import androidx.fragment.app.Fragment;
 
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.DB;
+import com.example.mysprout.MainSprout;
 import com.example.mysprout.R;
+import com.example.mysprout.RecordFood;
+import com.example.mysprout.RecordHabits;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +39,24 @@ public class MainSproutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.home_button_to_meal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "식단 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), RecordFood.class);
+                startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.home_button_to_habit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "습관 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), RecordHabits.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void onResume() {

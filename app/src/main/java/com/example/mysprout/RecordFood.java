@@ -137,7 +137,7 @@ public class RecordFood extends AppCompatActivity
     public void onClickfN1(View v) {
         ConstraintLayout container = findViewById(R.id.container);
         Log.d("넘겨줄 리스트", String.valueOf(selects));
-        Intent intent = new Intent(getApplicationContext(), RecordComplete.class);
+        Intent intent = new Intent(RecordFood.this, RecordComplete.class);
         intent.putExtra("tag", "Food"); //어느 액티비티에서 왔는지 알려주는 태그
         intent.putExtra("selectList", selects);
         startActivity(intent);
