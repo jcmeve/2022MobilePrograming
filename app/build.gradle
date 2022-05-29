@@ -63,4 +63,7 @@ dependencies {
 
     //circle view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //ripple anim
+    implementation 'com.balysv:material-ripple:1.0.2'
 }

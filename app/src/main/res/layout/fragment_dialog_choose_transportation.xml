@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:background="@drawable/backgroundrec_white"
+    tools:context=".fragment.DialogMovementAmount">
+
+    <TextView
+        style="@style/TextBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/almostBlack"
+        android:text="사용하지 않을 이동 수단" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            style="@style/TextRegular"
+            android:id="@+id/dialog_choose_transport_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="승용차"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            style="@style/TextRegular"
+            android:id="@+id/dialog_choose_transport_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버스"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            style="@style/TextRegular"
+            android:id="@+id/dialog_choose_transport_subway"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지하철"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            style="@style/TextBold"
+            android:id="@+id/dialog_choose_transport_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff0000"
+            android:text="취소"
+            android:textSize="16sp"
+            android:textColor="@color/mainGreen" />
+
+        <Button
+            style="@style/TextBold"
+            android:id="@+id/dialog_choose_transport_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff0000"
+            android:text="확인"
+            android:textSize="16sp"
+            android:textColor="@color/mainGreen"/>
+    </LinearLayout>
+
+</LinearLayout>

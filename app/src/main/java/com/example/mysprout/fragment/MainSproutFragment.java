@@ -22,6 +22,7 @@ import com.example.mysprout.MainSprout;
 import com.example.mysprout.R;
 import com.example.mysprout.RecordFood;
 import com.example.mysprout.RecordHabits;
+import com.example.mysprout.RecordStep;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -54,6 +55,15 @@ public class MainSproutFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "습관 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), RecordHabits.class);
+                startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.home_button_to_walk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "걷기 기록으로 넘어갑니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), RecordStep.class);
                 startActivity(intent);
             }
         });
