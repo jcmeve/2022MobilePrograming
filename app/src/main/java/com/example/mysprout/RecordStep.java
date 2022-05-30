@@ -38,7 +38,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         setContentView(stepBinding.getRoot());
 
         chosenTransport = "";
-        showDialog();
+  //      showDialog();
     }
 
     @Override
@@ -56,6 +56,8 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         }
         if(onRun) {
             stepBinding.recordStepButtonStartAndStop.toggle();
+        }else{
+            showDialog();
         }
         stepBinding.recordStepButtonStartAndStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                 boolean checked = ((ToggleButton)view).isChecked();
 
                 if(checked){
+
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.white));
 
 
