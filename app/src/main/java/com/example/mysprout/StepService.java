@@ -17,6 +17,16 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.data.DataPoint;
+import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Field;
+import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.fitness.result.DataReadResponse;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,7 +34,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class StepService extends Service {
     boolean activityOn = false;
@@ -114,6 +126,7 @@ public class StepService extends Service {
             Messenger messenger = (Messenger) intent.getExtras().get("Messenger");
             Thread thread = new Thread(() -> {
                 while (activityOn) {
+                    readData();
 
                     Message msg = Message.obtain();
                     msg.obj = "TEST!!!";
@@ -140,6 +153,8 @@ public class StepService extends Service {
                 FileReader fileReader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 String data = bufferedReader.readLine();
+
+
                 //fit service로 총 걸음수 계산, DB업데이트 혹은 messenger 연결해서 값 액티비티에 주기
             } catch (IOException e) {
                 e.printStackTrace();
@@ -157,5 +172,62 @@ public class StepService extends Service {
 
         super.onDestroy();
     }
+
+
+
+
+
+
+
+
+    private void readData() {
+        final Calendar cal = Calendar.getInstance();
+        Date now = Calendar.getInstance().getTime();
+        cal.setTime(now);
+
+        // 시작 시간
+        cal.set(cal.get(Calendar.YEAR)-1, cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH), 6, 0, 0);
+        long startTime = cal.getTimeInMillis();
+
+        // 종료 시간
+        cal.set(cal.get(Calendar.YEAR)+1, cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH), 23, 0, 0);
+        long endTime = cal.getTimeInMillis();
+        String TAG = "GOOGLE FIT";
+        try {
+
+
+            Fitness.getHistoryClient(this,
+                    GoogleSignIn.getLastSignedInAccount(getApplicationContext()))
+                    .readData(new DataReadRequest.Builder()
+                            .read(DataType.TYPE_STEP_COUNT_DELTA) // Raw 걸음 수
+                            .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                            .build())
+                    .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
+                        @Override
+                        public void onSuccess(DataReadResponse response) {
+                            DataSet dataSet = response.getDataSet(DataType.TYPE_STEP_COUNT_DELTA);
+                            Log.i(TAG, "Data returned for Data type: " + dataSet.getDataType().getName());
+                            Log.i(TAG, dataSet.getDataPoints().size() + "");
+                            for (DataPoint dp : dataSet.getDataPoints()) {
+                                Log.i(TAG, "Data point:");
+                                Log.i(TAG, "\tType: " + dp.getDataType().getName());
+
+                                Log.i(TAG, "\tStart: " + (dp.getStartTime(TimeUnit.MILLISECONDS) / 1000));
+                                Log.i(TAG, "\tEnd: " + (dp.getEndTime(TimeUnit.MILLISECONDS) / 1000));
+                                for (Field field : dp.getDataType().getFields()) {
+                                    Log.i(TAG, "\tField: " + field.getName() + " Value: " + dp.getValue(field));
+                                }
+                            }
+                        }
+                    });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }

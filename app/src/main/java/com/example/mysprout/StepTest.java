@@ -125,6 +125,5 @@ public class StepTest extends AppCompatActivity {
                 ).addOnFailureListener(
                     e -> Log.w("ERROR", "There was a problem subscribing.", e)
                 );
-
     }
 }
