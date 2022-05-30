@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
-    android:background="@drawable/backgroundrec_white"
-    tools:context=".fragment.DialogMovementAmount">
+    android:background="@drawable/backgroundrec_white">
 
     <TextView
         style="@style/TextBold"
