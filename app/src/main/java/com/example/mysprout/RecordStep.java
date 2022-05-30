@@ -1,28 +1,29 @@
 package com.example.mysprout;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
-import android.app.Notification;
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
 import com.example.mysprout.databinding.RecordStepBinding;
 import com.example.mysprout.fragment.DialogChooseTransportation;
-
-import java.io.InputStream;
 
 public class RecordStep extends AppCompatActivity implements DialogChooseTransportation.ChosenDataListener {
     //뷰 바인딩
@@ -43,6 +44,19 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
     @Override
     protected void onStart() {
         super.onStart();
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        boolean onRun = false;
+
+        for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+            Log.i("SEVIRENAME",service.service.getClassName());
+            if(StepService.class.getName().equals(service.service.getClassName())){
+                onRun = true;
+                break;
+            }
+        }
+        if(onRun) {
+            stepBinding.recordStepButtonStartAndStop.toggle();
+        }
         stepBinding.recordStepButtonStartAndStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,14 +64,45 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
 
                 if(checked){
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.white));
+
+
+                    Intent intent1 = new Intent(getApplicationContext(), StepService.class);
+                    intent1.putExtra("Method", "StartRecord");
+                    intent1.putExtra("Transport", chosenTransport);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startForegroundService(intent1);
+                    }else{
+                        Log.e("SDKV","ERRORORR");
+                    }
+
+                    Intent intent2 = new Intent(getApplicationContext(), StepService.class);
+                    intent2.putExtra("Messenger",mMessenger);
+                    intent2.putExtra("Method","ActivityOn");
+                    startService(intent2);
+
+
+
                     //서비스(걸음 수 측정) 시작
-                    callNotification();
+               //     callNotification();
                 }else{
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
+                    Intent intent = new Intent(getApplicationContext(), StepService.class);
+                    intent.putExtra("Method","StopRecord");
+                    startService(intent);
                 }
             }
         });
     }
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            String data = (String)msg.obj;
+            Log.i("DATA ", data);
+            super.handleMessage(msg);
+        }
+    };
+    private Messenger mMessenger = new Messenger(mHandler);
 
     void showDialog(){
         DialogChooseTransportation dialog = new DialogChooseTransportation();
@@ -98,7 +143,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
     public void giveData(String tag) {
 
     }
-
+/*
     //여기서부터 Notification 생성 메소드
     public void callNotification(){
         NotificationCompat.Builder builder = getBuilder("channel_1", "noti_record_steps");
@@ -119,7 +164,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
 
         notificationManager.notify(2000, notification);
     }
-
+*/
     public NotificationCompat.Builder getBuilder(String channel_id, String channel_name){
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = null;
@@ -133,5 +178,14 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             builder = new NotificationCompat.Builder(this, channel_id);
         }
         return builder;
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(getApplicationContext(), StepService.class);
+        intent.putExtra("Method","ActivityOff");
+        startService(intent);
+
+        super.onDestroy();
     }
 }
