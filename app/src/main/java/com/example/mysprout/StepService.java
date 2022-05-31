@@ -35,7 +35,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class StepService extends Service {
@@ -82,7 +81,7 @@ public class StepService extends Service {
     }
     public NotificationCompat.Builder getBuilder(String channel_id, String channel_name){
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = null;
+        NotificationCompat.Builder builder;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel =
                     new NotificationChannel(channel_id, channel_name, NotificationManager.IMPORTANCE_HIGH);
@@ -106,8 +105,7 @@ public class StepService extends Service {
                 FileWriter fileWriter = new FileWriter(file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 Calendar c = Calendar.getInstance();
-                c.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-                String data =   c.get(Calendar.YEAR)+"/" +(c.get(Calendar.MONTH)+1)+"/" + c.get(Calendar.DATE)+"/" + c.get(Calendar.HOUR_OF_DAY)+"/"+c.get(Calendar.MINUTE);
+                String data =   c.get(Calendar.YEAR)+"," +c.get(Calendar.MONTH)+"," + c.get(Calendar.DATE)+"," + c.get(Calendar.HOUR_OF_DAY)+","+c.get(Calendar.MINUTE);
                 Log.i("STEP DATA", data);
                 bufferedWriter.write(data);
                 bufferedWriter.close();
@@ -118,16 +116,12 @@ public class StepService extends Service {
 
             callNotification(transport);
 
-
-
-
         }else if(method.equals("ActivityOn")) {
             activityOn = true;
             Messenger messenger = (Messenger) intent.getExtras().get("Messenger");
             Thread thread = new Thread(() -> {
                 while (activityOn) {
-                    readData();
-
+                    //readData();
                     Message msg = Message.obtain();
                     msg.obj = "TEST!!!";
                     try {
@@ -147,14 +141,32 @@ public class StepService extends Service {
             activityOn = false;
         }else if(method.equals("StopRecord")){
             String filename = "/RecordStartTime.txt";
+            Messenger messenger = (Messenger)intent.getExtras().get("Messenger");
             File file = new File(getFilesDir() + filename);
 
             try {
                 FileReader fileReader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 String data = bufferedReader.readLine();
+                Log.i("FILE",data);
+                String[] tokens = data.split(",");
+
+                int beforeYear = Integer.parseInt(tokens[0]);
+                int beforeMonth = Integer.parseInt(tokens[1]);
+                int beforeDay = Integer.parseInt(tokens[2]);
+                int beforeHour = Integer.parseInt(tokens[3]);
+                int beforeMinute = Integer.parseInt(tokens[4]);
 
 
+                Calendar c = Calendar.getInstance();
+                int afterYear = c.get(Calendar.YEAR);
+                int afterMonth = c.get(Calendar.MONTH);
+                int afterDay = c.get(Calendar.DATE);
+                int afterHour = c.get(Calendar.HOUR_OF_DAY);
+                int afterMinute = c.get(Calendar.MINUTE);
+                readData(messenger, beforeYear, beforeMonth, beforeDay, beforeHour, beforeMinute,afterYear, afterMonth, afterDay,afterHour,afterMinute  );
+
+                file.delete();
                 //fit service로 총 걸음수 계산, DB업데이트 혹은 messenger 연결해서 값 액티비티에 주기
             } catch (IOException e) {
                 e.printStackTrace();
@@ -172,14 +184,79 @@ public class StepService extends Service {
 
         super.onDestroy();
     }
+    public static int totalSteps = 0;
+    public static float distanceM = 0;
+    private void readData(Messenger messenger, int bYaer, int bMonth, int bDay, int bHour, int bMin,int aYaer, int aMonth, int aDay, int aHour, int aMin ) {
+        StepService.totalSteps = 0;
+        StepService.distanceM = 0;
+
+        final Calendar cal = Calendar.getInstance();
+        Date now = Calendar.getInstance().getTime();
+        cal.setTime(now);
+
+        // 시작 시간
+        cal.set(bYaer, bMonth, bDay-1, bHour, bMin, 0);
+        long startTime = cal.getTimeInMillis();
+
+        // 종료 시간
+        cal.set(aYaer, aMonth, aDay, aHour, aMin, 0);
+
+        long endTime = cal.getTimeInMillis();
+        Log.i("endtime : ", ""+startTime);
+        Log.i("endtime : ", ""+endTime);
+        String TAG = "GOOGLE FIT";
+
+
+        try {
+            Fitness.getHistoryClient(this,
+                    GoogleSignIn.getLastSignedInAccount(getApplicationContext()))
+                    .readData(new DataReadRequest.Builder()
+                            .read(DataType.TYPE_STEP_COUNT_DELTA) // Raw 걸음 수
+                            .read(DataType.TYPE_DISTANCE_DELTA)
+                            .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                            .build())
+                    .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
+                        @Override
+                        public void onSuccess(DataReadResponse response) {
+
+                            DataSet dataSet = response.getDataSet(DataType.TYPE_STEP_COUNT_DELTA);
+
+                            for (DataPoint dp : dataSet.getDataPoints()) {
+
+                                for (Field field : dp.getDataType().getFields()) {
+                                    totalSteps += dp.getValue(field).asInt();
+                                }
+                            }
+
+                            DataSet dataSet1 = response.getDataSet(DataType.TYPE_DISTANCE_DELTA);
+                            for (DataPoint dp : dataSet1.getDataPoints()) {
+                                for (Field field : dp.getDataType().getFields()) {
+                                    distanceM += dp.getValue(field).asFloat();
+                                }
+                            }
+                            Log.i(TAG,"totalsteps :" + totalSteps + "  distanceM : " + distanceM);
+                            Message message = Message.obtain();
+                            message.obj =   StepService.totalSteps+ "/"+(StepService.distanceM/1000);;
+                            try {
+                                messenger.send(message);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 
 
 
-
-
-
-
+    ////////////
+/*
     private void readData() {
         final Calendar cal = Calendar.getInstance();
         Date now = Calendar.getInstance().getTime();
@@ -191,7 +268,7 @@ public class StepService extends Service {
         long startTime = cal.getTimeInMillis();
 
         // 종료 시간
-        cal.set(cal.get(Calendar.YEAR)+1, cal.get(Calendar.MONTH),
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH+1),
                 cal.get(Calendar.DAY_OF_MONTH), 23, 0, 0);
         long endTime = cal.getTimeInMillis();
         String TAG = "GOOGLE FIT";
@@ -202,6 +279,7 @@ public class StepService extends Service {
                     GoogleSignIn.getLastSignedInAccount(getApplicationContext()))
                     .readData(new DataReadRequest.Builder()
                             .read(DataType.TYPE_STEP_COUNT_DELTA) // Raw 걸음 수
+                            .read(DataType.TYPE_DISTANCE_DELTA)
                             .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
                             .build())
                     .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
@@ -220,6 +298,20 @@ public class StepService extends Service {
                                     Log.i(TAG, "\tField: " + field.getName() + " Value: " + dp.getValue(field));
                                 }
                             }
+
+                            DataSet dataSet1 = response.getDataSet(DataType.TYPE_DISTANCE_DELTA);
+                            Log.i(TAG, "Data returned for Data type: " + dataSet1.getDataType().getName());
+                            Log.i(TAG, dataSet1.getDataPoints().size() + "");
+                            for (DataPoint dp : dataSet1.getDataPoints()) {
+                                Log.i(TAG, "Data point:");
+                                Log.i(TAG, "\tType: " + dp.getDataType().getName());
+
+                                Log.i(TAG, "\tStart: " + (dp.getStartTime(TimeUnit.MILLISECONDS) / 1000));
+                                Log.i(TAG, "\tEnd: " + (dp.getEndTime(TimeUnit.MILLISECONDS) / 1000));
+                                for (Field field : dp.getDataType().getFields()) {
+                                    Log.i(TAG, "\tField: " + field.getName() + " Value: " + dp.getValue(field));
+                                }
+                            }
                         }
                     });
         }catch (Exception e){
@@ -227,7 +319,7 @@ public class StepService extends Service {
         }
 
     }
-
+*/
 
 
 }

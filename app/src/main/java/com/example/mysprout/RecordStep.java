@@ -92,6 +92,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
                     Intent intent = new Intent(getApplicationContext(), StepService.class);
                     intent.putExtra("Method","StopRecord");
+                    intent.putExtra("Messenger",mStopMessneger );
                     startService(intent);
                 }
             }
@@ -105,7 +106,16 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             super.handleMessage(msg);
         }
     };
+    private Handler mStopHandler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            String data = (String)msg.obj;
+            Log.i("DATA ", data);
+            super.handleMessage(msg);
+        }
+    };
     private Messenger mMessenger = new Messenger(mHandler);
+    private Messenger mStopMessneger = new Messenger(mStopHandler);
 
     void showDialog(){
         DialogChooseTransportation dialog = new DialogChooseTransportation();
