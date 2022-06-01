@@ -57,6 +57,10 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         }
         if(onRun) {
             stepBinding.recordStepButtonStartAndStop.toggle();
+            Intent intent2 = new Intent(getApplicationContext(), StepService.class);
+            intent2.putExtra("Messenger",mMessenger);
+            intent2.putExtra("Method","ActivityOn");
+            startService(intent2);
         }else{
             showDialog();
         }

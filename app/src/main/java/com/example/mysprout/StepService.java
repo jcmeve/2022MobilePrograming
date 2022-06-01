@@ -140,6 +140,8 @@ public class StepService extends Service {
             callNotification(transport);
 
         }else if(method.equals("ActivityOn")) {
+            if(activityOn)
+                return super.onStartCommand(intent, flags, startId);
             activityOn = true;
             Messenger messenger = (Messenger) intent.getExtras().get("Messenger");
             Thread thread = new Thread(() -> {
