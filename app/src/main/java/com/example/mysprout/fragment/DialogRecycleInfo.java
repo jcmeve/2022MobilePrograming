@@ -26,7 +26,6 @@ public class DialogRecycleInfo extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_dialog_recycle_info, container, false);
     }
 
@@ -34,6 +33,14 @@ public class DialogRecycleInfo extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle bundle = getArguments();
+
+        //type: paper, can, glass, petandplastic, vinyl, styrofoam
+        String type = null;
+        if (bundle != null) {
+            type = bundle.getString("type");
+        }
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WebView webView = view.findViewById(R.id.dialog_recycle_info_web_view);
@@ -42,8 +49,9 @@ public class DialogRecycleInfo extends DialogFragment {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setSupportZoom(true);
 
-        //로컬 html 파일
         webView.loadUrl("file:///android_asset/recycleInfo_paper.html");
+        //로컬 html 파일
+
 
         ImageButton exitButton = view.findViewById(R.id.dialog_recycle_info_button_exit);
         exitButton.setOnClickListener(new View.OnClickListener() {

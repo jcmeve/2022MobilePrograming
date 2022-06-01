@@ -29,7 +29,7 @@ public class RecycleInfoFragment extends Fragment {
         paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("paper");
             }
         });
 
@@ -37,7 +37,7 @@ public class RecycleInfoFragment extends Fragment {
         can.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("can");
             }
         });
 
@@ -45,7 +45,7 @@ public class RecycleInfoFragment extends Fragment {
         glass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("glass");
             }
         });
 
@@ -53,7 +53,7 @@ public class RecycleInfoFragment extends Fragment {
         petAndPlastic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("petandplastic");
             }
         });
 
@@ -61,7 +61,7 @@ public class RecycleInfoFragment extends Fragment {
         vinyl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("vinyl");
             }
         });
 
@@ -69,13 +69,18 @@ public class RecycleInfoFragment extends Fragment {
         styrofoam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRecycleInfo();
+                showRecycleInfo("styrofoam");
             }
         });
     }
 
-    public void showRecycleInfo(){
+    public void showRecycleInfo(String type){
         DialogRecycleInfo dialog = new DialogRecycleInfo();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("type", type);
+
+        dialog.setArguments(bundle);
         dialog.show(getActivity().getSupportFragmentManager(), "recycle info dialog");
     }
 }
