@@ -45,19 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e("AuthQuickstart", error.toString())
         );
 
-
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
         GoogleFitInit();
 
-
         tryAutoLogin();
-
 
         setContentView(R.layout.activity_main);
     }
@@ -69,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         fitnessOptions = FitnessOptions.builder()
                 .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
                 .addDataType(DataType.TYPE_DISTANCE_DELTA)
+                .addDataType(DataType.TYPE_CALORIES_EXPENDED)
                 .build();
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED){

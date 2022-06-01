@@ -1,5 +1,6 @@
 package com.example.mysprout;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -98,11 +99,18 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             }
         });
     }
-    private Handler mHandler = new Handler(){
+    private Handler activityHandler = new Handler(){
+        @SuppressLint("HandlerLeak")
         @Override
         public void handleMessage(@NonNull Message msg) {
             String data = (String)msg.obj;
             Log.i("DATA ", data);
+            String[] tokens = data.split("/");
+
+            stepBinding.recordStepTextSteps.setText(tokens[0]);
+            stepBinding.recordStepDistance.setText(tokens[1]);
+            stepBinding.recordStepTime.setText(tokens[2]);
+            stepBinding.recordStepCalorie.setText(tokens[3]);
             super.handleMessage(msg);
         }
     };
@@ -114,7 +122,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             super.handleMessage(msg);
         }
     };
-    private Messenger mMessenger = new Messenger(mHandler);
+    private Messenger mMessenger = new Messenger(activityHandler);
     private Messenger mStopMessneger = new Messenger(mStopHandler);
 
     void showDialog(){
