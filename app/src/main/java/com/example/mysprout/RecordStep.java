@@ -45,7 +45,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         setContentView(stepBinding.getRoot());
 
         chosenTransport = "";
-  //      showDialog();
+  //    showDialog();
     }
 
     @Override

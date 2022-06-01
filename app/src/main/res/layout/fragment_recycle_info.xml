@@ -1,11 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recycle" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1"
+            android:padding="16dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_paper"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/backgroundrec2"
+                    tools:ignore="OnClick">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_paper" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/recycle_color_draw_carton" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="종이류, 종이팩"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="책, 신문, 상자, 우유팩, 두유팩, 쥬스팩 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_can"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/backgroundrec2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_can" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="캔, 고철류"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="맥주, 음료수, 통조림, 부탄 가스, 살충제 용기 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_glass"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/backgroundrec2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_glass" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="유리병류"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="음료수, 쥬스, 화장품 병 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_plastic"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/backgroundrec2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_pet" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_plastic" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="플라스틱 용기류"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="음료수, 식품 용기, 맥주, 샴푸 용기 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_vinyl"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/backgroundrec2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_vinyl" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="비닐류"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="비닐 포장재, 랩필름, 1회용 비닐봉투, 뽁뽁이 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recycle_info_button_styrofoam"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/backgroundrec2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/recycle_color_draw_plastic" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="스티로폼"
+                        android:textColor="@color/mainGreen"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="전자제품 완충재, 농수축산 상자, 컵라면 용기, 과일 난좌 등"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

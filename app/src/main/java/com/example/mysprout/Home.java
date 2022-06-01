@@ -60,7 +60,7 @@ public class Home extends AppCompatActivity {
                     break;
                 case R.id.navigtion_button_to_recycle:
                     transaction.replace(R.id.home_frame_layout, fragmentRecycle).commitAllowingStateLoss();
-                    homeBinding.homeTopAppBar.setTitle("분리수거 정보");
+                    homeBinding.homeTopAppBar.setTitle("분리배출 요령");
                     break;
             }
             return true;

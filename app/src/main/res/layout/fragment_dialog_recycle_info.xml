@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/backgroundrec2">
+
+    <ImageButton
+        android:id="@+id/dialog_recycle_info_button_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_gravity="end"
+        android:background="@drawable/icon_baseline_clear1"/>
+
+    <WebView
+        android:id="@+id/dialog_recycle_info_web_view"
+        android:layout_width="360dp"
+        android:layout_height="520dp"
+        android:layout_marginBottom="16dp"
+        tools:ignore="WebViewLayout">
+
+    </WebView>
+
+</LinearLayout>
