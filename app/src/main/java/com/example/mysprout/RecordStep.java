@@ -26,11 +26,17 @@ import androidx.core.app.NotificationCompat;
 import com.example.mysprout.databinding.RecordStepBinding;
 import com.example.mysprout.fragment.DialogChooseTransportation;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class RecordStep extends AppCompatActivity implements DialogChooseTransportation.ChosenDataListener {
     //뷰 바인딩
     RecordStepBinding stepBinding;
     String chosenTransport;
     NotificationManager notificationManager;
+    String filepath = "/serviceOn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,35 +49,52 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         boolean onRun = false;
 
-        for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
-            Log.i("SEVIRENAME",service.service.getClassName());
-            if(StepService.class.getName().equals(service.service.getClassName())){
+/*
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            Log.i("SEVIRENAME", service.service.getClassName());
+
+            if (StepService.class.getName().equals(service.service.getClassName())) {
                 onRun = true;
+                stepBinding.recordStepTextTransport.setText("SERVICE ONRUN ");
                 break;
             }
         }
-        if(onRun) {
+  */
+        File file = new File(getFilesDir() + filepath);
+        if(file.exists())
+            onRun = true;
+
+        if (onRun) {
             stepBinding.recordStepButtonStartAndStop.toggle();
             Intent intent2 = new Intent(getApplicationContext(), StepService.class);
-            intent2.putExtra("Messenger",mMessenger);
-            intent2.putExtra("Method","ActivityOn");
+            intent2.putExtra("Messenger", mMessenger);
+            intent2.putExtra("Method", "ActivityOn");
             startService(intent2);
-        }else{
+        } else {
             showDialog();
         }
         stepBinding.recordStepButtonStartAndStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean checked = ((ToggleButton)view).isChecked();
+                boolean checked = ((ToggleButton) view).isChecked();
 
-                if(checked){
+                if (checked) {
 
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.white));
+                    try {
+                        FileWriter fileWriter = new FileWriter(file,false );
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                        bufferedWriter.write(1);
+                        bufferedWriter.close();
+                        fileWriter.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
 
                     Intent intent1 = new Intent(getApplicationContext(), StepService.class);
@@ -80,25 +103,28 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         startForegroundService(intent1);
-                    }else{
-                        Log.e("SDKV","ERRORORR");
+                    } else {
+                        Log.e("SDKV", "ERRORORR");
                     }
 
                     Intent intent2 = new Intent(getApplicationContext(), StepService.class);
-                    intent2.putExtra("Messenger",mMessenger);
-                    intent2.putExtra("Method","ActivityOn");
+                    intent2.putExtra("Messenger", mMessenger);
+                    intent2.putExtra("Method", "ActivityOn");
                     startService(intent2);
 
 
-
                     //서비스(걸음 수 측정) 시작
-               //     callNotification();
-                }else{
+                    //     callNotification();
+                } else {
+
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
+                    file.delete();
                     Intent intent = new Intent(getApplicationContext(), StepService.class);
-                    intent.putExtra("Method","StopRecord");
-                    intent.putExtra("Messenger",mStopMessneger );
+                    intent.putExtra("Method", "StopRecord");
+                    intent.putExtra("Messenger", mStopMessneger);
                     startService(intent);
+                    stopService(intent);
+
                 }
             }
         });
@@ -210,7 +236,6 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         Intent intent = new Intent(getApplicationContext(), StepService.class);
         intent.putExtra("Method","ActivityOff");
         startService(intent);
-
         super.onDestroy();
     }
 }

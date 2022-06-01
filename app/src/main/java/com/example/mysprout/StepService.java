@@ -32,8 +32,18 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class StepService extends Service {
-    boolean activityOn = false;
-    boolean nofifyOn = false;
+    static boolean activityOn = false;
+    private void setActivityOn(boolean var){
+        activityOn = var;
+        Log.i("ActivityOn  " ,(var?"true":"false" ));
+    }
+
+    static boolean notifyOn = false;
+    private void setNotifyOn(boolean var){
+        notifyOn = var;
+        Log.i("notifyOn  " ,(var?"true":"false" ));
+    }
+
     final String CHANNEL_ID = "channel_1";
     public StepService() {
     }
@@ -42,6 +52,12 @@ public class StepService extends Service {
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public void onCreate() {
+        Log.i("LIFE","CREATE");
+        super.onCreate();
     }
 
     NotificationManager notificationManager;
@@ -62,7 +78,7 @@ public class StepService extends Service {
 
         Thread thread = new Thread(() -> {
             boolean firstTime = true;
-            while (nofifyOn)
+            while (notifyOn)
             {
                 if(firstTime) {
                     builder.setSmallIcon(android.R.drawable.ic_notification_overlay); //임시 small 아이콘
@@ -126,7 +142,7 @@ public class StepService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String method = (String) intent.getExtras().get("Method");
         if(method.equals("StartRecord")){
-            nofifyOn = true;
+            setNotifyOn(true);
             String transport = (String)intent.getExtras().get("Transport");
 
             Calendar c = Calendar.getInstance();
@@ -142,7 +158,7 @@ public class StepService extends Service {
         }else if(method.equals("ActivityOn")) {
             if(activityOn)
                 return super.onStartCommand(intent, flags, startId);
-            activityOn = true;
+            setActivityOn(true);
             Messenger messenger = (Messenger) intent.getExtras().get("Messenger");
             Thread thread = new Thread(() -> {
                 while (activityOn) {
@@ -185,9 +201,9 @@ public class StepService extends Service {
             });
             thread.start();
         }else if(method.equals("ActivityOff")){
-            activityOn = false;
+            setActivityOn(false);
         }else if(method.equals("StopRecord")){
-            nofifyOn = false;
+
             Messenger messenger = (Messenger)intent.getExtras().get("Messenger");
 
 
@@ -201,17 +217,19 @@ public class StepService extends Service {
 
                 //fit service로 총 걸음수 계산, DB업데이트 혹은 messenger 연결해서 값 액티비티에 주기
 
-            activityOn = false;
-            
-            stopSelf();
+            setNotifyOn(false);
+            setActivityOn(false);
+            stopForeground(true);
+            stopSelfResult(startId);
         }
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        Log.i("ONDES","ROY");
-
+        Log.i("LIFE","DESTROY");
+        setNotifyOn(false);
+        setActivityOn(false);
         super.onDestroy();
     }
     public static int totalSteps = 0;
