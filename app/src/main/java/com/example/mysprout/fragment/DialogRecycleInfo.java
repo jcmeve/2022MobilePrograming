@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -49,7 +46,10 @@ public class DialogRecycleInfo extends DialogFragment {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setSupportZoom(true);
 
-        webView.loadUrl("file:///android_asset/recycleInfo_paper.html");
+        //webView.loadUrl("file:///android_asset/recycleInfo_paper.html");
+        String url = "http://54.245.145.20/recycleInfo_"+ type +".html";
+
+        webView.loadUrl(url);
         //로컬 html 파일
 
 

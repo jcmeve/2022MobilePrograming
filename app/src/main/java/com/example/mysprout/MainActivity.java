@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
-
+/*
         Amplify.Auth.signOut(
                 () -> Log.i("AuthQuickstart", "Signed out successfully"),
                 error -> Log.e("AuthQuickstart", error.toString())
         );
-
+*/
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     Log.i("AmplifyQuickstart", result.toString());
 
-                    Intent intent = new Intent(MainActivity.this, MainSprout.class);
+                    Intent intent = new Intent(MainActivity.this, Home.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
