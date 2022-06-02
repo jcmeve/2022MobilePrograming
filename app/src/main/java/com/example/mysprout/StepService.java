@@ -73,7 +73,7 @@ public class StepService extends Service {
         }
         Intent intent = new Intent(this, RecordStep.class);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_MUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = getBuilder(CHANNEL_ID, "noti_record_steps");
 
         Thread thread = new Thread(() -> {
@@ -136,10 +136,9 @@ public class StepService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String method = (String) intent.getExtras().get("Method");
         if(method.equals("StartRecord")){
+            startTime = new Date().getTime();
             setNotifyOn(true);
             String transport = (String)intent.getExtras().get("Transport");
-
-            startTime = new Date().getTime();
 
             callNotification(transport);
 
