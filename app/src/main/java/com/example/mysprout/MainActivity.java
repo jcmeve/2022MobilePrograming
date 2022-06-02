@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
-/*
+
         Amplify.Auth.signOut(
                 () -> Log.i("AuthQuickstart", "Signed out successfully"),
                 error -> Log.e("AuthQuickstart", error.toString())
         );
-*/
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -92,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
 
         Fitness.getRecordingClient(this, GoogleSignIn.getAccountForExtension(getApplicationContext(), fitnessOptions))
                 .subscribe(DataType.TYPE_STEP_COUNT_DELTA)
+                .addOnCompleteListener(
+                        var -> Log.i("SUCCESS", "Successfully subscribed!")
+                ).addOnFailureListener(
+                e -> Log.w("ERROR", "There was a problem subscribing.", e)
+        );
+        Fitness.getRecordingClient(this, GoogleSignIn.getAccountForExtension(getApplicationContext(), fitnessOptions))
+                .subscribe(DataType.TYPE_DISTANCE_DELTA)
+                .addOnCompleteListener(
+                        var -> Log.i("SUCCESS", "Successfully subscribed!")
+                ).addOnFailureListener(
+                e -> Log.w("ERROR", "There was a problem subscribing.", e)
+        );
+        Fitness.getRecordingClient(this, GoogleSignIn.getAccountForExtension(getApplicationContext(), fitnessOptions))
+                .subscribe(DataType.TYPE_CALORIES_EXPENDED)
                 .addOnCompleteListener(
                         var -> Log.i("SUCCESS", "Successfully subscribed!")
                 ).addOnFailureListener(
