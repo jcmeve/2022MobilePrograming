@@ -100,14 +100,8 @@ public class StepService extends Service {
                 Notification notification = builder.build();
                 startForeground(2000, notification);
 
-
-                Calendar c = Calendar.getInstance();
-                int afterYear = c.get(Calendar.YEAR);
-                int afterMonth = c.get(Calendar.MONTH);
-                int afterDay = c.get(Calendar.DATE);
-                int afterHour = c.get(Calendar.HOUR_OF_DAY);
-                int afterMinute = c.get(Calendar.MINUTE);
-                readData(null, startYear, startMonth, startDay, startHour, startMinute, afterYear, afterMonth, afterDay, afterHour, afterMinute);
+                long endTime = new Date().getTime();
+                readData(null, startTime, endTime);
 
 
                 try {
@@ -145,13 +139,7 @@ public class StepService extends Service {
             setNotifyOn(true);
             String transport = (String)intent.getExtras().get("Transport");
 
-            Calendar c = Calendar.getInstance();
-            startYear = c.get(Calendar.YEAR);
-            startMonth= c.get(Calendar.MONTH);
-            startDay = c.get(Calendar.DATE);
-            startHour= c.get(Calendar.HOUR_OF_DAY);
-            startMinute= c.get(Calendar.MINUTE);
-
+            startTime = new Date().getTime();
 
             callNotification(transport);
 
@@ -167,10 +155,6 @@ public class StepService extends Service {
                     final Calendar cal = Calendar.getInstance();
                     Date now = Calendar.getInstance().getTime();
                     cal.setTime(now);
-
-                    // 시작 시간
-                    cal.set(startYear, startMonth, startDay, startHour, startMinute, 0);
-                    long startTime = cal.getTimeInMillis();
 
                     Calendar c = Calendar.getInstance();
                     int afterYear = c.get(Calendar.YEAR);
@@ -206,14 +190,8 @@ public class StepService extends Service {
 
             Messenger messenger = (Messenger)intent.getExtras().get("Messenger");
 
-
-            Calendar c = Calendar.getInstance();
-            int afterYear = c.get(Calendar.YEAR);
-            int afterMonth = c.get(Calendar.MONTH);
-            int afterDay = c.get(Calendar.DATE);
-            int afterHour = c.get(Calendar.HOUR_OF_DAY);
-            int afterMinute = c.get(Calendar.MINUTE);
-            readData(messenger, startYear, startMonth, startDay, startHour, startMinute,afterYear, afterMonth, afterDay,afterHour,afterMinute  );
+            long endTime = new Date().getTime();
+            readData(messenger, startTime, endTime);
 
                 //fit service로 총 걸음수 계산, DB업데이트 혹은 messenger 연결해서 값 액티비티에 주기
 
@@ -237,29 +215,14 @@ public class StepService extends Service {
     public static float totalKCal = 0;
 
 
-    static int startYear =0;
-    static int startMonth=0;
-    static int startDay =0;
-    static int startHour=0;
-    static int startMinute=0;
 
-    private void readData(Messenger messenger, int bYaer, int bMonth, int bDay, int bHour, int bMin,int aYaer, int aMonth, int aDay, int aHour, int aMin ) {
+    static long startTime = 0;
 
+    private void readData(Messenger messenger, long startTime, long endTime){
 
-        final Calendar cal = Calendar.getInstance();
-        Date now = Calendar.getInstance().getTime();
-        cal.setTime(now);
+        Log.i("starttime : ",     Long.toString(startTime));
+        Log.i("endtime : ",      Long.toString(endTime));
 
-        // 시작 시간
-        cal.set(bYaer, bMonth, bDay, bHour, bMin, 0);
-        long startTime = cal.getTimeInMillis();
-
-        // 종료 시간
-        cal.set(aYaer, aMonth, aDay, aHour, aMin, 1);
-
-        long endTime = cal.getTimeInMillis();
-        Log.i("endtime : ", ""+startTime);
-        Log.i("endtime : ", ""+endTime);
         String TAG = "GOOGLE FIT";
 
 

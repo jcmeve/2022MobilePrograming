@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
+            Log.i("RESULT CODE : ", ""+result.toString());
             if(result.getResultCode() == 123){
                 Log.i("GOOGLE","LOGIN SUCCESS");
             }
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void GoogleFitInit() {
 
+        
         account =  GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         Log.i("GOOGLE","acount: " + account);
         if(account == null){
@@ -90,28 +92,28 @@ public class MainActivity extends AppCompatActivity {
             launcher.launch(signInIntent);
 
         }
+        else {
+            fitnessOptions = FitnessOptions.builder()
+                    .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                    .addDataType(DataType.TYPE_DISTANCE_DELTA)
+                    .addDataType(DataType.TYPE_CALORIES_EXPENDED)
+                    .build();
 
-        fitnessOptions = FitnessOptions.builder()
-                .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .addDataType(DataType.TYPE_DISTANCE_DELTA)
-                .addDataType(DataType.TYPE_CALORIES_EXPENDED)
-                .build();
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE);
+            }
+            if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
+                GoogleSignIn.requestPermissions(
+                        this,
+                        GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
+                        account,
+                        fitnessOptions
+                );
+                Log.i("GIGIGIGI", "sadfasfasf");
+            } else {
+                accessGoogleFit();
+            }
         }
-        if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-            GoogleSignIn.requestPermissions(
-                    this,
-                    GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
-                    account,
-                    fitnessOptions
-            );
-            Log.i("GIGIGIGI", "sadfasfasf");
-        } else {
-            accessGoogleFit();
-        }
-
     }
 
     private void accessGoogleFit() {
