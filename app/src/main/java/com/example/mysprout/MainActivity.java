@@ -18,6 +18,8 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataType;
@@ -64,27 +66,36 @@ public class MainActivity extends AppCompatActivity {
     private void GoogleFitInit() {
 
         account =  GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-
-        fitnessOptions = FitnessOptions.builder()
-                .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .addDataType(DataType.TYPE_DISTANCE_DELTA)
-                .addDataType(DataType.TYPE_CALORIES_EXPENDED)
-                .build();
-
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE);
+        if(account == null){
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivity(signInIntent);
+//            startActivityForResult(signInIntent, RC_SIGN_IN);
         }
-        if(!GoogleSignIn.hasPermissions(account, fitnessOptions)){
-            GoogleSignIn.requestPermissions(
-                    this,
-                    GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
-                    account,
-                    fitnessOptions
-            );
-            Log.i("GIGIGIGI","sadfasfasf");
-        }
-        else{
-            accessGoogleFit();
+        else {
+            fitnessOptions = FitnessOptions.builder()
+                    .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                    .addDataType(DataType.TYPE_DISTANCE_DELTA)
+                    .addDataType(DataType.TYPE_CALORIES_EXPENDED)
+                    .build();
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE);
+            }
+            if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
+                GoogleSignIn.requestPermissions(
+                        this,
+                        GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
+                        account,
+                        fitnessOptions
+                );
+                Log.i("GIGIGIGI", "sadfasfasf");
+            } else {
+                accessGoogleFit();
+            }
         }
     }
 
