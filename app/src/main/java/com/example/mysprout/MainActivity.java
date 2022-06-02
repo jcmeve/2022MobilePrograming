@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void GoogleFitInit() {
+
+        account =  GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
         fitnessOptions = FitnessOptions.builder()
                 .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
                 .addDataType(DataType.TYPE_DISTANCE_DELTA)
