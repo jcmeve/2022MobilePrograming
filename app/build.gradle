@@ -5,6 +5,17 @@ plugins {
 android {
     compileSdk 32
 
+    signingConfigs {
+        debug {
+            storeFile file("../app/keystore/debug.keystore")
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.mysprout"
         minSdk 21
