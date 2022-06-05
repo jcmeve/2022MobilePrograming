@@ -150,6 +150,11 @@ public class MyPageFragment extends Fragment {
         );
     }
 
+    static int b = 0;
+    static int l = 0;
+    static int d = 0;
+    static int saveTotal = 0;
+    static int total_carbon = 0;
     static DB.Food_Pair[] Food_result = null;
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void SetFood(){
@@ -163,27 +168,73 @@ public class MyPageFragment extends Fragment {
                         TextView total_meal_save = view.findViewById(R.id.my_page_analysis_text_meal);
                         Calendar curr = Calendar.getInstance();
 
+                        b = 0;
+                        l = 0;
+                        d = 0;
                         int Food_val = 0;
-                        int Food_carbon_val = 0;
-                        int total_carbon = 0;
+                        int food_history_cnt = 0;
                         for(int i = 0; i< MyPageFragment.Food_result.length; i++){//종류
                             for(int j = 0; j < MyPageFragment.Food_result[i].food_history.getCount().size(); j++){//각 기록
                                 long miles = MyPageFragment.Food_result[i].food_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
                                 long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
                                 if(days == 0) {
                                     Food_val += 1;
-                                    Food_carbon_val += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+
+                                    switch (MyPageFragment.Food_result[i].food_history.getMtime().get(j)) {
+                                        case "b":
+                                            b += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+                                            break;
+                                        case "l":
+                                            l += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+                                            break;
+                                        case "d":
+                                            d += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+                                            break;
+                                        default:
+                                            Log.e("ERROR", "ERROR");
+                                            break;
+                                    }
                                 }
-                                total_carbon += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
                             }
                         }
-                        Food.setText(Food_val+ "회");
-                        Food_carbon.setText(String.format("%.1f",(float) Food_carbon_val) + "g");
 
-                        total_meal_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));
+                        Food.setText(Food_val+ "회");
+
+                        DB.getInstance().GetUserInfo(ret->{
+                            saveTotal = 0;
+                            total_carbon = 0;
+                            if(b != 0){
+                                if(ret.getMeatCarbon() - b > 0)
+                                    saveTotal += ( ret.getMeatCarbon() - b);
+                            }
+                            if(l != 0){
+                                if(ret.getMeatCarbon() - l > 0)
+                                    saveTotal += ( ret.getMeatCarbon() - l);
+                            }
+                            if(d != 0){
+                                if(ret.getMeatCarbon() - d > 0)
+                                    saveTotal += ( ret.getMeatCarbon() - d);
+                            }
+                            for(int i = 0; i< MyPageFragment.Food_result.length; i++){//종류
+                                for(int j = 0; j < MyPageFragment.Food_result[i].food_history.getCount().size(); j++) {//각 기록
+                                    if(ret.getMeatCarbon() - MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit() > 0)
+                                        total_carbon += ret.getMeatCarbon() - MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+
+                                }
+                            }
+                            runOnUiThread(()->{
+                                Food_carbon.setText(String.format("%.1f",(float) saveTotal) + "g");
+                                total_meal_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));}
+                            );
+
+                        });
+
                     });
                 }
         );
+
+
+
     }
 
 
