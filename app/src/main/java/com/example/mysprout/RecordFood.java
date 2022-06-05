@@ -69,13 +69,18 @@ public class RecordFood extends AppCompatActivity
                             if(days == 0) {
                                 Log.i("FOOD RECORD","이미 기록 있음");
                                 //TODO: 부탁해요
+                                runOnUiThread(()-> Toast.makeText(getApplicationContext(), "오늘 이미 기록하셨습니다.", Toast.LENGTH_SHORT).show());
 
+                                Intent intent = new Intent(RecordFood.this, Home.class);
+                                startActivity(intent);
+                                return;
                             }
                         }
                     }
                 }
         );
     }
+
 
     void setUpRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recyclerview_food);
