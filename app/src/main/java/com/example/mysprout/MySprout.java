@@ -67,7 +67,6 @@ public class MySprout extends AppCompatActivity {
         Log.i("HEHE","HAHA");
         DB.getInstance().GetUserTransportationHistory(
                 result -> {
-                    Log.i("HEHE","HAHA");
                     transportation_result = result;
                     runOnUiThread(()->{
 

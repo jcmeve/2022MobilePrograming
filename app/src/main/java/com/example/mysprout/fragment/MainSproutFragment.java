@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.DB;
-import com.example.mysprout.MainSprout;
 import com.example.mysprout.R;
 import com.example.mysprout.RecordFood;
 import com.example.mysprout.RecordHabits;
@@ -116,10 +115,17 @@ public class MainSproutFragment extends Fragment {
         );
     }
 
+    static int b = 0;
+    static int l = 0;
+    static int d = 0;
     private void _Food(){
         DB.getInstance().GetUserFoodHistory(
                 result->{
                     Calendar curr = Calendar.getInstance();
+
+                    b = 0;
+                    l = 0;
+                    d = 0;
 
                     int carbon = 0;
                     for(int i = 0; i< result.length; i++){//종류
@@ -127,13 +133,40 @@ public class MainSproutFragment extends Fragment {
                             long miles = result[i].food_history.getDate().get(j).getSecondsSinceEpoch()*1000;
                             long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
                             if(days == 0) {
-                                carbon += result[i].food_history.getCount().get(j) * result[i].data.getCarbonPerUnit();
+                                if (result[i].food_history.getMtime().get(j).equals("b")){
+                                    b += result[i].food_history.getCount().get(j) * result[i].data.getCarbonPerUnit();
+                                }else if (result[i].food_history.getMtime().get(j).equals("l")){
+                                    l += result[i].food_history.getCount().get(j) * result[i].data.getCarbonPerUnit();
+                                }else if (result[i].food_history.getMtime().get(j).equals("d")){
+                                    d += result[i].food_history.getCount().get(j) * result[i].data.getCarbonPerUnit();
+                                }else{
+                                    Log.e("ERROR","ERROR");
+                                }
+//                                carbon += result[i].food_history.get
                             }
                         }
                     }
-                    SetTodayCarbonTxt(carbon);
+
+                    DB.getInstance().GetUserInfo(ret->{
+                        if(b != 0){
+                            if(ret.getMeatCarbon() - b > 0)
+                                SetTodayCarbonTxt( ret.getMeatCarbon() - b);
+                        }
+                        if(l != 0){
+                            if(ret.getMeatCarbon() - l > 0)
+                                SetTodayCarbonTxt( ret.getMeatCarbon() - l);
+                        }
+                        if(d != 0){
+                            if(ret.getMeatCarbon() - d > 0)
+                                SetTodayCarbonTxt( ret.getMeatCarbon() - d);
+                        }
+                    });
+
+//                    SetTodayCarbonTxt(-carbon);
                 }
         );
+
+
     }
 
     private void _Transportation(){

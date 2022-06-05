@@ -24,8 +24,8 @@ mutation MsAddTransportationData($transportation_name: String, $count: Int) {
     count: $count
   )
 }
-mutation MsAddFoodData($food_name: String, $count: Int, $time: String) {
-  msAddFoodData(food_name: $food_name, count: $count, time: $time)
+mutation MsAddFoodData($food_name: String, $count: Int, $mtime: String) {
+  msAddFoodData(food_name: $food_name, count: $count, mtime: $mtime)
 }
 mutation MsAddActionData($action_name: String, $count: Int) {
   msAddActionData(action_name: $action_name, count: $count)
@@ -231,7 +231,7 @@ mutation CreateUserFood(
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner
@@ -255,7 +255,7 @@ mutation UpdateUserFood(
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner
@@ -279,7 +279,7 @@ mutation DeleteUserFood(
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner

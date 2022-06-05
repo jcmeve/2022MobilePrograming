@@ -1,11 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.annotations.HasOne;
-import com.amplifyframework.core.model.temporal.Temporal;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.Objects;
+import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 import androidx.core.util.ObjectsCompat;
 
@@ -13,12 +8,16 @@ import com.amplifyframework.core.model.AuthStrategy;
 import com.amplifyframework.core.model.Model;
 import com.amplifyframework.core.model.ModelOperation;
 import com.amplifyframework.core.model.annotations.AuthRule;
+import com.amplifyframework.core.model.annotations.HasOne;
 import com.amplifyframework.core.model.annotations.Index;
 import com.amplifyframework.core.model.annotations.ModelConfig;
 import com.amplifyframework.core.model.annotations.ModelField;
 import com.amplifyframework.core.model.query.predicate.QueryField;
+import com.amplifyframework.core.model.temporal.Temporal;
 
-import static com.amplifyframework.core.model.query.predicate.QueryField.field;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /** This is an auto generated class representing the UserFood type in your schema. */
 @SuppressWarnings("all")
@@ -31,11 +30,13 @@ public final class UserFood implements Model {
   public static final QueryField FOOD_NAME = field("UserFood", "food_name");
   public static final QueryField COUNT = field("UserFood", "count");
   public static final QueryField DATE = field("UserFood", "date");
+  public static final QueryField MTIME = field("UserFood", "mtime");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String food_name;
   private final @ModelField(targetType="FoodData") @HasOne(associatedWith = "name", type = FoodData.class) FoodData data = null;
   private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
   private final @ModelField(targetType="AWSTimestamp", isRequired = true) List<Temporal.Timestamp> date;
+  private final @ModelField(targetType="String", isRequired = true) List<String> mtime;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -58,6 +59,10 @@ public final class UserFood implements Model {
       return date;
   }
   
+  public List<String> getMtime() {
+      return mtime;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -66,11 +71,12 @@ public final class UserFood implements Model {
       return updatedAt;
   }
   
-  private UserFood(String id, String food_name, List<Integer> count, List<Temporal.Timestamp> date) {
+  private UserFood(String id, String food_name, List<Integer> count, List<Temporal.Timestamp> date, List<String> mtime) {
     this.id = id;
     this.food_name = food_name;
     this.count = count;
     this.date = date;
+    this.mtime = mtime;
   }
   
   @Override
@@ -85,6 +91,7 @@ public final class UserFood implements Model {
               ObjectsCompat.equals(getFoodName(), userFood.getFoodName()) &&
               ObjectsCompat.equals(getCount(), userFood.getCount()) &&
               ObjectsCompat.equals(getDate(), userFood.getDate()) &&
+              ObjectsCompat.equals(getMtime(), userFood.getMtime()) &&
               ObjectsCompat.equals(getCreatedAt(), userFood.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), userFood.getUpdatedAt());
       }
@@ -97,6 +104,7 @@ public final class UserFood implements Model {
       .append(getFoodName())
       .append(getCount())
       .append(getDate())
+      .append(getMtime())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -111,6 +119,7 @@ public final class UserFood implements Model {
       .append("food_name=" + String.valueOf(getFoodName()) + ", ")
       .append("count=" + String.valueOf(getCount()) + ", ")
       .append("date=" + String.valueOf(getDate()) + ", ")
+      .append("mtime=" + String.valueOf(getMtime()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -134,6 +143,7 @@ public final class UserFood implements Model {
       id,
       null,
       null,
+      null,
       null
     );
   }
@@ -142,7 +152,8 @@ public final class UserFood implements Model {
     return new CopyOfBuilder(id,
       food_name,
       count,
-      date);
+      date,
+      mtime);
   }
   public interface FoodNameStep {
     CountStep foodName(String foodName);
@@ -155,7 +166,12 @@ public final class UserFood implements Model {
   
 
   public interface DateStep {
-    BuildStep date(List<Temporal.Timestamp> date);
+    MtimeStep date(List<Temporal.Timestamp> date);
+  }
+  
+
+  public interface MtimeStep {
+    BuildStep mtime(List<String> mtime);
   }
   
 
@@ -165,11 +181,12 @@ public final class UserFood implements Model {
   }
   
 
-  public static class Builder implements FoodNameStep, CountStep, DateStep, BuildStep {
+  public static class Builder implements FoodNameStep, CountStep, DateStep, MtimeStep, BuildStep {
     private String id;
     private String food_name;
     private List<Integer> count;
     private List<Temporal.Timestamp> date;
+    private List<String> mtime;
     @Override
      public UserFood build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -178,7 +195,8 @@ public final class UserFood implements Model {
           id,
           food_name,
           count,
-          date);
+          date,
+          mtime);
     }
     
     @Override
@@ -196,9 +214,16 @@ public final class UserFood implements Model {
     }
     
     @Override
-     public BuildStep date(List<Temporal.Timestamp> date) {
+     public MtimeStep date(List<Temporal.Timestamp> date) {
         Objects.requireNonNull(date);
         this.date = date;
+        return this;
+    }
+    
+    @Override
+     public BuildStep mtime(List<String> mtime) {
+        Objects.requireNonNull(mtime);
+        this.mtime = mtime;
         return this;
     }
     
@@ -214,11 +239,12 @@ public final class UserFood implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String foodName, List<Integer> count, List<Temporal.Timestamp> date) {
+    private CopyOfBuilder(String id, String foodName, List<Integer> count, List<Temporal.Timestamp> date, List<String> mtime) {
       super.id(id);
       super.foodName(foodName)
         .count(count)
-        .date(date);
+        .date(date)
+        .mtime(mtime);
     }
     
     @Override
@@ -234,6 +260,11 @@ public final class UserFood implements Model {
     @Override
      public CopyOfBuilder date(List<Temporal.Timestamp> date) {
       return (CopyOfBuilder) super.date(date);
+    }
+    
+    @Override
+     public CopyOfBuilder mtime(List<String> mtime) {
+      return (CopyOfBuilder) super.mtime(mtime);
     }
   }
   

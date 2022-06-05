@@ -137,36 +137,36 @@ public  class DB {
         BREAKFAST,LUNCH,DINNER
     }
     public boolean AddFoodData(String food_name,  int count, TIME _time){
-        String time = null;
+        String mtime = null;
         switch (_time){
             case BREAKFAST:
-                time = "b";
+                mtime = "b";
                 break;
             case LUNCH:
-                time = "l";
+                mtime = "l";
                 break;
             case DINNER:
-                time = "d";
+                mtime = "d";
                 break;
             default:
                 Log.e("DB ERROR","TIME");
         }
 
         String document =
-            "mutation MyMutation($food_name: String!, $count: Int!, $time: String!) {" +
+            "mutation MyMutation($food_name: String!, $count: Int!, $mtime: String!) {" +
                 "msAddFoodData(" +
                     "food_name: $food_name," +
                     "count: $count" +
-                    "time: $time" +
+                    "mtime: $mtime" +
                 ")"+
             "}";
 
         document =
-                "mutation MyMutation($count: Int!, $food_name: String!, $time: String!) {" +
+                "mutation MyMutation($count: Int!, $food_name: String!, $mtime: String!) {" +
                     "msAddFoodData(" +
                         "count: $count," +
                         "food_name: $food_name," +
-                        "time: $time" +
+                        "mtime: $mtime" +
                         ")" +
                 "}";
 
@@ -174,8 +174,8 @@ public  class DB {
         Map<String, Object> variables = new HashMap<>();
         variables.put("food_name", food_name);
         variables.put("count", count);
-        variables.put("time", time);
-        Log.i("TAG" ,"food_name : " + food_name + "count : "+ count + "time : " + time);
+        variables.put("mtime", mtime);
+        Log.i("TAG" ,"food_name : " + food_name + "count : "+ count + "mtime : " + mtime);
         Amplify.API.mutate(
                 new SimpleGraphQLRequest<>(document, variables, String.class, new GsonVariablesSerializer()),
                 response -> Log.i("MyAmplifyApp", "Added AddFoodData with id: " + response.getData()),
@@ -529,6 +529,7 @@ public  class DB {
                         "    count" +
                         "    food_name" +
                         "    date" +
+                        "    mtime" +
                         "    data {" +
                         "      carbon_per_unit" +
                         "      name" +
@@ -552,16 +553,20 @@ public  class DB {
                             Log.i(arr.getString(i),arr.getString(i));
                             JSONArray counts = arr.getJSONObject(i).getJSONArray("count");
                             JSONArray dates = arr.getJSONObject(i).getJSONArray("date");
+                            JSONArray times = arr.getJSONObject(i).getJSONArray("mtime");
 
                             ArrayList count = new ArrayList();
                             ArrayList date = new ArrayList();
+                            ArrayList time = new ArrayList();
                             JSONObject t = arr.getJSONObject(i).getJSONObject("data");
                             FoodData tt = FoodData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).tag("tag").build();
                             for(int j = 0; j<counts.length(); j++){
                                 count.add( counts.getInt(j));
                                 date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
+                                time.add(times.getString(j));
                             }
-                            data[i] = new Food_Pair(UserFood.builder().foodName(arr.getJSONObject(i).getString("food_name")).count(count).date(date).build(), tt);
+                            data[i] = new Food_Pair(UserFood.builder().foodName(arr.getJSONObject(i).getString("food_name")).count(count).date(date).mtime(time).build(), tt);
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

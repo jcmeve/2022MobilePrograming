@@ -34,7 +34,7 @@ public final class UserTransportation implements Model {
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String transportation_name;
   private final @ModelField(targetType="TransportationData") @HasOne(associatedWith = "name", type = TransportationData.class) TransportationData data = null;
-  private final @ModelField(targetType="Int", isRequired = true) List<Integer> count;
+  private final @ModelField(targetType="Float", isRequired = true) List<Double> count;
   private final @ModelField(targetType="AWSTimestamp", isRequired = true) List<Temporal.Timestamp> date;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -50,7 +50,7 @@ public final class UserTransportation implements Model {
       return data;
   }
   
-  public List<Integer> getCount() {
+  public List<Double> getCount() {
       return count;
   }
   
@@ -66,7 +66,7 @@ public final class UserTransportation implements Model {
       return updatedAt;
   }
   
-  private UserTransportation(String id, String transportation_name, List<Integer> count, List<Temporal.Timestamp> date) {
+  private UserTransportation(String id, String transportation_name, List<Double> count, List<Temporal.Timestamp> date) {
     this.id = id;
     this.transportation_name = transportation_name;
     this.count = count;
@@ -150,7 +150,7 @@ public final class UserTransportation implements Model {
   
 
   public interface CountStep {
-    DateStep count(List<Integer> count);
+    DateStep count(List<Double> count);
   }
   
 
@@ -168,7 +168,7 @@ public final class UserTransportation implements Model {
   public static class Builder implements TransportationNameStep, CountStep, DateStep, BuildStep {
     private String id;
     private String transportation_name;
-    private List<Integer> count;
+    private List<Double> count;
     private List<Temporal.Timestamp> date;
     @Override
      public UserTransportation build() {
@@ -189,7 +189,7 @@ public final class UserTransportation implements Model {
     }
     
     @Override
-     public DateStep count(List<Integer> count) {
+     public DateStep count(List<Double> count) {
         Objects.requireNonNull(count);
         this.count = count;
         return this;
@@ -214,7 +214,7 @@ public final class UserTransportation implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String transportationName, List<Integer> count, List<Temporal.Timestamp> date) {
+    private CopyOfBuilder(String id, String transportationName, List<Double> count, List<Temporal.Timestamp> date) {
       super.id(id);
       super.transportationName(transportationName)
         .count(count)
@@ -227,7 +227,7 @@ public final class UserTransportation implements Model {
     }
     
     @Override
-     public CopyOfBuilder count(List<Integer> count) {
+     public CopyOfBuilder count(List<Double> count) {
       return (CopyOfBuilder) super.count(count);
     }
     

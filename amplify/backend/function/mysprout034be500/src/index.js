@@ -225,7 +225,7 @@ exports.handler = async (event, context, callback) => {
                         food_name: event.arguments.food_name,
                         count: [event.arguments.count],
                         date: [parseInt(Date.now() / 1000)],
-                        time: [event.arguments.time]
+                        mtime: [event.arguments.mtime]
                     }
                 };
                 await ddb.put(params).promise();
@@ -247,16 +247,16 @@ exports.handler = async (event, context, callback) => {
                     TableName: "UserFood-lxhzoxuizzfwrbzgkmwilkkpse-dev",
                     Key: {id: event.identity.sub + event.arguments.food_name},
 
-                    UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2), #time = list_append( #time, :val3)",
+                    UpdateExpression: "set #count = list_append( #count ,:val1), #date = list_append( #date, :val2), #mtime = list_append( #mtime, :val3)",
                     ExpressionAttributeNames:{
                         "#count" : "count",
                         "#date" : "date",
-                        "#time" : "time",
+                        "#mtime" : "mtime",
                     },
                     ExpressionAttributeValues: {
                         ":val1" : [event.arguments.count],
                         ":val2" : [parseInt(Date.now() / 1000)],
-                        ":val3" : [event.arguments.time],
+                        ":val3" : [event.arguments.mtime],
                     }
                 };
                 ddb.update(params, function(err, data) {

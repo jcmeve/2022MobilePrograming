@@ -134,7 +134,7 @@ subscription OnCreateUserFood($owner: String) {
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner
@@ -155,7 +155,7 @@ subscription OnUpdateUserFood($owner: String) {
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner
@@ -176,7 +176,7 @@ subscription OnDeleteUserFood($owner: String) {
     }
     count
     date
-    time
+    mtime
     createdAt
     updatedAt
     owner
