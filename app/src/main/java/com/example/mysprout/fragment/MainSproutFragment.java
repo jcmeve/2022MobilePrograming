@@ -127,7 +127,6 @@ public class MainSproutFragment extends Fragment {
                     l = 0;
                     d = 0;
 
-                    int carbon = 0;
                     for(int i = 0; i< result.length; i++){//종류
                         for(int j = 0; j < result[i].food_history.getCount().size();j++){//각 기록
                             long miles = result[i].food_history.getDate().get(j).getSecondsSinceEpoch()*1000;
@@ -142,7 +141,6 @@ public class MainSproutFragment extends Fragment {
                                 }else{
                                     Log.e("ERROR","ERROR");
                                 }
-//                                carbon += result[i].food_history.get
                             }
                         }
                     }

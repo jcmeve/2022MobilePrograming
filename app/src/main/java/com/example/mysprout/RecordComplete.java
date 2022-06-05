@@ -243,7 +243,16 @@ public class RecordComplete extends AppCompatActivity {
         if(tag.equals("Food")){
             for(int i = 0; i < selects.size();i++){
                 FoodPassData foodPassData = (FoodPassData)selects.get(i);
-                DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.BREAKFAST);
+                if(foodPassData.getTime().equals("아침")){
+                    DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.BREAKFAST);
+                }else if(foodPassData.getTime().equals("점심")){
+                    DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.LUNCH);
+                }else  if(foodPassData.getTime().equals("저녁")){
+                    DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.DINNER);
+                }else{
+                    Log.e("ERROR","ERROR");
+                }
+
             }
             intent.putExtra("tag", "Food");
             DB.getInstance().GetUserInfo(result->{

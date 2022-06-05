@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -20,10 +19,9 @@ import com.example.mysprout.fragment.BottomSheetDialogFoodRecord;
 import com.example.mysprout.recycler.RecyclerCustomAdapterFood;
 import com.example.mysprout.recycler.RecyclerItemFood;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class RecordFood extends AppCompatActivity
                         implements RecyclerCustomAdapterFood.OnFoodItemListener,
@@ -42,6 +40,8 @@ public class RecordFood extends AppCompatActivity
         foods = new ArrayList<>();
         selects = new ArrayList<>();
 
+        CheckTodayRecord();
+
         setUpRecyclerView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -57,6 +57,24 @@ public class RecordFood extends AppCompatActivity
                 return true;
             }
         });
+    }
+    void CheckTodayRecord(){
+        DB.getInstance().GetUserFoodHistory(
+                result -> {
+                    Calendar curr = Calendar.getInstance();
+                    for(int i = 0; i< result.length; i++) {//종류
+                        for (int j = 0; j < result[i].food_history.getCount().size(); j++) {//각 기록
+                            long miles = result[i].food_history.getDate().get(j).getSecondsSinceEpoch()*1000;
+                            long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                            if(days == 0) {
+                                Log.i("FOOD RECORD","이미 기록 있음");
+                                //TODO: 부탁해요
+
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     void setUpRecyclerView(){
