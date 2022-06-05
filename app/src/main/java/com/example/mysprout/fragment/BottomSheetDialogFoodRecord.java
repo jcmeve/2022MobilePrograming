@@ -1,12 +1,11 @@
 package com.example.mysprout.fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mysprout.R;
-import com.example.mysprout.databinding.BottomsheetlayoutFoodrecordBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 //식단 기록, 인분, 그램수 정하는 프래그먼트
@@ -34,10 +32,8 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
     // TODO: Rename and change types of parameters
     private String foodName; //음식 이름
     private float carbonEmiss; //탄소 배출량 - 1인분 당-
-    int minValue;
-    int maxValue;
-    int step; //선택가능 값 간격
-    int defValue; //시작 값
+
+    String[] timeValues;
 
     private TextView textViewCarbon; //계속 업데이트 해야 해서 따로 빼놓음
 
@@ -72,14 +68,18 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.bottomsheetlayout_foodrecord, container, false);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운드 둥글게 만들려고 하는데 안 돌아감
+        return inflater.inflate(R.layout.bottomsheetlayout_foodrecord, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         TextView textViewFoodName = view.findViewById(R.id.bottom_text_foodname);
         textViewCarbon = view.findViewById(R.id.bottom_text_carbon);
         //Numberpicker -인분-
-        NumberPicker numberPicker = view.findViewById(R.id.numberpicker_oneserving);
+        NumberPicker PickerLeft = view.findViewById(R.id.numberpicker_oneserving);
+        NumberPicker PickerRight = view.findViewById(R.id.numberpicker_time);
 
         view.findViewById(R.id.exit_bottomdialog).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,38 +91,40 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
         //추가 버튼 리스너
         view.findViewById(R.id.addbtn_food).setOnClickListener(v-> {
             if(foodRecordDataPassListener != null){
-                int unit = numberPicker.getValue();
-                //Log.d("넘버피커", String.valueOf(unit));
+                int unit = PickerLeft.getValue();
+                int t = PickerRight.getValue();
+                String time = timeValues[t];
+                //Log.d("GETVALUE", time);
                 String thisName = (String) textViewFoodName.getText();
-                foodRecordDataPassListener.onRecordDataPass(view, thisName, unit);
+                foodRecordDataPassListener.onRecordDataPass(view, thisName, unit, time);
             }
             Toast.makeText(getContext(), "식단이 추가되었습니다.", Toast.LENGTH_SHORT).show();
-            
+
             dismiss();
         });
 
         assert getArguments() != null;
         foodName = getArguments().getString(ARG_FOODNAME); //선택한 음식 이름 뜨도록
         carbonEmiss = getArguments().getFloat(ARG_CARBON); //선택한 음식, 1인분 당 탄소 배출량 뜨도록
-        minValue = 1; //항상 1인분이 최소
-        maxValue = 50; //항상 50인분이 최대
-        step = 1; //항상 1칸씩 움직임
-        defValue = 1; //항상 1인분부터 시작
+        int minValue = 1; //항상 1인분이 최소
+        int maxValue = 50; //항상 50인분이 최대
+        int step = 1; //항상 1칸씩 움직임
+        int defValue = 1; //항상 1인분부터 시작
 
         String[] mValues = getArrayWithSteps(minValue, maxValue, step); //numberpicker에서 표시될 숫자들 배열
 
-        numberPicker.setMinValue(minValue);
-        numberPicker.setMaxValue(maxValue);
-        numberPicker.setDisplayedValues(mValues);
+        PickerLeft.setMinValue(minValue);
+        PickerLeft.setMaxValue(maxValue);
+        PickerLeft.setDisplayedValues(mValues);
 
-        numberPicker.setValue(defValue);
-        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
+        PickerLeft.setValue(defValue);
+        PickerLeft.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
         textViewFoodName.setText(foodName);
 
         textViewCarbon.setText(String.valueOf(carbonEmiss));
 
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        PickerLeft.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int beford, int after) {
                 //numberpicker 움직였을 때 리스너
@@ -130,7 +132,11 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
             }
         });
 
-        return view;
+        timeValues = new String[]{"아침", "점심", "저녁"};
+        PickerRight.setMinValue(0);
+        PickerRight.setMaxValue(2);
+        PickerRight.setDisplayedValues(timeValues);
+        PickerRight.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
     }
 
     public String[] getArrayWithSteps (int min, int max, int step){
@@ -152,6 +158,6 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
     }
 
     public interface FoodRecordDataPassListener{
-        void onRecordDataPass(View view, String name, int unit);
+        void onRecordDataPass(View view, String name, int unit, String time);
     }
 }

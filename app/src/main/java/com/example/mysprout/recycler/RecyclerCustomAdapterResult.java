@@ -30,8 +30,8 @@ public class RecyclerCustomAdapterResult
         this.givenSize = size;
     }
 
-    public void setFoodDatas(ArrayList<RecyclerItemFood> foods){
-        datas = new ArrayList<RecyclerItemFood>(foods);
+    public void setFoodDatas(ArrayList<FoodPassData> foods){
+        datas = new ArrayList<FoodPassData>(foods);
     }
 
     public void setHabitDatas(ArrayList<RecyclerItemHabit> habits){

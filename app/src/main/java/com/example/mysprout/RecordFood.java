@@ -30,7 +30,7 @@ public class RecordFood extends AppCompatActivity
                         DB.getFoodListCallBack, BottomSheetDialogFoodRecord.FoodRecordDataPassListener {
     RecyclerCustomAdapterFood adapter;
     ArrayList<RecyclerItemFood> foods;
-    ArrayList<FoodPassData> selects; //Food 정보가 저장된 아이템과 unit 데이터 저장하는 리스트
+    ArrayList<FoodPassData> selects;
 
     RecyclerItemFood tempItem;
 
@@ -122,11 +122,11 @@ public class RecordFood extends AppCompatActivity
         BottomSheetDialogFoodRecord bottomFragment = BottomSheetDialogFoodRecord.newInstance(foodName, carbonEmiss);
         bottomFragment.setOnDataPassListener(new BottomSheetDialogFoodRecord.FoodRecordDataPassListener() {
             @Override
-            public void onRecordDataPass(View view, String name, int unit) {
+            public void onRecordDataPass(View view, String name, int unit, String time) {
                 //아이템과 이름 대조, 같은 이름인 아이템 리스트에 저장
                 if(tempItem != null && tempItem.getName().equals(name)){
-                    selects.add(new FoodPassData(tempItem, unit));
-                    Log.d("리스트에 아이템 추가", tempItem.getName());
+                    selects.add(new FoodPassData(tempItem, unit, time));
+                    //Log.d("리스트에 아이템 추가", tempItem.getName());
                     tempItem = null;
                 }
             }
@@ -136,10 +136,9 @@ public class RecordFood extends AppCompatActivity
 
     public void onClickfN1(View v) {
         ConstraintLayout container = findViewById(R.id.container);
-        Log.d("넘겨줄 리스트", String.valueOf(selects));
         Intent intent = new Intent(RecordFood.this, RecordComplete.class);
         intent.putExtra("tag", "Food"); //어느 액티비티에서 왔는지 알려주는 태그
-        intent.putExtra("selectList", selects);
+        intent.putExtra("selectsList", selects);
         startActivity(intent);
     }
 
@@ -152,7 +151,7 @@ public class RecordFood extends AppCompatActivity
     }
 
     @Override
-    public void onRecordDataPass(View view, String name, int unit) {
+    public void onRecordDataPass(View view, String name, int unit, String time) {
     }
 
 

@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class RecordComplete extends AppCompatActivity implements RecyclerCustomAdapterResult.OnResultItemListener {
+public class RecordComplete extends AppCompatActivity {
     private float total;
     private String tag;
     ArrayList selects;
@@ -54,11 +54,17 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
 
         if(tag.equals("Food")){
             selects = new ArrayList<FoodPassData>();
-            selects = intent.getParcelableArrayListExtra("selectList");
+            selects = intent.getParcelableArrayListExtra("selectsList");
 
             calTotalFood(selects);
             setTextOfRecordFoods();
         }else if(tag.equals("Habits")){
+            recordCompleteBinding.recordCompleteBreakfast.setVisibility(View.GONE);
+            recordCompleteBinding.recordCompleteLunch.setVisibility(View.GONE);
+            recordCompleteBinding.recordCompleteDinner.setVisibility(View.GONE);
+            recordCompleteBinding.recyclerviewResult2.setVisibility(View.GONE);
+            recordCompleteBinding.recyclerviewResult3.setVisibility(View.GONE);
+
             selects = new ArrayList<RecyclerItemHabit>();
             selects = intent.getParcelableArrayListExtra("selectList");
 
@@ -140,36 +146,91 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
     }
 
     private void setRecyclerView(){
-        RecyclerCustomAdapterResult adapter
-                = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
+
+        ResultItemListener listener = new ResultItemListener();
 
         if(tag.equals("Food")){
-            adapter.setFoodDatas(selects);
+            ArrayList<FoodPassData> selectsBreakfast = new ArrayList<>();
+            ArrayList<FoodPassData> selectsLunch = new ArrayList<>();
+            ArrayList<FoodPassData> selectsDinner = new ArrayList<>();
+
+            RecyclerCustomAdapterResult adapterB
+                    = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
+            RecyclerCustomAdapterResult adapterL
+                    = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
+            RecyclerCustomAdapterResult adapterD
+                    = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
+
+            for(FoodPassData data : (ArrayList<FoodPassData>) selects){
+                switch (data.getTime()){
+                    case "아침":
+                        selectsBreakfast.add(data);
+                        break;
+                    case "점심":
+                        selectsLunch.add(data);
+                        break;
+                    case "저녁":
+                        selectsDinner.add(data);
+                        break;
+                }
+            }
+
+            adapterB.setFoodDatas(selectsBreakfast);
+            adapterL.setFoodDatas(selectsLunch);
+            adapterD.setFoodDatas(selectsDinner);
+
+            adapterB.setOnResultItemListener(listener);
+            adapterL.setOnResultItemListener(listener);
+            adapterD.setOnResultItemListener(listener);
+
+            LinearLayoutManager layoutManagerB = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recordCompleteBinding.recyclerviewResult.setHasFixedSize(true);
+            recordCompleteBinding.recyclerviewResult.setLayoutManager(layoutManagerB);
+            recordCompleteBinding.recyclerviewResult.setAdapter(adapterB);
+
+            LinearLayoutManager layoutManagerL = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recordCompleteBinding.recyclerviewResult2.setHasFixedSize(true);
+            recordCompleteBinding.recyclerviewResult2.setLayoutManager(layoutManagerL);
+            recordCompleteBinding.recyclerviewResult2.setAdapter(adapterL);
+
+            LinearLayoutManager layoutManagerD = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recordCompleteBinding.recyclerviewResult3.setHasFixedSize(true);
+            recordCompleteBinding.recyclerviewResult3.setLayoutManager(layoutManagerD);
+            recordCompleteBinding.recyclerviewResult3.setAdapter(adapterD);
+
         }else if(tag.equals("Habits")){
+            RecyclerCustomAdapterResult adapter
+                    = new RecyclerCustomAdapterResult(this, tag, R.layout.recycler_itemview_result, givenSize);
             adapter.setHabitDatas(selects);
+            adapter.setOnResultItemListener(listener);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recordCompleteBinding.recyclerviewResult.setHasFixedSize(true);
+            recordCompleteBinding.recyclerviewResult.setLayoutManager(layoutManager);
+            recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
         }
 
         //삭제할 때마다 텍스트 업데이트
-        adapter.setOnResultItemListener(new RecyclerCustomAdapterResult.OnResultItemListener() {
-            @Override
-            public void onItemButtonClicked(View view, int position, FoodPassData item) {
-                selects.remove(item);
-                calTotalFood(selects);
-                setTextOfRecordFoods();
-            }
+//        adapter.setOnResultItemListener(new RecyclerCustomAdapterResult.OnResultItemListener() {
+//            @Override
+//            public void onItemButtonClicked(View view, int position, FoodPassData item) {
+//                selects.remove(item);
+//                calTotalFood(selects);
+//                setTextOfRecordFoods();
+//            }
+//
+//            @Override
+//            public void onItemButtonClicked(View view, int position, RecyclerItemHabit item) {
+//                selects.remove(item);
+//                calTotalHabit(selects);
+//                setTextOfRecordHabits();
+//            }
+//        });
 
-            @Override
-            public void onItemButtonClicked(View view, int position, RecyclerItemHabit item) {
-                selects.remove(item);
-                calTotalHabit(selects);
-                setTextOfRecordHabits();
-            }
-        });
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recordCompleteBinding.recyclerviewResult.setHasFixedSize(true);
-        recordCompleteBinding.recyclerviewResult.setLayoutManager(layoutManager);
-        recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+//        recordCompleteBinding.recyclerviewResult.setHasFixedSize(true);
+//        recordCompleteBinding.recyclerviewResult.setLayoutManager(layoutManager);
+//        recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
     }
 
 
@@ -206,15 +267,37 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         }
     }
 
-    @Override
-    public void onItemButtonClicked(View view, int position, FoodPassData item) {
+    class ResultItemListener implements RecyclerCustomAdapterResult.OnResultItemListener{
 
+        @Override
+        public void onItemButtonClicked(View view, int position, FoodPassData itemFood) {
+            selects.remove(itemFood);
+            calTotalFood(selects);
+            setTextOfRecordFoods();
+        }
+
+        @Override
+        public void onItemButtonClicked(View view, int position, RecyclerItemHabit itemHabit) {
+            selects.remove(itemHabit);
+            calTotalHabit(selects);
+            setTextOfRecordHabits();
+        }
     }
 
-    @Override
-    public void onItemButtonClicked(View view, int position, RecyclerItemHabit itemHabit) {
-
-    }
+//    private RecyclerCustomAdapterResult.OnResultItemListener listener;
+//    @Override
+//    public void onItemButtonClicked(View view, int position, FoodPassData item) {
+//        selects.remove(item);
+//        calTotalFood(selects);
+//        setTextOfRecordFoods();
+//    }
+//
+//    @Override
+//    public void onItemButtonClicked(View view, int position, RecyclerItemHabit itemHabit) {
+//        selects.remove(itemHabit);
+//        calTotalHabit(selects);
+//        setTextOfRecordHabits();
+//    }
 
 
     public void onClick_r_c_back(View v) {

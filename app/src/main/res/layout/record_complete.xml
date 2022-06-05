@@ -88,38 +88,96 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_record_result2">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingTop="16dp"
-            android:paddingStart="18dp"
-            android:paddingEnd="18dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                style="@style/TextBold"
-                android:id="@+id/textview_complete_total"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
-                android:text="절약한 탄소 배출량: 0.0 CO2eg"
-                android:textColor="@color/almostBlack"
-                android:textSize="20sp"
-                android:background="@drawable/backgroundrec2"
-                />
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/backgroundrec2"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp" />
+                <TextView
+                    style="@style/TextBold"
+                    android:id="@+id/textview_complete_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:text="절약한 탄소 배출량: 0.0 CO2eg"
+                    android:textColor="@color/almostBlack"
+                    android:textSize="20sp"
+                    android:background="@drawable/backgroundrec2"
+                    />
 
-        </LinearLayout>
+                <TextView
+                    style="@style/TextBold"
+                    android:id="@+id/record_complete_breakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="start"
+                    android:text="아침"
+                    android:textSize="20sp"
+                    android:textColor="@color/mainGreen"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/backgroundrec2"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp" />
+
+                <TextView
+                    style="@style/TextBold"
+                    android:id="@+id/record_complete_lunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="start"
+                    android:text="점심"
+                    android:textSize="20sp"
+                    android:textColor="@color/mainGreen"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_result2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/backgroundrec2"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp" />
+
+                <TextView
+                    style="@style/TextBold"
+                    android:id="@+id/record_complete_dinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="start"
+                    android:text="저녁"
+                    android:textSize="20sp"
+                    android:textColor="@color/mainGreen"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_result3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/backgroundrec2"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+
     </FrameLayout>
 
     <android.widget.Button

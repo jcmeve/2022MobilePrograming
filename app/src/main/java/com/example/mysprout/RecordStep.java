@@ -74,7 +74,6 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                 boolean checked = ((ToggleButton) view).isChecked();
 
                 if (checked) {
-
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.white));
                     try {
                         FileWriter fileWriter = new FileWriter(file,false );
@@ -106,8 +105,11 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     //서비스(걸음 수 측정) 시작
                     //     callNotification();
                 } else {
-
+                    stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.almostBlack));
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
+
+
+
                     file.delete();
                     Intent intent = new Intent(getApplicationContext(), StepService.class);
                     intent.putExtra("Method", "StopRecord");
