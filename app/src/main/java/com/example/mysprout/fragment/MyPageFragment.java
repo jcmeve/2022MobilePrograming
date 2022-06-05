@@ -83,9 +83,11 @@ public class MyPageFragment extends Fragment {
 
                         TextView steps_txt = view.findViewById(R.id.mysprout_today_walk);
                         TextView steps_Carbon_txt = view.findViewById(R.id.mysprout_today_walk_carbon);
+                        TextView total_walk_save = view.findViewById(R.id.my_page_analysis_text_walk);
                         Calendar curr = Calendar.getInstance();
                         int step_cnt = 0;
                         int step_save = 0;
+                        int total_carbon = 0;
                         for(int i = 0; i < MyPageFragment.transportation_result.length; i++){
                             for(int j = 0; j < MyPageFragment.transportation_result[i].transportation_history.getCount().size(); j++){
                                 long miles = MyPageFragment.transportation_result[i].transportation_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
@@ -97,12 +99,13 @@ public class MyPageFragment extends Fragment {
                                         step_save += MyPageFragment.transportation_result[i].transportation_history.getCount().get(j) * MyPageFragment.transportation_result[i].data.getCarbonPerUnit();
                                     }
                                 }
+                                total_carbon += MyPageFragment.transportation_result[i].transportation_history.getCount().get(j) * MyPageFragment.transportation_result[i].data.getCarbonPerUnit();
                             }
                         }
                         Log.i("HEHE","HAHA");
                         steps_txt.setText(step_cnt+" 걸음");
                         steps_Carbon_txt.setText(String.format("%.1f",(float) step_save) + "g");
-
+                        total_walk_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));
 
                     });
                 }
@@ -120,10 +123,13 @@ public class MyPageFragment extends Fragment {
 
                         TextView action = view.findViewById(R.id.mysprout_today_action);
                         TextView action_carbon = view.findViewById(R.id.mysprout_today_action_carbon);
+                        TextView total_habit_save = view.findViewById(R.id.my_page_analysis_text_habit);
+
                         Calendar curr = Calendar.getInstance();
 
                         int action_val = 0;
                         int action_carbon_val = 0;
+                        int total_carbon = 0;
                         for(int i = 0; i< MyPageFragment.action_result.length; i++){//종류
                             for(int j = 0; j < MyPageFragment.action_result[i].action_history.getCount().size(); j++){//각 기록
                                 long miles = MyPageFragment.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
@@ -132,11 +138,13 @@ public class MyPageFragment extends Fragment {
                                     action_val += 1;
                                     action_carbon_val += MyPageFragment.action_result[i].action_history.getCount().get(j) * MyPageFragment.action_result[i].data.getSaveCarbon();
                                 }
+                                total_carbon += MyPageFragment.action_result[i].action_history.getCount().get(j) * MyPageFragment.action_result[i].data.getSaveCarbon();
+
                             }
                         }
                         action.setText(action_val+ "가지");
                         action_carbon.setText(String.format("%.1f",(float) action_carbon_val) + "g");
-
+                        total_habit_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));
                     });
                 }
         );
@@ -152,10 +160,12 @@ public class MyPageFragment extends Fragment {
 
                         TextView Food = view.findViewById(R.id.mysprout_today_food);
                         TextView Food_carbon = view.findViewById(R.id.mysprout_today_food_carbon);
+                        TextView total_meal_save = view.findViewById(R.id.my_page_analysis_text_meal);
                         Calendar curr = Calendar.getInstance();
 
                         int Food_val = 0;
                         int Food_carbon_val = 0;
+                        int total_carbon = 0;
                         for(int i = 0; i< MyPageFragment.Food_result.length; i++){//종류
                             for(int j = 0; j < MyPageFragment.Food_result[i].food_history.getCount().size(); j++){//각 기록
                                 long miles = MyPageFragment.Food_result[i].food_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
@@ -164,11 +174,13 @@ public class MyPageFragment extends Fragment {
                                     Food_val += 1;
                                     Food_carbon_val += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
                                 }
+                                total_carbon += MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
                             }
                         }
                         Food.setText(Food_val+ "회");
                         Food_carbon.setText(String.format("%.1f",(float) Food_carbon_val) + "g");
 
+                        total_meal_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));
                     });
                 }
         );
