@@ -311,4 +311,9 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         startService(intent);
         super.onDestroy();
     }
+
+    public void onClick_s_back(View v) {
+        finish();
+    }
+
 }

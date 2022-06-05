@@ -201,4 +201,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Login.class);
         startActivity(intent);
     }
+
+    public void onClick_ms_back(View v) {
+        finish();
+    }
 }

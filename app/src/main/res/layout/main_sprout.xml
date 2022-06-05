@@ -100,6 +100,20 @@
     <!--기록 버튼-->
 
     <android.widget.Button
+        android:id="@+id/backBtn_recordhabit2"
+        android:layout_width="37dp"
+        android:layout_height="38dp"
+        android:background="@drawable/backward_arrow"
+        android:onClick="onClick_ms_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <android.widget.Button
         android:id="@+id/recordbtn"
         android:layout_width="56dp"
         android:layout_height="56dp"

@@ -9,11 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import com.example.mysprout.databinding.ActivityHomeBinding;
 import com.example.mysprout.fragment.MainSproutFragment;
 import com.example.mysprout.fragment.MyPageFragment;
 import com.example.mysprout.fragment.RecycleInfoFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
 public class Home extends AppCompatActivity {
 
@@ -38,9 +45,6 @@ public class Home extends AppCompatActivity {
         homeBinding.homeNavigationView.setOnItemSelectedListener(new ItemSelectedListener());
         homeBinding.homeNavigationView.setSelectedItemId(R.id.navigtion_button_to_home);
         //homeBinding.homeNavigationView.findViewById(R.id.navigtion_button_to_home);
-
-
-
     }
 
     class ItemSelectedListener implements NavigationBarView.OnItemSelectedListener {
@@ -67,4 +71,9 @@ public class Home extends AppCompatActivity {
             return true;
         }
     }
+
+    public void onClick_home_back(View v) {
+        finish();
+    }
+
 }
