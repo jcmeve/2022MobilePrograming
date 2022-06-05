@@ -172,14 +172,7 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
         recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
     }
 
-    public float calSavings(){
-        //DB에서 meatlevel 받아오기, 일단 LowMeat로 받았다 생각하고 진행
-        float save = 6061 - total;
-        if(save < 0){
-            save = 0;
-        }
-        return save;
-    }
+
 
     public void onClickN2(View v) {
         ConstraintLayout container = findViewById(R.id.container);
@@ -192,16 +185,25 @@ public class RecordComplete extends AppCompatActivity implements RecyclerCustomA
                 DB.getInstance().AddFoodData(foodPassData.getItem().getName(),foodPassData.getUnit(), DB.TIME.BREAKFAST);
             }
             intent.putExtra("tag", "Food");
-            float save = calSavings();
-            intent.putExtra("save", save);
+            DB.getInstance().GetUserInfo(result->{
+                float save = result.getMeatCarbon() - total;
+                if(save < 0)
+                    save = 0;
+                intent.putExtra("save", save);
+                Log.i(result.getMeatCarbon().toString(),String.valueOf(total));
+                startActivity(intent);
+
+            });
             //아침, 점심, 저녁 중에 무엇인지 나중에 추가
         }else if(tag.equals("Habits")){
             intent.putExtra("tag", "Habits");
             intent.putExtra("save", total); //습관 기록은 total 자체가 절약량
             intent.putExtra("num", selects.size());
-        }
+            startActivity(intent);
 
-        startActivity(intent);
+        }else{
+            startActivity(intent);
+        }
     }
 
     @Override

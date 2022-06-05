@@ -27,7 +27,6 @@ import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.result.DataReadResponse;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -157,22 +156,7 @@ public class StepService extends Service {
             Thread thread = new Thread(() -> {
                 while (activityOn) {
 
-
-                    final Calendar cal = Calendar.getInstance();
-                    Date now = Calendar.getInstance().getTime();
-                    cal.setTime(now);
-
-                    Calendar c = Calendar.getInstance();
-                    int afterYear = c.get(Calendar.YEAR);
-                    int afterMonth = c.get(Calendar.MONTH);
-                    int afterDay = c.get(Calendar.DATE);
-                    int afterHour = c.get(Calendar.HOUR_OF_DAY);
-                    int afterMinute = c.get(Calendar.MINUTE);
-
-                    // 종료 시간
-                    cal.set(afterYear, afterMonth, afterDay, afterHour, afterMinute, 0);
-
-                    long endTime = cal.getTimeInMillis();
+                    long endTime = new Date().getTime();
                     long deltaTime = ((endTime - startTime)/1000)/60;
                     int H = (int) (deltaTime/60);
                     int M = (int) (deltaTime%60);
@@ -282,7 +266,7 @@ public class StepService extends Service {
                             totalKCal = sumKCal;
                             if(messenger != null) {
                                 Message message = Message.obtain();
-                                message.obj = StepService.totalSteps + "/" + (StepService.totalDistance / 1000) + "/" + sumKCal;
+                                message.obj = StepService.totalSteps + "/" + (int)(StepService.totalDistance / 1000);
 
                                 try {
                                     messenger.send(message);
@@ -299,75 +283,6 @@ public class StepService extends Service {
 
 
     }
-
-
-
-
-    ////////////
-/*
-    private void readData() {
-        final Calendar cal = Calendar.getInstance();
-        Date now = Calendar.getInstance().getTime();
-        cal.setTime(now);
-
-        // 시작 시간
-        cal.set(cal.get(Calendar.YEAR)-1, cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH), 6, 0, 0);
-        long startTime = cal.getTimeInMillis();
-
-        // 종료 시간
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH+1),
-                cal.get(Calendar.DAY_OF_MONTH), 23, 0, 0);
-        long endTime = cal.getTimeInMillis();
-        String TAG = "GOOGLE FIT";
-        try {
-
-
-            Fitness.getHistoryClient(this,
-                    GoogleSignIn.getLastSignedInAccount(getApplicationContext()))
-                    .readData(new DataReadRequest.Builder()
-                            .read(DataType.TYPE_STEP_COUNT_DELTA) // Raw 걸음 수
-                            .read(DataType.TYPE_DISTANCE_DELTA)
-                            .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                            .build())
-                    .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
-                        @Override
-                        public void onSuccess(DataReadResponse response) {
-                            DataSet dataSet = response.getDataSet(DataType.TYPE_STEP_COUNT_DELTA);
-                            Log.i(TAG, "Data returned for Data type: " + dataSet.getDataType().getName());
-                            Log.i(TAG, dataSet.getDataPoints().size() + "");
-                            for (DataPoint dp : dataSet.getDataPoints()) {
-                                Log.i(TAG, "Data point:");
-                                Log.i(TAG, "\tType: " + dp.getDataType().getName());
-
-                                Log.i(TAG, "\tStart: " + (dp.getStartTime(TimeUnit.MILLISECONDS) / 1000));
-                                Log.i(TAG, "\tEnd: " + (dp.getEndTime(TimeUnit.MILLISECONDS) / 1000));
-                                for (Field field : dp.getDataType().getFields()) {
-                                    Log.i(TAG, "\tField: " + field.getName() + " Value: " + dp.getValue(field));
-                                }
-                            }
-
-                            DataSet dataSet1 = response.getDataSet(DataType.TYPE_DISTANCE_DELTA);
-                            Log.i(TAG, "Data returned for Data type: " + dataSet1.getDataType().getName());
-                            Log.i(TAG, dataSet1.getDataPoints().size() + "");
-                            for (DataPoint dp : dataSet1.getDataPoints()) {
-                                Log.i(TAG, "Data point:");
-                                Log.i(TAG, "\tType: " + dp.getDataType().getName());
-
-                                Log.i(TAG, "\tStart: " + (dp.getStartTime(TimeUnit.MILLISECONDS) / 1000));
-                                Log.i(TAG, "\tEnd: " + (dp.getEndTime(TimeUnit.MILLISECONDS) / 1000));
-                                for (Field field : dp.getDataType().getFields()) {
-                                    Log.i(TAG, "\tField: " + field.getName() + " Value: " + dp.getValue(field));
-                                }
-                            }
-                        }
-                    });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-*/
 
 
 }

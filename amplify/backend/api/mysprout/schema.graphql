@@ -44,7 +44,7 @@ type UserTransportation @model @auth(rules: [{ allow: owner }]){
   transportation_name: String!
   data: TransportationData @hasOne(fields:["transportation_name"])
 
-  count: [Int!]!
+  count: [Float!]!
   date: [AWSTimestamp!]!
 }
 

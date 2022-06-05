@@ -4,6 +4,7 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.DB;
-import com.example.mysprout.MySprout;
 import com.example.mysprout.R;
-import com.example.mysprout.databinding.FragmentMyPageBinding;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +43,8 @@ public class MyPageFragment extends Fragment {
         super.onResume();
         SetSprout();
 
+        SetStep();
+
         SetAction();
 
         SetFood();
@@ -68,6 +69,45 @@ public class MyPageFragment extends Fragment {
                 }
         );
 
+    }
+
+    static DB.Transportation_Pair[] transportation_result = null;
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void SetStep(){
+        Log.i("HEHE","HAHA");
+        DB.getInstance().GetUserTransportationHistory(
+                result -> {
+                    Log.i("HEHE","HAHA");
+                    transportation_result = result;
+                    runOnUiThread(()->{
+
+                        TextView steps_txt = view.findViewById(R.id.mysprout_today_walk);
+                        TextView steps_Carbon_txt = view.findViewById(R.id.mysprout_today_walk_carbon);
+                        Calendar curr = Calendar.getInstance();
+                        int step_cnt = 0;
+                        int step_save = 0;
+                        for(int i = 0; i < MyPageFragment.transportation_result.length; i++){
+                            for(int j = 0; j < MyPageFragment.transportation_result[i].transportation_history.getCount().size(); j++){
+                                long miles = MyPageFragment.transportation_result[i].transportation_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                                long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                                if(days == 0){
+                                    if(MyPageFragment.transportation_result[i].data.getName().equals("걷기")) {
+                                        step_cnt +=  MyPageFragment.transportation_result[i].transportation_history.getCount().get(j);
+                                    }else{
+                                        step_save += MyPageFragment.transportation_result[i].transportation_history.getCount().get(j) * MyPageFragment.transportation_result[i].data.getCarbonPerUnit();
+                                    }
+                                }
+                            }
+                        }
+                        Log.i("HEHE","HAHA");
+                        steps_txt.setText(step_cnt+" 걸음");
+                        steps_Carbon_txt.setText(String.format("%.1f",(float) step_save) + "g");
+
+
+                    });
+                }
+
+        );
     }
 
     static DB.Action_Pair[] action_result = null;

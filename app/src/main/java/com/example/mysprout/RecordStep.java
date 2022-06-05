@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import com.amplifyframework.datastore.generated.model.TransportationData;
 import com.example.mysprout.databinding.RecordStepBinding;
 import com.example.mysprout.fragment.DialogChooseTransportation;
 
@@ -34,7 +35,7 @@ import java.io.IOException;
 public class RecordStep extends AppCompatActivity implements DialogChooseTransportation.ChosenDataListener {
     //뷰 바인딩
     RecordStepBinding stepBinding;
-    String chosenTransport;
+    static String chosenTransport;
     NotificationManager notificationManager;
     String filepath = "/serviceOn";
 
@@ -44,7 +45,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         stepBinding = RecordStepBinding.inflate(getLayoutInflater());
         setContentView(stepBinding.getRoot());
 
-        chosenTransport = "";
+   //     chosenTransport = "";
   //    showDialog();
     }
 
@@ -54,17 +55,6 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         boolean onRun = false;
 
-/*
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            Log.i("SEVIRENAME", service.service.getClassName());
-
-            if (StepService.class.getName().equals(service.service.getClassName())) {
-                onRun = true;
-                stepBinding.recordStepTextTransport.setText("SERVICE ONRUN ");
-                break;
-            }
-        }
-  */
         File file = new File(getFilesDir() + filepath);
         if(file.exists())
             onRun = true;
@@ -121,7 +111,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     file.delete();
                     Intent intent = new Intent(getApplicationContext(), StepService.class);
                     intent.putExtra("Method", "StopRecord");
-                    intent.putExtra("Messenger", mStopMessneger);
+                    intent.putExtra("Messenger", mStopMessenger);
                     startService(intent);
                     stopService(intent);
 
@@ -129,7 +119,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             }
         });
     }
-    private Handler activityHandler = new Handler(){
+    private final Handler activityHandler = new Handler(){
         @SuppressLint("HandlerLeak")
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -144,16 +134,37 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             super.handleMessage(msg);
         }
     };
-    private Handler mStopHandler = new Handler(){
+    private final Handler mStopHandler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
-            String data = (String)msg.obj;
+            try {
+                String data = (String)msg.obj;
             Log.i("DATA ", data);
+            String[] tokens = data.split("/");//0 -> step, 1 -> km
+
+                DB.getInstance().AddTransportationData("걷기", Integer.parseInt(tokens[0]));
+                DB.getInstance().AddTransportationData(chosenTransport, Integer.parseInt(tokens[1]));
+                DB.getInstance().GetTransportationList((result) -> {
+                    TransportationData transportationData = null;
+                    for (int i = 0; i < result.length; i++) {
+                        if (result[i].getName().equals(chosenTransport)) {
+                            transportationData = result[i];
+                            break;
+                        }
+                    }
+                    Log.i("choose" , chosenTransport);
+                    int saveCarbon = transportationData.getCarbonPerUnit() * Integer.parseInt(tokens[1]);
+                    DB.getInstance().AddSaveCarbon(saveCarbon);
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             super.handleMessage(msg);
         }
     };
-    private Messenger mMessenger = new Messenger(activityHandler);
-    private Messenger mStopMessneger = new Messenger(mStopHandler);
+    private final Messenger mMessenger = new Messenger(activityHandler);
+    private final Messenger mStopMessenger = new Messenger(mStopHandler);
 
     void showDialog(){
         DialogChooseTransportation dialog = new DialogChooseTransportation();

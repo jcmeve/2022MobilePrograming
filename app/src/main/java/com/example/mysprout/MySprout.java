@@ -1,10 +1,9 @@
 package com.example.mysprout;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -35,12 +34,13 @@ public class MySprout extends AppCompatActivity {
         super.onResume();
         SetSprout();
 
+        SetStep();
+
         SetAction();
 
         SetFood();
 
-        findViewById(R.id.mysprout_today_walk);
-        findViewById(R.id.mysprout_today_walk_carbon);
+
     }
 
     static User user_result = null;
@@ -59,6 +59,45 @@ public class MySprout extends AppCompatActivity {
                 }
         );
 
+    }
+
+    static DB.Transportation_Pair[] transportation_result = null;
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void SetStep(){
+        Log.i("HEHE","HAHA");
+        DB.getInstance().GetUserTransportationHistory(
+                result -> {
+                    Log.i("HEHE","HAHA");
+                    transportation_result = result;
+                    runOnUiThread(()->{
+
+                        TextView steps_txt = findViewById(R.id.mysprout_today_walk);
+                        TextView steps_Carbon_txt = findViewById(R.id.mysprout_today_walk_carbon);
+                        Calendar curr = Calendar.getInstance();
+                        int step_cnt = 0;
+                        int step_save = 0;
+                        for(int i = 0; i < MySprout.transportation_result.length; i++){
+                            for(int j = 0; j < MySprout.transportation_result[i].transportation_history.getCount().size(); j++){
+                                long miles = MySprout.action_result[i].action_history.getDate().get(j).getSecondsSinceEpoch() * 1000;
+                                long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
+                                if(days == 0){
+                                    if(MySprout.transportation_result[i].data.getName().equals("걷기")) {
+                                        step_cnt +=  MySprout.transportation_result[i].transportation_history.getCount().get(j);
+                                    }else{
+                                        step_save += MySprout.transportation_result[i].transportation_history.getCount().get(j) * MySprout.transportation_result[i].data.getCarbonPerUnit();
+                                    }
+                                }
+                            }
+                        }
+                        Log.i("HEHE","HAHA");
+                        steps_txt.setText(step_cnt+" 으으ㅏ아아아앙걸음");
+                        steps_Carbon_txt.setText(String.format("%.1f",(float) step_save) + "g");
+
+
+                    });
+                }
+
+        );
     }
 
     static DB.Action_Pair[] action_result = null;
