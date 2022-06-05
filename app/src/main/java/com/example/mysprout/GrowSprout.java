@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.File;
@@ -33,56 +34,127 @@ import java.net.URLEncoder;
 
 public class GrowSprout extends AppCompatActivity {
 
-    private float expBefore;
-    private float expUpdate;
+    private int expBefore;
+    private int expUpdate;
+    private int lvlBefore;
+    private int lvlUpdate;
 
-    private float startPoint;
-    private float endPoint;
+    LottieAnimationView expBar;
+    TextView lvlText;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grow_sprout);
 
+        expBar = findViewById(R.id.expbar_growsprout);
+        lvlText = findViewById(R.id.grow_sprout_lvl_text);
+        lvlText.setVisibility(View.INVISIBLE);
+
         Intent intent = getIntent();
         String tag = intent.getStringExtra("tag");
-        float save = intent.getFloatExtra("save", 0.f);
+        int save = intent.getIntExtra("save", 0);
         Log.d("절약량", String.valueOf(save));
-        int habitNum = intent.getIntExtra("num", 0);
 
-        setText(tag, save, habitNum);
+        int num = 0;
 
-        calEXP(save);
-        makeAnim();
+        if(tag.equals("Habits")){
+            num = intent.getIntExtra("num", 0);
+        }else if(tag.equals("Walk")){
+            num = intent.getIntExtra("step", 0);
+        }
 
+        calEXP(tag, save);
+        setText(tag, save, num);
     }
 
-    void calEXP(float save) {
-        //DB에서 유저 level, EXP 불러오기 / 임시 값: leve 1, exp 0
-        expBefore = 0; //임시값
-        expUpdate = expBefore + save;
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
-        int level = DB.ExpToLevel((int) expBefore);//curr level
+    void calEXP(String tag, int save) {
+        //DB에서 유저 level, EXP 불러오기
+        DB.getExpCallBack expCallBack = new DB.getExpCallBack() {
+            @Override
+            public void callback(int exp, int lvl) {
+                expBefore = exp;
+                lvlBefore = lvl;
+                expUpdate = exp + save;
+                lvlUpdate = DB.ExpToLevel(expUpdate);
 
-        //level * 1000을 목표 EXP로 생각
-        startPoint = (expBefore - (DB.GetStartExp(level))) / 1000; //progress bar 시작 지점
-        endPoint = (expUpdate - expBefore) / 1000;
-        Log.d("calEXP", String.valueOf(startPoint) + ("/") + String.valueOf(endPoint));
-        //기록된 절약량 추가한 EXP, level DB로 전송
-        DB.getInstance().AddSaveCarbon((int) save);
+                if(tag.equals("Walk")){
+                    makeAnim();
+                }else{
+                    DB.getInstance().AddSaveCarbon(save);
+                    Log.d("growSavings", String.valueOf(save));
+                    makeAnim();
+                }
+            }
+        };
+
+        DB.getInstance().GetTotalExp(expCallBack);
     }
 
     void makeAnim() {
-        LottieAnimationView expBar = findViewById(R.id.expbar_growsprout);
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(startPoint, endPoint);
-        valueAnimator.setDuration(2000);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                expBar.setProgress((Float) valueAnimator.getAnimatedValue());
-            }
-        });
+        //현 레벨에서 다음 레벨까지 몇 칸 차이 나는지 계산
+        //차이 나는 만큼 애니메이션 반복
+        //프레임 다 찰 때마다 레벨 수 변화
+        lvlText.setVisibility(View.VISIBLE);
+        lvlText.setText("Lv."+String.valueOf(lvlBefore));
+        int repeatNum = lvlUpdate - lvlBefore;
 
-        valueAnimator.start();
+        float startPoint = (expBefore - DB.GetStartExp(lvlBefore))/DB.GetStartExp(lvlBefore + 1);
+        Log.d("growstartpoint", String.valueOf(startPoint));
+
+        float endPoint = (expUpdate - DB.GetStartExp(lvlUpdate))/DB.GetStartExp(lvlUpdate + 1);
+        Log.d("growendpoint", String.valueOf(endPoint));
+
+        LottieAnimationView sproutAnim = findViewById(R.id.sprout_anim);
+        sproutAnim.playAnimation();
+
+        if(repeatNum == 0){
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(startPoint, endPoint);
+            valueAnimator.setDuration(2000);
+            valueAnimator.addUpdateListener(listener);
+            valueAnimator.start();
+        }else{
+            ValueAnimator valueAnimator;
+            for(int i = 1 ; i <= repeatNum ; i++){
+                if(i == 1){
+
+                    valueAnimator = ValueAnimator.ofFloat(startPoint, 1);
+                    valueAnimator.setDuration(1000);
+                    valueAnimator.addUpdateListener(listener);
+                    valueAnimator.start();
+
+                }else if(i == repeatNum){
+
+                    valueAnimator = ValueAnimator.ofFloat(0, endPoint);
+                    valueAnimator.setDuration(2000);
+                    valueAnimator.addUpdateListener(listener);
+                    valueAnimator.start();
+
+                }else{
+                    lvlText.setText("Lv."+(lvlBefore+(i-1)));
+                    valueAnimator = ValueAnimator.ofFloat(0, 1);
+                    valueAnimator.setDuration(1000);
+                    valueAnimator.addUpdateListener(listener);
+                    valueAnimator.start();
+
+                }
+            }
+
+            lvlText.setText("Lv."+lvlUpdate);
+        }
+
+    }
+
+    private final valueUpdateListener listener = new valueUpdateListener();
+    class valueUpdateListener implements ValueAnimator.AnimatorUpdateListener{
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            expBar.setProgress((Float) animation.getAnimatedValue());
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -96,16 +168,14 @@ public class GrowSprout extends AppCompatActivity {
                 break;
 
             case "Habits":
-                dialog.setText(String.valueOf(num) + "가지 실천 완료!");
+                dialog.setText(num + "가지 실천 완료!");
                 break;
 
             case "Walk":
+                dialog.setText(num + "걸음 기록 완료!");
                 break;
         }
-
         nowSave.setText(String.valueOf(save));
-
-        //level도 DB에서 받아와서 업데이트
     }
 
     public void onClickN3(View v) {

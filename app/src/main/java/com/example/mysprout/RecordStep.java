@@ -46,14 +46,14 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
     NotificationManager notificationManager;
     String filepath = "/serviceOn";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         stepBinding = RecordStepBinding.inflate(getLayoutInflater());
         setContentView(stepBinding.getRoot());
 
-   //     chosenTransport = "";
-  //    showDialog();
     }
 
     @Override
@@ -114,14 +114,14 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                 } else {
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.almostBlack));
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
-                    alert();
+                    alert(file);
 
-                    file.delete();
-                    Intent intent = new Intent(getApplicationContext(), StepService.class);
-                    intent.putExtra("Method", "StopRecord");
-                    intent.putExtra("Messenger", mStopMessenger);
-                    startService(intent);
-                    stopService(intent);
+//                    file.delete();
+//                    Intent intent = new Intent(getApplicationContext(), StepService.class);
+//                    intent.putExtra("Method", "StopRecord");
+//                    intent.putExtra("Messenger", mStopMessenger);
+//                    startService(intent);
+//                    stopService(intent);
 
                 }
             }
@@ -163,6 +163,8 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     Log.i("km",tokens[1]);
                     int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Double.parseDouble(tokens[1]));
                     DB.getInstance().AddSaveCarbon(saveCarbon);
+
+                    finishRecordStep(Integer.parseInt(tokens[0]), saveCarbon);
                 });
             }catch (Exception e){
                 e.printStackTrace();
@@ -194,7 +196,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         dialog.show(getSupportFragmentManager(), "choose transportation dialog");
     }
 
-    void alert(){
+    void alert(File file){
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
 
         View view = LayoutInflater.from(this)
@@ -210,14 +212,22 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "기록 종료", Toast.LENGTH_SHORT).show();
+
+                file.delete();
+                Intent intent = new Intent(getApplicationContext(), StepService.class);
+                intent.putExtra("Method", "StopRecord");
+                intent.putExtra("Messenger", mStopMessenger);
+                startService(intent);
+                stopService(intent);
                 alertDialog.dismiss();
             }
         });
 
-        ((Button)view.findViewById(R.id.btnCancel)).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "기록을 계속합니다.", Toast.LENGTH_SHORT).show();
+                stepBinding.recordStepButtonStartAndStop.toggle();
                 alertDialog.dismiss();
             }
         });
@@ -242,6 +252,15 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         spannableString.setSpan(new RelativeSizeSpan(1.3f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableString;
+    }
+
+    void finishRecordStep(int steps, int savedCarbon){
+        Intent intent = new Intent(this, GrowSprout.class);
+        intent.putExtra("tag", "Walk");
+        intent.putExtra("step", steps);
+        intent.putExtra("save", (float)savedCarbon);
+        Log.d("savedpass", String.valueOf(savedCarbon));
+        startActivity(intent);
     }
 
     @Override

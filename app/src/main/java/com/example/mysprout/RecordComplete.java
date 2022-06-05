@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class RecordComplete extends AppCompatActivity {
-    private float total;
+    private int total;
     private String tag;
     ArrayList selects;
 
@@ -114,7 +114,7 @@ public class RecordComplete extends AppCompatActivity {
     }
 
     private void calTotalFood(ArrayList<FoodPassData> data){
-        float beforeTotal = 0.f;
+        int beforeTotal = 0;
 
         for(FoodPassData datum : data){
             beforeTotal += datum.getItem().getCarbon() * datum.getUnit();
@@ -124,7 +124,7 @@ public class RecordComplete extends AppCompatActivity {
     }
 
     private void calTotalHabit(ArrayList<RecyclerItemHabit> data){
-        float beforeTotal = 0.f;
+        int beforeTotal = 0;
 
         for(RecyclerItemHabit datum : data){
             beforeTotal += datum.getCarbon();
@@ -210,27 +210,6 @@ public class RecordComplete extends AppCompatActivity {
             recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
         }
 
-        //삭제할 때마다 텍스트 업데이트
-//        adapter.setOnResultItemListener(new RecyclerCustomAdapterResult.OnResultItemListener() {
-//            @Override
-//            public void onItemButtonClicked(View view, int position, FoodPassData item) {
-//                selects.remove(item);
-//                calTotalFood(selects);
-//                setTextOfRecordFoods();
-//            }
-//
-//            @Override
-//            public void onItemButtonClicked(View view, int position, RecyclerItemHabit item) {
-//                selects.remove(item);
-//                calTotalHabit(selects);
-//                setTextOfRecordHabits();
-//            }
-//        });
-
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        recordCompleteBinding.recyclerviewResult.setHasFixedSize(true);
-//        recordCompleteBinding.recyclerviewResult.setLayoutManager(layoutManager);
-//        recordCompleteBinding.recyclerviewResult.setAdapter(adapter);
     }
 
 
@@ -256,7 +235,7 @@ public class RecordComplete extends AppCompatActivity {
             }
             intent.putExtra("tag", "Food");
             DB.getInstance().GetUserInfo(result->{
-                float save = result.getMeatCarbon() - total;
+                int save = result.getMeatCarbon() - total;
                 if(save < 0)
                     save = 0;
                 intent.putExtra("save", save);
@@ -292,21 +271,6 @@ public class RecordComplete extends AppCompatActivity {
             setTextOfRecordHabits();
         }
     }
-
-//    private RecyclerCustomAdapterResult.OnResultItemListener listener;
-//    @Override
-//    public void onItemButtonClicked(View view, int position, FoodPassData item) {
-//        selects.remove(item);
-//        calTotalFood(selects);
-//        setTextOfRecordFoods();
-//    }
-//
-//    @Override
-//    public void onItemButtonClicked(View view, int position, RecyclerItemHabit itemHabit) {
-//        selects.remove(itemHabit);
-//        calTotalHabit(selects);
-//        setTextOfRecordHabits();
-//    }
 
 
     public void onClick_r_c_back(View v) {

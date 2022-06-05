@@ -79,7 +79,6 @@ public class RecordHabits extends AppCompatActivity
                         if(actionDatum != null){
                             RecyclerItemHabit item = new RecyclerItemHabit(actionDatum.getName(),
                                     actionDatum.getSaveCarbon(), actionDatum.getId());
-                                //Log.d("반복문", item.getName());
                             habits.add(item);
                         }
                         else{
