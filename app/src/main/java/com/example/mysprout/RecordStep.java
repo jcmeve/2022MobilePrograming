@@ -151,7 +151,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             String[] tokens = data.split("/");//0 -> step, 1 -> km
 
                 DB.getInstance().AddTransportationData("걷기", Integer.parseInt(tokens[0]));
-                DB.getInstance().AddTransportationData(chosenTransport, Integer.parseInt(tokens[1]));
+                DB.getInstance().AddTransportationData(chosenTransport, Double.parseDouble(tokens[1]));
                 DB.getInstance().GetTransportationList((result) -> {
                     TransportationData transportationData = null;
                     for (int i = 0; i < result.length; i++) {
@@ -160,8 +160,8 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                             break;
                         }
                     }
-                    Log.i("choose" , chosenTransport);
-                    int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Float.parseFloat(tokens[1]));
+                    Log.i("km",tokens[1]);
+                    int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Double.parseDouble(tokens[1]));
                     DB.getInstance().AddSaveCarbon(saveCarbon);
                 });
             }catch (Exception e){

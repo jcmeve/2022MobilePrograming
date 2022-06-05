@@ -109,7 +109,7 @@ type Mutation{
   msCreateUser(  nickname: String,  sprout_name: String,  sprout_exp: Int, carbon_save: Int): Boolean @function(name: "mysprout034be500-${env}")
   msSetMeatCarbon(meat_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
   msSetTransportationCarbon(transportation_carbon: Int): Boolean @function(name: "mysprout034be500-${env}")
-  msAddTransportationData(  transportation_name: String,   count: Int): Boolean @function(name: "mysprout034be500-${env}")
+  msAddTransportationData(  transportation_name: String,   count: Float): Boolean @function(name: "mysprout034be500-${env}")
   msAddFoodData(  food_name: String, count: Int, mtime: String) :Boolean @function(name: "mysprout034be500-${env}")
   msAddActionData(  action_name: String, count: Int) :Boolean @function(name: "mysprout034be500-${env}")
   msAddSaveCarbon(carbon: Int): Boolean @function(name: "mysprout034be500-${env}")

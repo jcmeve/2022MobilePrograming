@@ -18,7 +18,7 @@ mutation MsSetMeatCarbon($meat_carbon: Int) {
 mutation MsSetTransportationCarbon($transportation_carbon: Int) {
   msSetTransportationCarbon(transportation_carbon: $transportation_carbon)
 }
-mutation MsAddTransportationData($transportation_name: String, $count: Int) {
+mutation MsAddTransportationData($transportation_name: String, $count: Float) {
   msAddTransportationData(
     transportation_name: $transportation_name
     count: $count

@@ -113,9 +113,10 @@ public  class DB {
     }
 
 
-    public boolean AddTransportationData(String transportation_name,  int count){
+    public boolean AddTransportationData(String transportation_name,  double count){
+        Log.i(transportation_name,""+count);
         String document =
-                "mutation MyMutation($transportation_name: String!, $count: Int!) {" +
+                "mutation MyMutation($transportation_name: String!, $count: Float!) {" +
                     "msAddTransportationData(" +
                         "transportation_name: $transportation_name," +
                         "count: $count" +
@@ -493,6 +494,7 @@ public  class DB {
                             JSONObject t = arr.getJSONObject(i).getJSONObject("data");
                             TransportationData tt = TransportationData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).build();
                             for(int j = 0; j<counts.length(); j++){
+                                Log.i("TTT",counts.toString());
                                 count.add( counts.getDouble(j));
                                 date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
                             }

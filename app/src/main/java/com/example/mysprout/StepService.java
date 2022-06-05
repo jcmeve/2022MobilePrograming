@@ -207,8 +207,8 @@ public class StepService extends Service {
         super.onDestroy();
     }
     public static int totalSteps = 0;
-    public static float totalDistance = 0;
-    public static float totalKCal = 0;
+    public static double totalDistance = 0;
+    public static double totalKCal = 0;
 
 
 
