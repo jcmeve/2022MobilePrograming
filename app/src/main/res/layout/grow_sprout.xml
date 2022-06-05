@@ -5,6 +5,39 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <android.widget.Button
+        android:id="@+id/twitter"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/twitter"
+        android:onClick="twitterButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/instar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="248dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/instar"
+        android:onClick="instarButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/facebook"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/facebook"
+        android:onClick="facebookButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/pagename_growsprout"
         android:layout_width="wrap_content"
