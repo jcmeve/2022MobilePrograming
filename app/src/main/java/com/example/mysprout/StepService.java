@@ -72,8 +72,14 @@ public class StepService extends Service {
             notificationManager.createNotificationChannel(notificationChannel);
         }
         Intent intent = new Intent(this, RecordStep.class);
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_MUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent;
+        if(Build.VERSION.SDK_INT >= 31) {
+            pendingIntent =
+                    PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        }else{
+            pendingIntent =
+                    PendingIntent.getActivity(this, 1000, intent,  PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         NotificationCompat.Builder builder = getBuilder(CHANNEL_ID, "noti_record_steps");
 
         Thread thread = new Thread(() -> {
@@ -89,6 +95,7 @@ public class StepService extends Service {
                     builder.setDefaults(Notification.DEFAULT_VIBRATE);
                     builder.setOnlyAlertOnce(true);
                     builder.setContentIntent(pendingIntent);
+                    firstTime = false;
                 }
                 //PendingIntent로 noti누르면 RecordStep 액티비티로 돌아오도록 시스템에 의뢰
 
@@ -167,9 +174,15 @@ public class StepService extends Service {
 
                     long endTime = cal.getTimeInMillis();
                     long deltaTime = ((endTime - startTime)/1000)/60;
+                    int H = (int) (deltaTime/60);
+                    int M = (int) (deltaTime%60);
 
                     Message msg = Message.obtain();
-                    msg.obj = StepService.totalSteps + "/" + (StepService.totalDistance / 1000) +"/"+  deltaTime   +"/" + totalKCal;
+                    msg.obj =
+                            StepService.totalSteps + "/" +
+                            String.format("%.2f",(StepService.totalDistance / 1000)) +"/"+
+                            String.format("%02d",H)+":"+String.format("%02d",M)   +"/" +
+                            (int)totalKCal;
                     try {
                         messenger.send(msg);
                     } catch (RemoteException e) {
