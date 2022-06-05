@@ -5,7 +5,9 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +18,16 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -107,8 +115,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                 } else {
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.almostBlack));
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
-
-
+                    alert();
 
                     file.delete();
                     Intent intent = new Intent(getApplicationContext(), StepService.class);
@@ -186,6 +193,41 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         });
 
         dialog.show(getSupportFragmentManager(), "choose transportation dialog");
+    }
+
+    void alert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+
+        View view = LayoutInflater.from(this)
+                .inflate(R.layout.alert_dialog_custom, (LinearLayout)findViewById(R.id.layoutDialog));
+
+        builder.setView(view);
+        ((TextView)view.findViewById(R.id.textTitle)).setText("기록을 종료할까요?");
+        ((TextView)view.findViewById(R.id.textMessage)).setVisibility(View.GONE);
+
+        AlertDialog alertDialog = builder.create();
+
+        ((Button)view.findViewById(R.id.btnOK)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "기록 종료", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+            }
+        });
+
+        ((Button)view.findViewById(R.id.btnCancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "기록을 계속합니다.", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+            }
+        });
+
+        if(alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        alertDialog.show();
     }
 
     SpannableString emphasizeText(String word){
