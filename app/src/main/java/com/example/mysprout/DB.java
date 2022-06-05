@@ -493,7 +493,7 @@ public  class DB {
                             JSONObject t = arr.getJSONObject(i).getJSONObject("data");
                             TransportationData tt = TransportationData.builder().name(t.getString("name")).unit(t.getString("unit")).carbonPerUnit(t.getInt("carbon_per_unit")).build();
                             for(int j = 0; j<counts.length(); j++){
-                                count.add( counts.getInt(j));
+                                count.add( counts.getDouble(j));
                                 date.add( new Temporal.Timestamp(dates.getLong(j), TimeUnit.SECONDS));
                             }
                             data[i] = new Transportation_Pair(UserTransportation.builder().transportationName(arr.getJSONObject(i).getString("transportation_name")).count(count).date(date).build(), tt);

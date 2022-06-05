@@ -178,7 +178,7 @@ public class MainSproutFragment extends Fragment {
                             long miles = result[i].transportation_history.getDate().get(j).getSecondsSinceEpoch()*1000;
                             long days = TimeUnit.DAYS.convert(curr.getTime().getTime() - miles, TimeUnit.MILLISECONDS);
                             if(days == 0) {
-                                carbon += result[i].transportation_history.getCount().get(j) * result[i].data.getCarbonPerUnit();
+                                carbon += (int)(result[i].transportation_history.getCount().get(j) * result[i].data.getCarbonPerUnit());
                             }
                         }
                     }

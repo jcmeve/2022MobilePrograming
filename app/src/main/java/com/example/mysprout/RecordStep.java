@@ -5,7 +5,6 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -162,7 +161,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                         }
                     }
                     Log.i("choose" , chosenTransport);
-                    int saveCarbon = transportationData.getCarbonPerUnit() * Integer.parseInt(tokens[1]);
+                    int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Float.parseFloat(tokens[1]));
                     DB.getInstance().AddSaveCarbon(saveCarbon);
                 });
             }catch (Exception e){

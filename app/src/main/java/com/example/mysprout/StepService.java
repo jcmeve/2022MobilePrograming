@@ -18,7 +18,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
@@ -267,7 +266,7 @@ public class StepService extends Service {
                             totalKCal = sumKCal;
                             if(messenger != null) {
                                 Message message = Message.obtain();
-                                message.obj = StepService.totalSteps + "/" + (int)(StepService.totalDistance / 1000);
+                                message.obj = StepService.totalSteps + "/" + (StepService.totalDistance / 1000);
 
                                 try {
                                     messenger.send(message);
