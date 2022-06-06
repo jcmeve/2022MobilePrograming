@@ -1,5 +1,7 @@
 package com.example.mysprout;
 
+import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
+
 import android.Manifest;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,9 @@ import androidx.core.content.ContextCompat;
 
 import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
+import com.amplifyframework.datastore.generated.model.User;
+import com.example.mysprout.fragment.MainSproutFragment;
+import com.example.mysprout.fragment.MyPageFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +37,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class GrowSprout extends AppCompatActivity {
 
@@ -199,17 +207,32 @@ public class GrowSprout extends AppCompatActivity {
         startActivity(intent);
     }
 
+    static User user_result = null;
+    View view;
     //트위터 버튼
+    static User getUserResult;
     public void twitterButton(View button) {
+
+        DB.getInstance().GetUserInfo((result)->{
+            getUserResult = result;
+            TextView sprout_name_txt = findViewById(R.id.sproutName_main);
+            sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
+            String sname = sprout_name_txt.toString();
+
+        });
+
+        int level = DB.ExpToLevel((int) expBefore);
+
         Toast.makeText(GrowSprout.this, "트위터에 공유합니다.", Toast.LENGTH_SHORT).show();
         try {
             String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
-                    URLEncoder.encode("공유한다", "utf-8"));
+                    URLEncoder.encode("새싹 레벨 : "+level+ "새싹 이름 : ",  "utf-8"));
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharedText));
             startActivity(intent);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
     }
 
     //페이스북 버튼
