@@ -38,9 +38,11 @@ public class MyPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    int total_carbon = 0;
     @Override
     public void onResume() {
         super.onResume();
+        total_carbon = 0;
         SetSprout();
 
         SetStep();
@@ -102,6 +104,7 @@ public class MyPageFragment extends Fragment {
                                 total_carbon += MyPageFragment.transportation_result[i].transportation_history.getCount().get(j) * MyPageFragment.transportation_result[i].data.getCarbonPerUnit();
                             }
                         }
+                        CarbonPerDay(total_carbon);
                         Log.i("HEHE","HAHA");
                         steps_txt.setText(step_cnt+" 걸음");
                         steps_Carbon_txt.setText(String.format("%.1f",(float) step_save) + "g");
@@ -142,6 +145,7 @@ public class MyPageFragment extends Fragment {
 
                             }
                         }
+                        CarbonPerDay(total_carbon);
                         action.setText(action_val+ "가지");
                         action_carbon.setText(String.format("%.1f",(float) action_carbon_val) + "g");
                         total_habit_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));
@@ -154,7 +158,7 @@ public class MyPageFragment extends Fragment {
     static int l = 0;
     static int d = 0;
     static int saveTotal = 0;
-    static int total_carbon = 0;
+    static int total_meat_carbon = 0;
     static DB.Food_Pair[] Food_result = null;
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void SetFood(){
@@ -202,7 +206,7 @@ public class MyPageFragment extends Fragment {
 
                         DB.getInstance().GetUserInfo(ret->{
                             saveTotal = 0;
-                            total_carbon = 0;
+                            total_meat_carbon = 0;
                             if(b != 0){
                                 if(ret.getMeatCarbon() - b > 0)
                                     saveTotal += ( ret.getMeatCarbon() - b);
@@ -218,13 +222,14 @@ public class MyPageFragment extends Fragment {
                             for(int i = 0; i< MyPageFragment.Food_result.length; i++){//종류
                                 for(int j = 0; j < MyPageFragment.Food_result[i].food_history.getCount().size(); j++) {//각 기록
                                     if(ret.getMeatCarbon() - MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit() > 0)
-                                        total_carbon += ret.getMeatCarbon() - MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
+                                        total_meat_carbon += ret.getMeatCarbon() - MyPageFragment.Food_result[i].food_history.getCount().get(j) * MyPageFragment.Food_result[i].data.getCarbonPerUnit();
 
                                 }
                             }
+                            CarbonPerDay(total_meat_carbon);
                             runOnUiThread(()->{
                                 Food_carbon.setText(String.format("%.1f",(float) saveTotal) + "g");
-                                total_meal_save.setText(String.format("%5.2fkg",(float)(total_carbon)/1000f));}
+                                total_meal_save.setText(String.format("%5.2fkg",(float)(total_meat_carbon)/1000f)); }
                             );
 
                         });
@@ -233,10 +238,18 @@ public class MyPageFragment extends Fragment {
                 }
         );
 
-
-
     }
+    synchronized public void CarbonPerDay(int carbon){
+        total_carbon += carbon;
+        Calendar curr = Calendar.getInstance();
+        long days = TimeUnit.DAYS.convert(curr.getTime().getTime()/1000 - MainSproutFragment.getUserResult.getMcreatedAt().getSecondsSinceEpoch(), TimeUnit.SECONDS);
 
+        if(user_result != null && days != 0) {
+            int avg = (int)(total_carbon / (float)days);
+            Log.i("days",days+"");
+            runOnUiThread(()-> ((TextView) view.findViewById(R.id.my_page_analysis_text_average_save)).setText(avg+"g"));
+        }
+    }
 
 //    public void onClick_my_back(View v) {
 //        finish();
