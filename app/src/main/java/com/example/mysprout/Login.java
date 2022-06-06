@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -64,7 +63,6 @@ public class Login extends AppCompatActivity {
     }
     private void loginProgress(boolean result){
         if(result) {
-            DB.getInstance().AddSaveCarbon(1000);
 
             Intent intent = new Intent(Login.this, Home.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
