@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,12 +73,16 @@ public class StepService extends Service {
         }
         Intent intent = new Intent(this, RecordStep.class);
         PendingIntent pendingIntent;
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(intent);
+       //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if(Build.VERSION.SDK_INT >= 31) {
-            pendingIntent =
-                    PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = stackBuilder.getPendingIntent(1000,PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            //pendingIntent = PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         }else{
-            pendingIntent =
-                    PendingIntent.getActivity(this, 1000, intent,  PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = stackBuilder.getPendingIntent(1000,PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            //pendingIntent = PendingIntent.getActivity(this, 1000, intent,  PendingIntent.FLAG_UPDATE_CURRENT);
         }
         NotificationCompat.Builder builder = getBuilder(CHANNEL_ID, "noti_record_steps");
 

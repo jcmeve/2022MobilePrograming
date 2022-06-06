@@ -27,6 +27,7 @@
 
         <activity
             android:name=".RecordStep"
+            android:parentActivityName=".Home"
             android:exported="false" />
         <activity
             android:name=".Home"
