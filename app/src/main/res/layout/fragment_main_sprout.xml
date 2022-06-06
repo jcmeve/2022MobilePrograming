@@ -64,7 +64,7 @@
                         android:includeFontPadding="false"
                         android:text="@string/savings"
                         android:textColor="@color/mainGreen"
-                        android:textSize="60sp" />
+                        android:textSize="48sp" />
 
                     <TextView
                         android:id="@+id/constText_gram"

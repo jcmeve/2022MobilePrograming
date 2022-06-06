@@ -84,6 +84,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
 
                 if (checked) {
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.white));
+                    stepBinding.lottieAnimationView.playAnimation();
                     try {
                         FileWriter fileWriter = new FileWriter(file,false );
                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -115,6 +116,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     //     callNotification();
                 } else {
                     stepBinding.recordStepButtonStartAndStop.setTextColor(getResources().getColor(R.color.almostBlack));
+                    stepBinding.lottieAnimationView.cancelAnimation();
                     //종료 묻는 다이얼로그 띄운 후 서비스(걸음 수 측정) 종료
                     alert(file);
 
@@ -176,6 +178,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     Log.i("km",tokens[1]);
                     Log.i(chosenTransport,chosenTransport);
                     int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Double.parseDouble(tokens[1]));
+                    Log.d("whereNULL", String.valueOf(transportationData.getCarbonPerUnit()));
                     DB.getInstance().AddSaveCarbon(saveCarbon);
 
                     finishRecordStep(Integer.parseInt(tokens[0]), saveCarbon);
@@ -242,6 +245,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "기록을 계속합니다.", Toast.LENGTH_SHORT).show();
                 stepBinding.recordStepButtonStartAndStop.toggle();
+                stepBinding.lottieAnimationView.playAnimation();
                 alertDialog.dismiss();
             }
         });

@@ -231,8 +231,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/my_page_analysis_text_accumulate_save">
 
                     <ImageView
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:padding="8dp"
                         android:src="@drawable/icon_recordmeal" />
 
@@ -243,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:text="00.00kg"
                         android:textColor="@color/mainGreen"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -257,8 +257,8 @@
                     app:layout_constraintTop_toTopOf="@+id/linearLayout5">
 
                     <ImageView
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:padding="8dp"
                         android:src="@drawable/icon_recordaction" />
 
@@ -269,7 +269,7 @@
                         android:layout_height="wrap_content"
                         android:text="00.00kg"
                         android:textColor="@color/mainGreen"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -283,8 +283,8 @@
                     app:layout_constraintTop_toTopOf="@+id/linearLayout6">
 
                     <ImageView
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:padding="8dp"
                         android:src="@drawable/icon_recordwalk" />
 
@@ -295,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:text="00.00kg"
                         android:textColor="@color/mainGreen"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -7,36 +7,38 @@
 
     <android.widget.Button
         android:id="@+id/twitter"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:background="@drawable/twitter"
         android:onClick="twitterButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/completeBtn"
+        app:layout_constraintEnd_toStartOf="@+id/facebook"
+        app:layout_constraintStart_toEndOf="@+id/instar"
+        app:layout_constraintTop_toBottomOf="@+id/expbar_growsprout" />
 
     <android.widget.Button
         android:id="@+id/instar"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginEnd="248dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/instar"
         android:onClick="instarButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/completeBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expbar_growsprout" />
 
     <android.widget.Button
         android:id="@+id/facebook"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="128dp"
         android:background="@drawable/facebook"
         android:onClick="facebookButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/completeBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expbar_growsprout" />
 
     <TextView
         android:id="@+id/pagename_growsprout"
@@ -134,8 +136,8 @@
         android:id="@+id/expbar_growsprout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
