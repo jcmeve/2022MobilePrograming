@@ -96,11 +96,8 @@ public class RecordFood extends AppCompatActivity
         adapter.setOnItemListner(new RecyclerCustomAdapterFood.OnFoodItemListener() {
             @Override
             public void onItemClicked(View view, int position, RecyclerItemFood item) {
-                Toast.makeText(getApplicationContext(), "아이템 클릭", Toast.LENGTH_SHORT).show();
                 tempItem = item;
-                //Log.d("아이템 클릭", item.getName());
-                //Log.d("아이템 클릭", tempItem.getName());
-                howMuchEat(view, item.getName(), item.getCarbon()); //아이템에서 각각 음식 이름과 탄소배출량 가져올 수 있게
+                howMuchEat(view, item.getName(), item.getCarbon());
             }
         });
 
@@ -119,8 +116,6 @@ public class RecordFood extends AppCompatActivity
                         if(foodDatum != null){
                             RecyclerItemFood item = new RecyclerItemFood(foodDatum.getName(),
                                     foodDatum.getCarbonPerUnit(), foodDatum.getId());
-                            //Log.d("recordfood", item.getFoodName());
-                            //Log.d("반복문", "아이템 들어가는 중");
                             foods.add(item);
                         }
                         else{
@@ -149,7 +144,6 @@ public class RecordFood extends AppCompatActivity
                 //아이템과 이름 대조, 같은 이름인 아이템 리스트에 저장
                 if(tempItem != null && tempItem.getName().equals(name)){
                     selects.add(new FoodPassData(tempItem, unit, time));
-                    //Log.d("리스트에 아이템 추가", tempItem.getName());
                     tempItem = null;
                 }
             }
