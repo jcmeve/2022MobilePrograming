@@ -275,6 +275,11 @@ public class RecordComplete extends AppCompatActivity {
             });
             //아침, 점심, 저녁 중에 무엇인지 나중에 추가
         }else if(tag.equals("Habits")){
+
+            for(int i = 0; i < selects.size(); i++){
+                DB.getInstance().AddActionData (((RecyclerItemHabit)selects.get(i)).getName(),1);
+            }
+
             intent.putExtra("tag", "Habits");
             intent.putExtra("save", total); //습관 기록은 total 자체가 절약량
             intent.putExtra("num", selects.size());
