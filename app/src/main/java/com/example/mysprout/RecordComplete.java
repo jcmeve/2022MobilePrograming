@@ -238,6 +238,7 @@ public class RecordComplete extends AppCompatActivity {
                 int save = result.getMeatCarbon() - total;
                 if(save < 0)
                     save = 0;
+                DB.getInstance().AddSaveCarbon(save);
                 intent.putExtra("save", save);
                 Log.i(result.getMeatCarbon().toString(),String.valueOf(total));
                 startActivity(intent);
@@ -245,6 +246,7 @@ public class RecordComplete extends AppCompatActivity {
             });
             //아침, 점심, 저녁 중에 무엇인지 나중에 추가
         }else if(tag.equals("Habits")){
+            DB.getInstance().AddSaveCarbon(total);
             intent.putExtra("tag", "Habits");
             intent.putExtra("save", total); //습관 기록은 total 자체가 절약량
             intent.putExtra("num", selects.size());
