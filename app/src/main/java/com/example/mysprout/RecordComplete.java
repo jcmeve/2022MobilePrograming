@@ -112,11 +112,30 @@ public class RecordComplete extends AppCompatActivity {
                 break;
         }
     }
+    int b = 0;
+    int l = 0;
+    int d = 0;
 
     private void calTotalFood(ArrayList<FoodPassData> data){
         int beforeTotal = 0;
-
+        b = 0;
+        l = 0;
+        d = 0;
         for(FoodPassData datum : data){
+            switch (datum.getTime()) {
+                case "아침":
+                    b += datum.getItem().getCarbon() * datum.getUnit();
+                    break;
+                case "점심":
+                    l += datum.getItem().getCarbon() * datum.getUnit();
+                    break;
+                case "저녁":
+                    d += datum.getItem().getCarbon() * datum.getUnit();
+                    break;
+                default:
+                    Log.e("ERROR", "ERROR");
+                    break;
+            }
             beforeTotal += datum.getItem().getCarbon() * datum.getUnit();
         }
 
@@ -235,9 +254,20 @@ public class RecordComplete extends AppCompatActivity {
             }
             intent.putExtra("tag", "Food");
             DB.getInstance().GetUserInfo(result->{
-                int save = result.getMeatCarbon() - total;
-                if(save < 0)
-                    save = 0;
+                int save = 0;
+                if(b != 0){
+                    if(result.getMeatCarbon() - b >0)
+                        save += result.getMeatCarbon() - b;
+                }
+                if(l != 0){
+                    if(result.getMeatCarbon() - l >0)
+                        save += result.getMeatCarbon() - l;
+                }
+                if(d != 0){
+                    if(result.getMeatCarbon() - d >0)
+                        save += result.getMeatCarbon() - d;
+                }
+
                 DB.getInstance().AddSaveCarbon(save);
                 intent.putExtra("save", save);
                 Log.i(result.getMeatCarbon().toString(),String.valueOf(total));
