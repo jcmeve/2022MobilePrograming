@@ -345,7 +345,6 @@ exports.handler = async (event, context, callback) => {
                 await ddb.update(params).promise();
             }
             const carbon3 = event.arguments.count * action.Item.save_carbon;
-            await addCarbonSave(event.identity.sub, carbon3);
 
             return true;
 
