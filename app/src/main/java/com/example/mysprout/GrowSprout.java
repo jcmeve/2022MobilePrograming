@@ -1,21 +1,18 @@
 package com.example.mysprout;
 
-import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
-
 import android.Manifest;
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +22,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
 import com.amplifyframework.datastore.generated.model.User;
-import com.example.mysprout.fragment.MainSproutFragment;
-import com.example.mysprout.fragment.MyPageFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,22 +31,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GrowSprout extends AppCompatActivity {
 
-    private int expBefore;
-    private int expUpdate;
-    private int lvlBefore;
-    private int lvlUpdate;
+    Map<String, Integer> animValues;
 
     LottieAnimationView expBar;
     TextView lvlText;
 
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    synchronized protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grow_sprout);
+
+        animValues = new HashMap<>();
 
         expBar = findViewById(R.id.expbar_growsprout);
         lvlText = findViewById(R.id.grow_sprout_lvl_text);
@@ -72,96 +65,145 @@ public class GrowSprout extends AppCompatActivity {
         }
 
         calEXP(tag, save);
+
+        try{
+            wait();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
         setText(tag, save, num);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        Handler handler = new Handler();
+
+        lvlText.setVisibility(View.VISIBLE);
+        lvlText.setText("Lv."+ (int)(animValues.get("LEVEL_BEFORE")));
+        int repeatNum = (int)animValues.get("LEVEL_UPDATE") - (int)animValues.get("LEVEL_BEFORE");
+
+        float startFrame =
+                (float)(animValues.get("EXP_BEFORE") - DB.GetStartExp(animValues.get("LEVEL_BEFORE")))/DB.GetStartExp(animValues.get("LEVEL_BEFORE")+1);
+
+        float endFrame =
+                (float)(animValues.get("EXP_UPDATE") - DB.GetStartExp(animValues.get("LEVEL_UPDATE")))/DB.GetStartExp(animValues.get("LEVEL_UPDATE")+1);
+
+        Log.d("growFrames", String.valueOf(startFrame));
+        Log.d("growFrames", String.valueOf(endFrame));
+
+        new Thread(new Runnable() {
+            int toEndLevel = repeatNum;
+            int duration = 0;
+            boolean started = false;
+            ValueAnimator animator;
+            @Override
+            public void run() {
+                if(toEndLevel == 0){
+                    duration = 3000;
+                    animator = ValueAnimator.ofFloat(startFrame, endFrame);
+                    animator.setDuration(duration);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            animator.addUpdateListener(listener);
+                            animator.start();
+                        }
+                    });
+                }else{
+                    while(toEndLevel >= 0){
+                        if(!started){
+                            duration = 2000;
+                            animator = ValueAnimator.ofFloat(startFrame, 1.f);
+                            started = true;
+                        }else{
+                            if(toEndLevel == 0){
+                                duration = 3000;
+                                animator = ValueAnimator.ofFloat(0.f, endFrame);
+                            }else{
+                                duration = 2000;
+                                animator = ValueAnimator.ofFloat(0.f, 1.f);
+                            }
+                        }
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                int level = (int)animValues.get("LEVEL_UPDATE") - toEndLevel;
+                                Log.d("growlevel", String.valueOf(level));
+                                lvlText.setText("Lv." + level);
+                                toEndLevel -= 1;
+                                animator.setDuration(duration);
+                                animator.addUpdateListener(listener);
+                                animator.start();
+                            }
+                        });
+
+                        try {
+                            Thread.sleep(duration);
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
     void calEXP(String tag, int save) {
-        //DB에서 유저 level, EXP 불러오기
         DB.getExpCallBack expCallBack = new DB.getExpCallBack() {
             @Override
             public void callback(int exp, int lvl) {
-                expBefore = exp;
-                lvlBefore = lvl;
-                expUpdate = exp + save;
-                lvlUpdate = DB.ExpToLevel(expUpdate);
-
-                if(tag.equals("Walk")){
-                    makeAnim();
-                }else{
-                    DB.getInstance().AddSaveCarbon(save);
-                    Log.d("growSavings", String.valueOf(save));
-                    makeAnim();
+                animValues.put("EXP_BEFORE", exp);
+                animValues.put("LEVEL_BEFORE", lvl);
+                animValues.put("EXP_UPDATE", exp+save);
+                int expUpdate = (int)animValues.getOrDefault("EXP_UPDATE", 0);
+                if(expUpdate != 0){
+                    animValues.put("LEVEL_UPDATE", DB.ExpToLevel(expUpdate));
                 }
+
+                wakeUP();
             }
         };
 
         DB.getInstance().GetTotalExp(expCallBack);
     }
 
-    void makeAnim() {
-        //현 레벨에서 다음 레벨까지 몇 칸 차이 나는지 계산
-        //차이 나는 만큼 애니메이션 반복
-        //프레임 다 찰 때마다 레벨 수 변화
-        lvlText.setVisibility(View.VISIBLE);
-        lvlText.setText("Lv."+String.valueOf(lvlBefore));
-        int repeatNum = lvlUpdate - lvlBefore;
-
-        float startPoint = (expBefore - DB.GetStartExp(lvlBefore))/DB.GetStartExp(lvlBefore + 1);
-        Log.d("growstartpoint", String.valueOf(startPoint));
-
-        float endPoint = (expUpdate - DB.GetStartExp(lvlUpdate))/DB.GetStartExp(lvlUpdate + 1);
-        Log.d("growendpoint", String.valueOf(endPoint));
-
-        LottieAnimationView sproutAnim = findViewById(R.id.sprout_anim);
-        sproutAnim.playAnimation();
-
-        if(repeatNum == 0){
-            ValueAnimator valueAnimator = ValueAnimator.ofFloat(startPoint, endPoint);
-            valueAnimator.setDuration(2000);
-            valueAnimator.addUpdateListener(listener);
-            valueAnimator.start();
-        }else{
-            ValueAnimator valueAnimator;
-            for(int i = 1 ; i <= repeatNum ; i++){
-                if(i == 1){
-
-                    valueAnimator = ValueAnimator.ofFloat(startPoint, 1);
-                    valueAnimator.setDuration(1000);
-                    valueAnimator.addUpdateListener(listener);
-                    valueAnimator.start();
-
-                }else if(i == repeatNum){
-
-                    valueAnimator = ValueAnimator.ofFloat(0, endPoint);
-                    valueAnimator.setDuration(2000);
-                    valueAnimator.addUpdateListener(listener);
-                    valueAnimator.start();
-
-                }else{
-                    lvlText.setText("Lv."+(lvlBefore+(i-1)));
-                    valueAnimator = ValueAnimator.ofFloat(0, 1);
-                    valueAnimator.setDuration(1000);
-                    valueAnimator.addUpdateListener(listener);
-                    valueAnimator.start();
-
-                }
-            }
-
-            lvlText.setText("Lv."+lvlUpdate);
-        }
-
+    synchronized void wakeUP(){
+        notify();
     }
+
 
     private final valueUpdateListener listener = new valueUpdateListener();
     class valueUpdateListener implements ValueAnimator.AnimatorUpdateListener{
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
             expBar.setProgress((Float) animation.getAnimatedValue());
+
+            expBar.addAnimatorListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
     }
 
@@ -221,7 +263,7 @@ public class GrowSprout extends AppCompatActivity {
 
         });
 
-        int level = DB.ExpToLevel((int) expBefore);
+        int level = DB.ExpToLevel((int) animValues.get("EXP_BEFORE"));
 
         Toast.makeText(GrowSprout.this, "트위터에 공유합니다.", Toast.LENGTH_SHORT).show();
         try {
