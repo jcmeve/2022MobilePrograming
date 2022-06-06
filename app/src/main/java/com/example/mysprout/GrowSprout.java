@@ -54,6 +54,7 @@ public class GrowSprout extends AppCompatActivity {
         Intent intent = getIntent();
         String tag = intent.getStringExtra("tag");
         int save = intent.getIntExtra("save", 0);
+        DB.getInstance().AddSaveCarbon(save);
         Log.d("절약량", String.valueOf(save));
 
         int num = 0;

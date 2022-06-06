@@ -179,7 +179,6 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     Log.i(chosenTransport,chosenTransport);
                     int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Double.parseDouble(tokens[1]));
                     Log.d("whereNULL", String.valueOf(transportationData.getCarbonPerUnit()));
-                    DB.getInstance().AddSaveCarbon(saveCarbon);
 
                     finishRecordStep(Integer.parseInt(tokens[0]), saveCarbon);
                 });
