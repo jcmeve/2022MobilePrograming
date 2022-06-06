@@ -34,8 +34,10 @@ import com.amplifyframework.datastore.generated.model.TransportationData;
 import com.example.mysprout.databinding.RecordStepBinding;
 import com.example.mysprout.fragment.DialogChooseTransportation;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -85,7 +87,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                     try {
                         FileWriter fileWriter = new FileWriter(file,false );
                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                        bufferedWriter.write(1);
+                        bufferedWriter.write(chosenTransport);
                         bufferedWriter.close();
                         fileWriter.close();
                     } catch (IOException e) {
@@ -154,6 +156,17 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                 DB.getInstance().AddTransportationData(chosenTransport, Double.parseDouble(tokens[1]));
                 DB.getInstance().GetTransportationList((result) -> {
                     TransportationData transportationData = null;
+                    File file = new File(getFilesDir() + filepath);
+                    try {
+                        FileReader fileReader = new FileReader(file);
+                        BufferedReader bufferedReader = new BufferedReader(fileReader);
+                        chosenTransport = bufferedReader.readLine();
+                        bufferedReader.close();
+                        fileReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     for (int i = 0; i < result.length; i++) {
                         if (result[i].getName().equals(chosenTransport)) {
                             transportationData = result[i];
@@ -161,6 +174,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
                         }
                     }
                     Log.i("km",tokens[1]);
+                    Log.i(chosenTransport,chosenTransport);
                     int saveCarbon = (int)(transportationData.getCarbonPerUnit() * Double.parseDouble(tokens[1]));
                     DB.getInstance().AddSaveCarbon(saveCarbon);
 
@@ -258,7 +272,7 @@ public class RecordStep extends AppCompatActivity implements DialogChooseTranspo
         Intent intent = new Intent(this, GrowSprout.class);
         intent.putExtra("tag", "Walk");
         intent.putExtra("step", steps);
-        intent.putExtra("save", (float)savedCarbon);
+        intent.putExtra("save", savedCarbon);
         Log.d("savedpass", String.valueOf(savedCarbon));
         startActivity(intent);
     }
