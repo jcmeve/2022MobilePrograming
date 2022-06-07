@@ -266,23 +266,21 @@ public class GrowSprout extends AppCompatActivity {
 
         DB.getInstance().GetUserInfo((result)->{
             getUserResult = result;
-            TextView sprout_name_txt = findViewById(R.id.sproutName_main);
-            sprout_name_txt.setText(MainSprout.getUserResult.getSproutName());
-            String sname = sprout_name_txt.toString();
-
+            try {
+                int level = DB.ExpToLevel((int) animValues.get("EXP_BEFORE"));
+                String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
+                        URLEncoder.encode("새싹 레벨 : "+level+ "새싹 이름 : "+ result.getSproutName() ,  "utf-8"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharedText));
+                startActivity(intent);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         });
 
-        int level = DB.ExpToLevel((int) animValues.get("EXP_BEFORE"));
+
 
         Toast.makeText(GrowSprout.this, "트위터에 공유합니다.", Toast.LENGTH_SHORT).show();
-        try {
-            String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
-                    URLEncoder.encode("새싹 레벨 : "+level+ "새싹 이름 : ",  "utf-8"));
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharedText));
-            startActivity(intent);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
