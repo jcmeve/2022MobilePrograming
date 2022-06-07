@@ -269,7 +269,7 @@ public class GrowSprout extends AppCompatActivity {
             try {
                 int level = DB.ExpToLevel((int) animValues.get("EXP_BEFORE"));
                 String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
-                        URLEncoder.encode("새싹 레벨 : "+level+ "새싹 이름 : "+ result.getSproutName() ,  "utf-8"));
+                        URLEncoder.encode("새싹 레벨 : "+level+ "\n새싹 이름 : "+ result.getSproutName() ,  "utf-8"));
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharedText));
                 startActivity(intent);
             } catch (UnsupportedEncodingException e) {
