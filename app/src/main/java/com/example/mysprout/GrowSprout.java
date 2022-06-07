@@ -41,9 +41,14 @@ public class GrowSprout extends AppCompatActivity {
     LottieAnimationView expBar;
     TextView lvlText;
 
-    synchronized protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grow_sprout);
+    }
+
+    @Override
+    synchronized protected void onStart() {
+        super.onStart();
 
         animValues = new HashMap<>();
 
@@ -54,7 +59,6 @@ public class GrowSprout extends AppCompatActivity {
         Intent intent = getIntent();
         String tag = intent.getStringExtra("tag");
         int save = intent.getIntExtra("save", 0);
-        DB.getInstance().AddSaveCarbon(save);
         Log.d("절약량", String.valueOf(save));
 
         int num = 0;
@@ -102,10 +106,11 @@ public class GrowSprout extends AppCompatActivity {
             ValueAnimator animator;
             @Override
             public void run() {
-                if(toEndLevel == 0){
+                if(toEndLevel == 0 && !started){
                     duration = 3000;
                     animator = ValueAnimator.ofFloat(startFrame, endFrame);
                     animator.setDuration(duration);
+                    started = true;
 
                     handler.post(new Runnable() {
                         @Override
@@ -144,7 +149,7 @@ public class GrowSprout extends AppCompatActivity {
                         });
 
                         try {
-                            Thread.sleep(duration);
+                            Thread.sleep(duration + 500);
                         }catch (InterruptedException e){
                             e.printStackTrace();
                         }
@@ -152,6 +157,9 @@ public class GrowSprout extends AppCompatActivity {
                 }
             }
         }).start();
+
+        LottieAnimationView sproutAnim = findViewById(R.id.sprout_anim);
+        sproutAnim.playAnimation();
     }
 
     void calEXP(String tag, int save) {
@@ -161,19 +169,18 @@ public class GrowSprout extends AppCompatActivity {
                 animValues.put("EXP_BEFORE", exp);
                 animValues.put("LEVEL_BEFORE", lvl);
                 animValues.put("EXP_UPDATE", exp+save);
-                int expUpdate = (int)animValues.getOrDefault("EXP_UPDATE", 0);
-                if(expUpdate != 0){
-                    animValues.put("LEVEL_UPDATE", DB.ExpToLevel(expUpdate));
-                }
+                int lvlUpdate = DB.ExpToLevel(exp+save);
+                animValues.put("LEVEL_UPDATE", lvlUpdate);
 
-                wakeUP();
+                addCarbon(save);
             }
         };
 
         DB.getInstance().GetTotalExp(expCallBack);
     }
 
-    synchronized void wakeUP(){
+    synchronized void addCarbon(int save){
+        DB.getInstance().AddSaveCarbon(save);
         notify();
     }
 
@@ -230,6 +237,7 @@ public class GrowSprout extends AppCompatActivity {
     }
 
     public void onClickN3(View v) {
+
         ConstraintLayout container = findViewById(R.id.container);
         Intent intent = new Intent(GrowSprout.this, Home.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

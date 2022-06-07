@@ -94,7 +94,6 @@ public class BottomSheetDialogFoodRecord extends BottomSheetDialogFragment {
                 int unit = PickerLeft.getValue();
                 int t = PickerRight.getValue();
                 String time = timeValues[t];
-                //Log.d("GETVALUE", time);
                 String thisName = (String) textViewFoodName.getText();
                 foodRecordDataPassListener.onRecordDataPass(view, thisName, unit, time);
             }
