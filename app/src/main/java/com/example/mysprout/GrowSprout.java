@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.amplifyframework.datastore.generated.model.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -258,14 +257,10 @@ public class GrowSprout extends AppCompatActivity {
         startActivity(intent);
     }
 
-    static User user_result = null;
-    View view;
     //트위터 버튼
-    static User getUserResult;
     public void twitterButton(View button) {
 
         DB.getInstance().GetUserInfo((result)->{
-            getUserResult = result;
             try {
                 int level = DB.ExpToLevel((int) animValues.get("EXP_BEFORE"));
                 String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
@@ -277,10 +272,7 @@ public class GrowSprout extends AppCompatActivity {
             }
         });
 
-
-
         Toast.makeText(GrowSprout.this, "트위터에 공유합니다.", Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -358,9 +350,6 @@ public class GrowSprout extends AppCompatActivity {
            // break;
       //  }
     }
-
-
-
 
 }
 
