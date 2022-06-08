@@ -3,6 +3,7 @@ package com.example.mysprout.fragment;
 import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.User;
 import com.example.mysprout.DB;
+import com.example.mysprout.Login;
 import com.example.mysprout.R;
 
 import java.util.Calendar;
@@ -249,6 +252,18 @@ public class MyPageFragment extends Fragment {
             Log.i("days",days+"");
             runOnUiThread(()-> ((TextView) view.findViewById(R.id.my_page_analysis_text_average_save)).setText(avg+"g"));
         }
+    }
+
+    private void LogOut(){
+        Amplify.Auth.signOut(
+                () -> {
+                    Log.i("AuthQuickstart", "Signed out successfully");
+                    Intent intent = new Intent(getContext(), Login.class);
+                    startActivity(intent);
+                },
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+
     }
 
 //    public void onClick_my_back(View v) {
