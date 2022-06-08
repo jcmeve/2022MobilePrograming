@@ -51,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e("AuthQuickstart", error.toString())
         );
 */
+
+
+        GoogleFitInit();
+        /*
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        GoogleFitInit();
-
-        tryAutoLogin();
+        */
 
         setContentView(R.layout.activity_main);
     }
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             if(result.getResultCode() == 123){
                 Log.i("GOOGLE","LOGIN SUCCESS");
             }
+
+            tryAutoLogin();
         }
     });
 
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             accessGoogleFit();
         }
+
     }
 
     private void accessGoogleFit() {

@@ -269,7 +269,7 @@ public class RecordComplete extends AppCompatActivity {
                 }
 
                 intent.putExtra("save", save);
-                Log.i(result.getMeatCarbon().toString(),String.valueOf(total));
+                Log.i(result.getMeatCarbon().toString(),String.valueOf(save));
                 startActivity(intent);
 
             });
