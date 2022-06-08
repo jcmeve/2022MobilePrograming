@@ -74,7 +74,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/nbold"
                     android:includeFontPadding="false"
-                    android:text="10.0g"
+                    android:text="0.0g"
                     android:textColor="@color/mainGreen"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nbold"
                     android:includeFontPadding="false"
-                    android:text="10.0g"
+                    android:text="0.0g"
                     android:textColor="@color/mainGreen"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/mysprout_today_food_carbon"
@@ -100,7 +100,7 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/nbold"
                     android:includeFontPadding="false"
-                    android:text="10.0g"
+                    android:text="0.0g"
                     android:textColor="@color/mainGreen"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -240,7 +240,7 @@
                         style="@style/TextBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00.00kg"
+                        android:text="0.00kg"
                         android:textColor="@color/mainGreen"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -266,7 +266,7 @@
                         style="@style/TextBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00.00kg"
+                        android:text="0.00kg"
                         android:textColor="@color/mainGreen"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -292,7 +292,7 @@
                         style="@style/TextBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00.00kg"
+                        android:text="0.00kg"
                         android:textColor="@color/mainGreen"
                         android:textSize="18sp" />
                 </LinearLayout>
