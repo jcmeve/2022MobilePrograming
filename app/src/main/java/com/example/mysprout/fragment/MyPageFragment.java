@@ -75,7 +75,7 @@ public class MyPageFragment extends Fragment {
                     runOnUiThread(() -> {
                         TextView name = view.findViewById(R.id.mysprout_sprout_name);
                         //TextView level = view.findViewById(R.id.mysprout_sprout_level);
-                        name.setText(MyPageFragment.user_result.getSproutName());
+                        name.setText(MyPageFragment.user_result.getNickname());
                         //level.setText(getResources().getString(R.string.mysprout_level_str) + " " + DB.ExpToLevel(MyPageFragment.user_result.getCarbonSave()));
                     });
                 }

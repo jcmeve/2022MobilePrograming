@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
-
+/*
         Amplify.Auth.signOut(
                 () -> Log.i("AuthQuickstart", "Signed out successfully"),
                 error -> Log.e("AuthQuickstart", error.toString())
         );
-
+*/
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -167,7 +167,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("AuthDemo", "User attributes = " + attributes);
                     _tryAuroLogin();
                 },
-                error -> Log.i("AuthDemo", "Failed to fetch user attributes.", error)
+                error -> {
+                    Log.i("AuthDemo", "Failed to fetch user attributes.", error);
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                }
         );
 
 
