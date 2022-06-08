@@ -39,6 +39,13 @@ public class MyPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.mysprout_sprout_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogOut();
+            }
+        });
     }
 
     int total_carbon = 0;
@@ -67,9 +74,9 @@ public class MyPageFragment extends Fragment {
                     MyPageFragment.user_result = result;
                     runOnUiThread(() -> {
                         TextView name = view.findViewById(R.id.mysprout_sprout_name);
-                        TextView level = view.findViewById(R.id.mysprout_sprout_level);
+                        //TextView level = view.findViewById(R.id.mysprout_sprout_level);
                         name.setText(MyPageFragment.user_result.getSproutName());
-                        level.setText(getResources().getString(R.string.mysprout_level_str) + " " + DB.ExpToLevel(MyPageFragment.user_result.getCarbonSave()));
+                        //level.setText(getResources().getString(R.string.mysprout_level_str) + " " + DB.ExpToLevel(MyPageFragment.user_result.getCarbonSave()));
                     });
                 }
         );

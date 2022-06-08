@@ -38,16 +38,15 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/mysprout_sprout_level"
+                style="@style/TextRegular"
+                android:id="@+id/mysprout_sprout_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_gravity="center"
-                android:fontFamily="@font/nbold"
-                android:includeFontPadding="false"
-                android:text="@string/mysprout_level_str"
+                android:text="로그아웃"
                 android:textColor="@color/grey"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/mysprout_today"

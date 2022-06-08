@@ -15,6 +15,7 @@
     <string name="login_password">Password</string>
     <string name="login_keep">로그인 유지</string>
     <string name="new_user">처음이신가요?</string>
+    <string name="go_to_user_info">회원가입</string>
 
     <!--첫 입력화면 텍스트-->
     <string name="your_nick">당신의 이름과</string>
