@@ -91,7 +91,7 @@ public class StepService extends Service {
             while (notifyOn)
             {
                 if(firstTime) {
-                    builder.setSmallIcon(android.R.drawable.ic_notification_overlay); //임시 small 아이콘
+                    builder.setSmallIcon(R.drawable.ic_launcher); //임시 small 아이콘
 
                     Bitmap bitmapWalking = BitmapFactory.decodeResource(getResources(), R.drawable.icon_baseline_walk);
                     builder.setLargeIcon(bitmapWalking);
